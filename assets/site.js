@@ -236,18 +236,35 @@
     proc.classList.add('in');
   }
 
-  /* ---------- la regla de cada paso se dibuja al aparecer ---------- */
-  var pasos = [].slice.call(document.querySelectorAll('.steps > div'));
-  if (pasos.length) {
-    var sio = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); sio.unobserve(e.target); }
-      });
-    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
-    pasos.forEach(function (d, i) {
-      d.style.setProperty('--d', (i * 110) + 'ms');
-      sio.observe(d);
-    });
+  /* ---------- linea de tiempo del proceso ---------- */
+  var tl = document.getElementById('timeline');
+  if (tl) {
+    var pasos = [].slice.call(tl.querySelectorAll('.tstep'));
+    if (reduce) {
+      tl.style.setProperty('--p', 1);
+      pasos.forEach(function (s) { s.classList.add('reached'); });
+    } else {
+      var pendiente = false;
+      var pintar = function () {
+        var r = tl.getBoundingClientRect();
+        // linea de lectura: 62% de la altura de la ventana
+        var marca = window.innerHeight * 0.62;
+        var p = (marca - r.top) / r.height;
+        p = Math.max(0, Math.min(1, p));
+        tl.style.setProperty('--p', p.toFixed(4));
+        pasos.forEach(function (s) {
+          var d = s.querySelector('.dot').getBoundingClientRect();
+          s.classList.toggle('reached', d.top + d.height / 2 <= marca);
+        });
+        pendiente = false;
+      };
+      var alScroll = function () {
+        if (!pendiente) { pendiente = true; requestAnimationFrame(pintar); }
+      };
+      pintar();
+      window.addEventListener('scroll', alScroll, { passive: true });
+      window.addEventListener('resize', alScroll, { passive: true });
+    }
   }
 
   /* ---------- formularios de demostracion ---------- */
