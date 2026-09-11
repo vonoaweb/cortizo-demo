@@ -7,6 +7,25 @@ preparada por **Vonoa Web** para Cortizo Construction LLC (Miami, FL).
 
 Ver: https://vonoaweb.github.io/cortizo-demo/
 
+## Paginas
+
+Sitio de varias paginas, con la misma navegacion del sitio real:
+
+| Pagina | Archivo |
+|---|---|
+| Home | `index.html` |
+| Services | `services.html` |
+| Projects | `projects.html` |
+| About us | `about.html` |
+| Contact | `contact.html` |
+| Casa Bohemia | `casa-bohemia.html` |
+| Rodriguez Residence | `rodriguez-residence.html` |
+| The Bernal Residence | `the-bernal-residence.html` |
+| Matheson Residence | `matheson-residence.html` |
+| San Juan Hotel | `san-juan-hotel.html` |
+
+Estilos y comportamiento compartidos en `assets/styles.css` y `assets/site.js`.
+
 ## Qué demuestra
 
 Respeta el estilo de marca del sitio actual (Lato + Cabin, blanco y negro, composición
