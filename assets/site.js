@@ -143,6 +143,54 @@
     v.addEventListener('click', function () { v.paused ? tryPlay() : v.pause(); });
   }
 
+
+  /* ---------- parallax suave en las fotos grandes ---------- */
+  var parallaxEls = [].slice.call(document.querySelectorAll('[data-parallax]'));
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (parallaxEls.length && !reduce) {
+    var ticking = false;
+    var applyParallax = function () {
+      parallaxEls.forEach(function (el) {
+        var box = el.getBoundingClientRect();
+        if (box.bottom < -200 || box.top > window.innerHeight + 200) return;
+        var amount = parseFloat(el.getAttribute('data-parallax')) || 0.1;
+        var centre = box.top + box.height / 2 - window.innerHeight / 2;
+        el.style.transform = 'scale(1.12) translate3d(0,' + (-centre * amount) + 'px,0)';
+      });
+      ticking = false;
+    };
+    var onParallax = function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(applyParallax); }
+    };
+    applyParallax();
+    window.addEventListener('scroll', onParallax, { passive: true });
+    window.addEventListener('resize', onParallax, { passive: true });
+  }
+
+  /* ---------- el 5.0 cuenta hacia arriba al entrar ---------- */
+  var rating = document.querySelector('.rating[data-count]');
+  if (rating && !reduce) {
+    var target = parseFloat(rating.getAttribute('data-count')) || 5;
+    var counted = false;
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting || counted) return;
+        counted = true;
+        var start = null, dur = 900;
+        var step = function (ts) {
+          if (start === null) start = ts;
+          var t = Math.min((ts - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - t, 3);
+          rating.textContent = (target * eased).toFixed(1);
+          if (t < 1) requestAnimationFrame(step);
+          else rating.textContent = target.toFixed(1);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.4 });
+    cio.observe(rating);
+  }
+
   /* ---------- formularios de demostracion ---------- */
   var lead = document.getElementById('leadform');
   if (lead) {
