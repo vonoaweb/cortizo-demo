@@ -251,6 +251,44 @@ h2.title{font-size:clamp(1.55rem,3.6vw,2.15rem);font-weight:400}
 .team .role{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--grey-2);font-weight:700;margin-top:5px}
 .team p{font-size:.9rem;color:var(--grey);margin-top:12px;line-height:1.65}
+/* Con la biografia entera el parrafo deja de ser un pie de foto y pasa a
+   ser el cuerpo de la ficha. El gris #595959 sobre el negro de la seccion
+   apenas se leia, asi que aqui sube al mismo gris claro que ya usan las
+   tarjetas de valores en oscuro. */
+.dark .team p:not(.role){color:#A8A8A8}
+/* cada ficha se alarga lo suyo al abrirse, sin estirar a las vecinas */
+.team{align-items:start}
+
+/* ---------- biografia plegable de cada ficha ----------
+   El trato con la clienta es que su texto va completo: seis biografias de
+   1.349 palabras no caben abiertas en una rejilla de tarjetas, asi que se
+   pliegan en vez de recortarse. Es <details>/<summary> nativo y no un
+   boton en JS: asi el estado plegado/expandido lo anuncia el navegador
+   solo, el control ya entra en el orden de tabulacion, y con JavaScript
+   caido el texto se sigue pudiendo abrir. Un plegable que dependa de un
+   script que no carga esconde la biografia, que es justo el problema que
+   este cambio viene a cerrar. */
+.team details{margin-top:14px}
+.team summary{display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:#fff;padding:6px 0;border-bottom:1px solid var(--line-dark);
+  transition:border-color .3s ease}
+/* el triangulo por defecto no es de la casa; el signo lo pone ::after */
+.team summary{list-style:none}
+.team summary::-webkit-details-marker{display:none}
+.team summary::after{content:"+";font-size:14px;line-height:1;font-weight:400}
+.team details[open] summary::after{content:"\2013"}
+.team summary:hover,.team summary:focus-visible{border-bottom-color:#fff}
+/* dos etiquetas fijas en el marcado y aqui se ensena la que toca: asi el
+   texto del control no depende de JavaScript */
+.team details summary span + span,
+.team details[open] summary span:first-child{display:none}
+.team details[open] summary span + span{display:inline}
+.team .bio-body{padding-top:4px}
+.team .bio-body p:first-child{margin-top:14px}
+@media(prefers-reduced-motion:reduce){
+  .team summary{transition:none!important}
+}
 
 /* ---------- resenas de Google ---------- */
 .reviews{background:var(--near) url("https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/Cortizo_Web_Misc-6ee2c7a.png/:/rs=w:1400")
