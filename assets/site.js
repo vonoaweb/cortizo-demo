@@ -75,6 +75,8 @@
 
   /* ---------- resenas de Google, tal como las muestra su widget ---------- */
   var G = 'https://lh3.googleusercontent.com/';
+  // ficha real de Google de Cortizo Construction, la misma que usa su sitio
+  var GMAPS = 'https://maps.google.com/maps?cid=8160738004661650355';
   var REVIEWS = [
     ['Eugene Cruz', '3/27/2023', 'On time, within budget, while handling all the unexpected challenges that presented them…',
      G + 'a/ACg8ocKnfVbUAfDEBP6maBk8XVYQK8eMU3ymEQNL4DMnqmn8dwuq9A=s120-c-rp-mo-br100'],
@@ -96,6 +98,7 @@
         + '</span>'
         + '<span class="stars" aria-label="5 out of 5 stars">★★★★★</span>'
         + '<blockquote>&ldquo;' + esc(r[2]) + '&rdquo;</blockquote>'
+        + '<a class="readfull" href="' + GMAPS + '" rel="noopener">Read full review</a>'
         + '<span class="who"><b>' + esc(r[0]) + '</b> &middot; ' + esc(r[1]) + '</span>'
         + '</article>';
     }).join('');

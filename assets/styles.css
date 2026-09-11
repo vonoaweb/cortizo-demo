@@ -383,3 +383,8 @@ footer li{margin-bottom:8px}
 .nav a[aria-current="page"]{border-bottom:0}
 .nav a[aria-current="page"]::after{right:0}
 
+/* ---------- enlace a la resena completa en Google ---------- */
+.readfull{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  color:var(--head);text-decoration:none;border-bottom:1px solid var(--head);
+  padding-bottom:3px;transition:opacity .2s}
+.readfull:hover{opacity:.55}
