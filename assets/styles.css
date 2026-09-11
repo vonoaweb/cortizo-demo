@@ -411,3 +411,17 @@ footer li{margin-bottom:8px}
 .svcbody li{padding:11px 0;border-top:1px solid var(--line-dark);font-size:.92rem;
   color:#A8A8A8;letter-spacing:.02em}
 .svcbody .btn{min-width:0;padding:16px 32px}
+
+/* ---------- sus banners de titulo, invertidos para el fondo oscuro ---------- */
+.pagehero h1.art{margin:0}
+/* invert pasa el arte negro a blanco; screen descarta el fondo del JPG,
+   que si no deja un recuadro visible sobre el negro de la seccion */
+.pagehero h1.art img{width:min(520px,86%);margin:0 auto;
+  filter:invert(1);mix-blend-mode:screen}
+@media(max-width:600px){.pagehero h1.art img{width:min(320px,90%)}}
+
+/* ---------- grafico de curvas decorativo ---------- */
+.contour{width:min(560px,80%);aspect-ratio:900/377;margin:0 auto 30px;
+  filter:invert(1);mix-blend-mode:screen}
+.contour.rv{opacity:0}
+.contour.rv.in{opacity:.45}
