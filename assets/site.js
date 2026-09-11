@@ -213,6 +213,43 @@
     cio.observe(rating);
   }
 
+  /* ---------- la frase del proceso se revela palabra por palabra ---------- */
+  var proc = document.querySelector('.process');
+  if (proc && !reduce) {
+    var palabras = proc.textContent.trim().split(/\s+/);
+    proc.textContent = '';
+    palabras.forEach(function (w, i) {
+      var sp = document.createElement('span');
+      sp.className = 'w';
+      sp.style.setProperty('--i', i);
+      sp.textContent = w;
+      proc.appendChild(sp);
+      if (i < palabras.length - 1) proc.appendChild(document.createTextNode(' '));
+    });
+    var pio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { proc.classList.add('in'); pio.unobserve(proc); }
+      });
+    }, { threshold: 0.25 });
+    pio.observe(proc);
+  } else if (proc) {
+    proc.classList.add('in');
+  }
+
+  /* ---------- la regla de cada paso se dibuja al aparecer ---------- */
+  var pasos = [].slice.call(document.querySelectorAll('.steps > div'));
+  if (pasos.length) {
+    var sio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); sio.unobserve(e.target); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+    pasos.forEach(function (d, i) {
+      d.style.setProperty('--d', (i * 110) + 'ms');
+      sio.observe(d);
+    });
+  }
+
   /* ---------- formularios de demostracion ---------- */
   var lead = document.getElementById('leadform');
   if (lead) {

@@ -158,14 +158,35 @@ h2.title{font-size:clamp(1.55rem,3.6vw,2.15rem);font-weight:400}
 }
 
 /* ---------- proceso ---------- */
-.process{font-size:clamp(1.2rem,2.6vw,1.7rem);font-weight:300;line-height:1.5;
-  max-width:24ch;margin:0 auto;color:var(--head)}
+/* a 24ch salian cinco lineas muy cortas y desiguales */
+.process{font-size:clamp(1.35rem,3vw,2.15rem);font-weight:300;line-height:1.38;
+  max-width:min(30ch,100%);margin:0 auto;color:var(--head);letter-spacing:-.015em;
+  text-wrap:balance}
+/* revelado palabra por palabra al entrar en pantalla */
+.process .w{display:inline-block;opacity:0;transform:translateY(14px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease);
+  transition-delay:calc(var(--i,0) * 45ms)}
+.process.in .w{opacity:1;transform:none}
+.no-js .process .w{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .process .w{opacity:1!important;transform:none!important;transition:none!important}
+}
 .dark .process{color:#fff}
 .process-by{margin-top:22px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--grey-2);font-weight:700}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;
   margin-top:48px;text-align:left}
-.steps div{padding:28px 24px 28px 0;border-top:1px solid var(--line)}
+.steps div{padding:28px 24px 28px 0;position:relative}
+/* la regla superior de cada paso se dibuja al aparecer */
+.steps div::before{content:"";position:absolute;left:0;top:0;height:1px;width:100%;
+  background:var(--line);transform:scaleX(0);transform-origin:left;
+  transition:transform .9s var(--ease);transition-delay:var(--d,0ms)}
+.dark .steps div::before{background:var(--line-dark)}
+.steps div.in::before{transform:scaleX(1)}
+.no-js .steps div::before{transform:scaleX(1)}
+@media(prefers-reduced-motion:reduce){.steps div::before{transform:scaleX(1)!important}}
+.steps div .n{transition:color .4s ease}
+.steps div:hover .n{color:var(--head)}
 .dark .steps div{border-top-color:var(--line-dark)}
 .steps .n{font-size:11px;letter-spacing:.2em;color:var(--grey-2);display:block;
   margin-bottom:12px;font-weight:700}
@@ -399,10 +420,25 @@ footer li{margin-bottom:8px}
   .svcrow{grid-template-columns:1fr;gap:26px;text-align:left}
   .svcrow.flip .svcart{order:0}
 }
-.svcart{margin:0;background:#fff;overflow:hidden}
-.svcart img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;
-  transition:transform 1.1s var(--ease)}
-.svcrow:hover .svcart img{transform:scale(1.03)}
+/* El grafico de ella es un cuadro de 800x800: espiral arriba, hueco blanco
+   y la foto abajo. Puesto entero quedaba un recuadro blanco enorme con la
+   foto cortada por el borde. En un contenedor mas ancho que alto, cover
+   recorta en vertical, y con object-position al 100% se queda justo la
+   foto de abajo, en banda ancha. */
+.svcart{margin:0;background:#0A0A0A;overflow:hidden;position:relative}
+.svcart{aspect-ratio:16/10}
+.svcart::after{content:"";position:absolute;inset:auto 0 0 0;height:34%;z-index:2;
+  background:linear-gradient(transparent,rgba(10,10,10,.55));pointer-events:none}
+/* el PNG es transparente y la foto ocupa solo la franja central, asi que se
+   amplia para que sangre a todo lo ancho de la banda */
+.svcart img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:50% 100%;display:block;
+  transform:scale(1.55);transform-origin:50% 74%;
+  filter:grayscale(1) contrast(1.06);
+  transition:transform 1.4s var(--ease),filter .8s ease}
+.svcrow:hover .svcart img{transform:scale(1.62);filter:grayscale(1) contrast(1.12)}
+/* sin marca de agua: el rotulo "01 / RESIDENTIAL" ya lleva el numero y
+   encima de la foto competia con ella */
 .svcbody{text-align:left}
 .svcbody h2{font-family:var(--f-head);font-weight:700;text-transform:uppercase;
   letter-spacing:.03em;font-size:clamp(1.5rem,3vw,2.1rem);color:#fff;margin-bottom:16px}
