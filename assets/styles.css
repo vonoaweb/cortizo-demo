@@ -425,3 +425,7 @@ footer li{margin-bottom:8px}
   filter:invert(1);mix-blend-mode:screen}
 .contour.rv{opacity:0}
 .contour.rv.in{opacity:.45}
+
+/* el mismo grafico sobre fondo claro: sin invertir ni mezclar */
+.contour.dark-art{aspect-ratio:780/518;filter:none;mix-blend-mode:multiply}
+.contour.dark-art.rv.in{opacity:.4}
