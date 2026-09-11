@@ -242,14 +242,41 @@ h2.title{font-size:clamp(1.55rem,3.6vw,2.15rem);font-weight:400}
 /* ---------- equipo ---------- */
 .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:26px;
   margin-top:44px}
-.team figure{margin:0}
-.team img{width:100%;height:clamp(250px,30vw,360px);object-fit:cover;object-position:50% 22%;
-  background:#1A1A1A;
-  filter:grayscale(1) contrast(1.04);transition:filter .6s var(--ease),transform .9s var(--ease)}
-.team figure:hover img{filter:grayscale(0) contrast(1);transform:scale(1.02)}
-.team h3{font-size:1.08rem;font-weight:700;margin-top:16px;font-family:var(--f-head)}
+/* ============================================================
+   FICHAS DEL EQUIPO
+   Iban sueltas: foto, nombre y texto centrado flotando sobre el
+   negro. Con 295 palabras por persona el texto centrado se lee
+   mal, y los "Read more" quedaban a alturas distintas porque el
+   primer parrafo de cada quien es de otro largo, asi que la fila
+   parecia descuadrada y unas personas pesaban mas que otras.
+   Ahora cada quien va en la misma tarjeta, con el mismo alto
+   cerrada y el texto a la izquierda. Nadie destaca sobre nadie:
+   ese era el encargo.
+   ============================================================ */
+.team figure{margin:0;background:#111;border:1px solid var(--line-dark);
+  display:flex;flex-direction:column;
+  transition:transform .5s var(--ease),border-color .4s ease,box-shadow .5s ease}
+.team-foto{display:block;overflow:hidden;background:#1A1A1A;aspect-ratio:4/5}
+.team img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;
+  filter:grayscale(1) contrast(1.04);
+  transition:filter .7s var(--ease),transform 1.1s var(--ease)}
+.team-txt{padding:18px 18px 22px;text-align:left}
+@media(hover:hover){
+  .team figure:hover{transform:translateY(-5px);border-color:#3E3E3E;
+    box-shadow:0 16px 34px rgba(0,0,0,.45)}
+  .team figure:hover img{filter:grayscale(0) contrast(1);transform:scale(1.06)}
+}
+/* Cerradas, todas miden lo mismo: el primer parrafo se recorta a seis
+   lineas y el control queda a la misma altura en toda la fila. Al abrir la
+   ficha el recorte se levanta, asi que no se esconde nada. */
+.team .bio-lead{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;
+  overflow:hidden;min-height:calc(6 * 1.65em)}
+.team figure:has(details[open]) .bio-lead{-webkit-line-clamp:unset;overflow:visible;
+  min-height:0}
+.team h3{font-size:1.08rem;font-weight:700;margin-top:0;font-family:var(--f-head)}
 .team .role{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--grey-2);font-weight:700;margin-top:5px}
+  color:var(--grey-2);font-weight:700;margin-top:5px;line-height:1.45;
+  min-height:2.9em}
 .team p{font-size:.9rem;color:var(--grey);margin-top:12px;line-height:1.65}
 /* Con la biografia entera el parrafo deja de ser un pie de foto y pasa a
    ser el cuerpo de la ficha. El gris #595959 sobre el negro de la seccion
@@ -665,6 +692,9 @@ footer li{margin-bottom:8px}
 body.nav-abierto{overflow:hidden}
 html:has(body.nav-abierto){overflow:hidden}
 @media(prefers-reduced-motion:reduce){
+  .team figure,.team img{transition:none!important}
+  .team figure:hover{transform:none!important;box-shadow:none!important}
+  .team figure:hover img{transform:none!important}
   .mobnav,.mobnav nav a,.mobnav-foot,.burger span{transition:none!important}
   .mobnav nav a,.mobnav-foot{opacity:1;transform:none}
 }
