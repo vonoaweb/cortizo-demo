@@ -6,11 +6,12 @@
 
 <!-- ============================================================
      Maqueta Vonoa Web para Cortizo Construction LLC.
-     Mismo estilo de marca del sitio actual (Lato + Cabin, blanco
-     y negro, todo centrado, video de intro) y ademas resuelve lo
-     que el constructor de GoDaddy no permite tocar:
-     title real, twitter:card grande, og:image de obra y JSON-LD
-     de contratista local.
+     Respeta TODAS las secciones del sitio actual y su estilo
+     (Lato + Cabin, blanco y negro, centrado, video de intro,
+     galeria "Recent transformations", resenas de Google,
+     newsletter) y ademas resuelve lo que el constructor de
+     GoDaddy no permite tocar: title real, twitter:card grande,
+     og:image de obra y JSON-LD de contratista local.
      ============================================================ -->
 <title>Miami General Contractor | Cortizo Construction LLC</title>
 <meta name="description" content="Licensed Miami general contractor CGC1535571. Residential renovations, custom homes and boutique hospitality in Coral Gables, Coconut Grove and Key Biscayne.">
@@ -23,7 +24,7 @@
 <meta property="og:site_name" content="Cortizo Construction LLC">
 <meta property="og:title" content="Miami General Contractor | Cortizo Construction LLC">
 <meta property="og:description" content="Licensed Miami general contractor CGC1535571. Residential renovations, custom homes and boutique hospitality.">
-<meta property="og:image" content="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/257ab500-723b-407d-9ab0-960d72e439f8.jpg/:/rs=w:1200,h:630,cg:true,m/cr=w:1200,h:630">
+<meta property="og:image" content="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/c943f9406cd4eb5d675774e85e21bc21-uncropped_sca.jpg/:/rs=w:1200,h:630,cg:true,m/cr=w:1200,h:630">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_US">
@@ -31,8 +32,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Miami General Contractor | Cortizo Construction LLC">
 <meta name="twitter:description" content="Licensed Miami general contractor CGC1535571. Residential renovations, custom homes and boutique hospitality.">
-<meta name="twitter:image" content="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/257ab500-723b-407d-9ab0-960d72e439f8.jpg/:/rs=w:1200,h:630,cg:true,m/cr=w:1200,h:630">
-<meta name="twitter:image:alt" content="Finished kitchen from the Rodriguez Residence renovation in Miami">
+<meta name="twitter:image" content="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/c943f9406cd4eb5d675774e85e21bc21-uncropped_sca.jpg/:/rs=w:1200,h:630,cg:true,m/cr=w:1200,h:630">
+<meta name="twitter:image:alt" content="Finished kitchen with island and pendant lighting by Cortizo Construction in Miami">
 
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/favicon/0b2f99ab-e3e2-4962-875c-92e93dfc4efd.jpg/:/rs=w:48,h:48,m">
@@ -47,7 +48,7 @@
   "@type": "GeneralContractor",
   "name": "Cortizo Construction LLC",
   "url": "https://cortizoconstruction.com/",
-  "image": "https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/257ab500-723b-407d-9ab0-960d72e439f8.jpg/:/rs=w:1200",
+  "image": "https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/c943f9406cd4eb5d675774e85e21bc21-uncropped_sca.jpg/:/rs=w:1200",
   "logo": "https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/Cortizo%20Logo%20Illus%20Tipo-01.png/:/rs=w:600",
   "telephone": "+1-786-736-0247",
   "founder": { "@type": "Person", "name": "Laura Cortizo", "jobTitle": "Founder & Director" },
@@ -66,8 +67,8 @@
 <style>
 /* ============================================================
    Tokens tomados del sitio real: Lato + Cabin, blanco y negro
-   puro, texto gris #595959, botones rectangulares con
-   letter-spacing. Sin esquinas redondeadas, sin color.
+   puro, texto gris #595959, botones rectangulares en mayusculas.
+   Sin esquinas redondeadas, sin color de acento.
    ============================================================ */
 :root{
   --near:#0D0D0D;
@@ -76,6 +77,7 @@
   --grey-2:#8C8C8C;
   --line:#E2E2E2;
   --line-dark:#2A2A2A;
+  --gold:#F5B301;
   --maxw:1140px;
   --f-body:'Lato',Arial,Helvetica,sans-serif;
   --f-head:'Cabin','Lato',Arial,sans-serif;
@@ -88,16 +90,17 @@ body{margin:0;background:#FFFFFF;color:var(--head);
   -webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
 a{color:inherit}
-h1,h2,h3{margin:0;font-family:var(--f-body);font-weight:400;line-height:1.22;
+h1,h2,h3,h4{margin:0;font-family:var(--f-body);font-weight:400;line-height:1.22;
   color:var(--head);text-wrap:balance}
 p{margin:0}
 :focus-visible{outline:2px solid currentColor;outline-offset:3px}
 
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px;text-align:center}
+.wrap.wide{max-width:1360px}
 .skip{position:absolute;left:-9999px;background:#000;color:#fff;padding:12px 18px;z-index:999}
 .skip:focus{left:0;top:0}
 
-/* ---------- aviso de maqueta, en su misma paleta ---------- */
+/* ---------- aviso de maqueta ---------- */
 .demobar{background:#000;color:#fff;font-size:12px;letter-spacing:.04em;
   padding:9px 20px;text-align:center;position:relative;z-index:300;font-weight:300}
 .demobar b{font-weight:700}
@@ -115,13 +118,13 @@ p{margin:0}
   color:#000;line-height:1}
 .brand span{font-family:var(--f-body);font-weight:300;font-size:11px;letter-spacing:.26em;
   color:#3A3A3A}
-.nav{display:flex;align-items:center;gap:26px}
-.nav a{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+.nav{display:flex;align-items:center;gap:24px}
+.nav a{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
   text-decoration:none;color:#000;transition:opacity .2s}
 .nav a:hover{opacity:.55}
 .nav .tel{background:#000;color:#fff;padding:11px 18px;letter-spacing:.08em;white-space:nowrap}
 .nav .tel:hover{opacity:1;background:#333}
-@media(max-width:860px){.nav a:not(.tel){display:none}}
+@media(max-width:960px){.nav a:not(.tel){display:none}}
 @media(max-width:420px){
   .brand b{font-size:19px}
   .brand span{font-size:9px;letter-spacing:.18em}
@@ -133,27 +136,32 @@ p{margin:0}
 .hero-video{width:100%;aspect-ratio:16/9;max-height:84vh;object-fit:cover;
   background:#fff;display:block}
 .scrollcue{display:flex;flex-direction:column;align-items:center;gap:9px;
-  padding:26px 0 6px;color:#000;text-decoration:none}
+  padding:24px 0 4px;color:#000;text-decoration:none}
 .scrollcue span{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;
   font-weight:700;color:var(--grey-2)}
 .scrollcue svg{animation:bob 2.4s var(--ease) infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 
 /* ---------- secciones ---------- */
-section{padding:clamp(64px,8vw,104px) 0}
+section{padding:clamp(58px,7.5vw,98px) 0}
+/* que el header pegajoso no tape el titulo al saltar por anclas */
+section[id],div[id]{scroll-margin-top:82px}
 .dark{background:var(--near);color:#fff}
-.dark h1,.dark h2,.dark h3{color:#fff}
+.dark h1,.dark h2,.dark h3,.dark h4{color:#fff}
 
 h1{font-size:clamp(1.85rem,4.6vw,2.55rem);font-weight:400}
 h2.title{font-size:clamp(1.55rem,3.6vw,2.15rem);font-weight:400}
-.sub{color:var(--grey);font-size:1.02rem;margin:16px auto 0;max-width:52ch}
+.eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--grey-2);font-weight:700;margin-bottom:14px}
+.sub{color:var(--grey);font-size:1.02rem;margin:16px auto 0;max-width:54ch}
 .dark .sub{color:#BDBDBD}
 
 /* ---------- botones ---------- */
 .btns{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:34px}
 .btn{display:inline-block;min-width:min(330px,100%);text-align:center;text-decoration:none;
   font-size:13.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
-  padding:18px 30px;border:1px solid;transition:background .25s,color .25s,border-color .25s}
+  padding:18px 30px;border:1px solid;transition:background .25s,color .25s,border-color .25s;
+  cursor:pointer;font-family:var(--f-body)}
 .btn-light{background:#fff;color:#000;border-color:#fff}
 .btn-light:hover{background:transparent;color:#fff}
 .btn-dark{background:#000;color:#fff;border-color:#000}
@@ -175,7 +183,7 @@ h2.title{font-size:clamp(1.55rem,3.6vw,2.15rem);font-weight:400}
 .lines p{color:var(--grey);font-size:1.05rem}
 .lines .em{color:var(--head);font-style:italic;margin-top:18px}
 
-/* ---------- valores 1-4, sus propios graficos ---------- */
+/* ---------- valores 1-4 ---------- */
 .values{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
 .values figure{margin:0}
 .values img{width:100%;max-width:210px;margin:0 auto}
@@ -197,35 +205,122 @@ h2.title{font-size:clamp(1.55rem,3.6vw,2.15rem);font-weight:400}
   .svc article:last-child{border-bottom:0}
 }
 
-/* ---------- proyectos ---------- */
-.titleart{width:min(680px,100%);max-width:none;margin:0 auto 36px}
-.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
-.grid a{position:relative;display:block;overflow:hidden;text-decoration:none;
-  background:#111;grid-column:span 2}
-.grid a.big{grid-column:span 6}
-.grid a.half{grid-column:span 3}
-.grid img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;
-  transition:transform 1s var(--ease)}
-.grid a.big img{aspect-ratio:16/8}
-.grid a:hover img{transform:scale(1.05)}
-.grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:20px 18px;color:#fff;
-  background:linear-gradient(transparent,rgba(0,0,0,.85));text-align:center}
-.grid .t{display:block;font-size:1.02rem;font-weight:700;letter-spacing:.02em}
-.grid .s{display:block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
-  color:#C4C4C4;margin-top:5px}
-@media(max-width:760px){.grid a,.grid a.half,.grid a.big{grid-column:span 6}}
-
-/* ---------- reseñas ---------- */
-.eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+/* ---------- proceso ---------- */
+.process{font-size:clamp(1.2rem,2.6vw,1.7rem);font-weight:300;line-height:1.5;
+  max-width:24ch;margin:0 auto;color:var(--head)}
+.process-by{margin-top:22px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--grey-2);font-weight:700}
-.rating{font-family:var(--f-head);font-weight:700;font-size:3.1rem;line-height:1}
-.stars{color:#F5B301;letter-spacing:.22em;font-size:1.15rem;margin-top:12px}
-.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
-.quotes blockquote{margin:0;border:1px solid var(--line);padding:26px 22px;
-  font-size:.97rem;color:var(--grey);line-height:1.7}
-.quotes cite{display:block;margin-top:16px;font-style:normal;font-size:11px;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--grey-2);font-weight:700}
-@media(max-width:760px){.quotes{grid-template-columns:1fr}}
+
+/* ============================================================
+   CARRUSEL — misma idea que su galeria: 3 fotos a la vez,
+   flechas a los lados y tira de miniaturas abajo.
+   ============================================================ */
+.car{position:relative}
+.car-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 24px)/3);
+  gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  scrollbar-width:none;-ms-overflow-style:none}
+.car-track::-webkit-scrollbar{display:none}
+.car-track > figure{margin:0;scroll-snap-align:start;position:relative;background:#111;
+  overflow:hidden}
+.car-track img{width:100%;height:clamp(240px,34vw,440px);object-fit:cover}
+.car-track figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 14px 13px;
+  color:#fff;font-size:12px;letter-spacing:.02em;
+  background:linear-gradient(transparent,rgba(0,0,0,.82));text-align:center}
+@media(max-width:900px){.car-track{grid-auto-columns:calc((100% - 12px)/2)}}
+@media(max-width:600px){.car-track{grid-auto-columns:100%}}
+
+.car-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+  width:46px;height:60px;border:0;background:rgba(0,0,0,.42);color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:background .2s}
+.car-btn:hover{background:rgba(0,0,0,.75)}
+.car-btn.prev{left:0}
+.car-btn.next{right:0}
+.car-btn svg{width:17px;height:17px}
+
+.thumbs{display:flex;gap:8px;overflow-x:auto;margin-top:12px;padding-bottom:4px;
+  scrollbar-width:none}
+.thumbs::-webkit-scrollbar{display:none}
+.thumbs button{flex:0 0 auto;width:96px;height:66px;padding:0;border:0;cursor:pointer;
+  background:#111;opacity:.5;transition:opacity .25s,outline-color .2s;
+  outline:2px solid transparent;outline-offset:-2px}
+.thumbs button:hover{opacity:.85}
+.thumbs button[aria-current="true"]{opacity:1;outline-color:#000}
+.dark .thumbs button[aria-current="true"]{outline-color:#fff}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- proyectos (fichas con lo que se hizo) ---------- */
+.projects{display:grid;gap:14px;margin-top:12px;text-align:left}
+.proj{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  border:1px solid var(--line);background:#fff;overflow:hidden}
+.proj:nth-child(even){direction:rtl}
+.proj:nth-child(even) > *{direction:ltr}
+.proj-img{position:relative;min-height:270px;background:#111}
+.proj-img img{width:100%;height:100%;object-fit:cover;
+  transition:transform 1.1s var(--ease)}
+.proj:hover .proj-img img{transform:scale(1.04)}
+.proj-body{padding:clamp(26px,3vw,40px)}
+.proj h3{font-size:1.32rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;
+  font-family:var(--f-head)}
+.proj .tag{color:var(--grey);font-size:.97rem;margin-top:8px;font-style:italic}
+.proj dl{display:grid;grid-template-columns:auto 1fr;gap:7px 16px;margin:22px 0 20px;
+  padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.proj dt{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey-2);
+  font-weight:700;padding-top:4px}
+.proj dd{margin:0;font-size:.92rem;line-height:1.55;color:var(--head)}
+.proj .did{font-size:.95rem;color:var(--grey);line-height:1.7}
+.proj .more{display:inline-block;margin-top:20px;font-size:11.5px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
+  border-bottom:1px solid #000;padding-bottom:4px}
+@media(max-width:820px){
+  .proj,.proj:nth-child(even){grid-template-columns:1fr;direction:ltr}
+  .proj-img{min-height:0;height:clamp(210px,46vw,300px)}
+}
+
+/* ---------- resenas de Google ---------- */
+.reviews{background:var(--near) url("https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/Cortizo_Web_Misc-6ee2c7a.png/:/rs=w:1400")
+  center/cover no-repeat;position:relative;color:#fff}
+.reviews::before{content:"";position:absolute;inset:0;background:rgba(13,13,13,.55)}
+.reviews > *{position:relative;z-index:2}
+.gmark{display:inline-flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap}
+.gbadge{width:44px;height:44px;border-radius:50%;background:#fff;display:grid;
+  place-items:center;font-family:var(--f-head);font-weight:700;font-size:22px;
+  line-height:1}
+.gbadge span{background:linear-gradient(90deg,#4285F4 0 25%,#EA4335 25% 50%,#FBBC05 50% 75%,#34A853 75% 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.rating{font-family:var(--f-head);font-weight:700;font-size:2.9rem;line-height:1}
+.stars{color:var(--gold);letter-spacing:.16em;font-size:1.3rem}
+.rev-name{font-size:1.15rem;font-weight:400;margin-top:4px}
+.rev-count{font-size:.95rem;color:#C9C9C9}
+.viewall{display:inline-block;margin-top:12px;font-size:12px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:700;color:#fff;text-decoration:underline;
+  text-underline-offset:5px}
+.rev-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 40px)/3);
+  gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  margin-top:40px;scrollbar-width:none;padding:0 2px}
+.rev-track::-webkit-scrollbar{display:none}
+.rev-card{background:#fff;color:var(--head);padding:30px 24px 24px;scroll-snap-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.avatar{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;
+  background:#EFEFEF;color:#3A3A3A;font-family:var(--f-head);font-weight:700;
+  font-size:1.9rem;line-height:1;border:1px solid var(--line)}
+.rev-card .stars{font-size:1.05rem;letter-spacing:.14em}
+.rev-card blockquote{margin:0;font-size:.98rem;line-height:1.6;color:var(--head)}
+.rev-card .who{font-size:.86rem;color:var(--grey);margin-top:auto;padding-top:10px;
+  display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap}
+.rev-card .who b{font-weight:700;color:var(--head)}
+@media(max-width:980px){.rev-track{grid-auto-columns:calc((100% - 20px)/2)}}
+@media(max-width:640px){.rev-track{grid-auto-columns:88%}}
+
+/* ---------- newsletter ---------- */
+.news form{display:flex;gap:0;max-width:520px;margin:26px auto 0;flex-wrap:wrap}
+.news input{flex:1 1 240px;min-width:0;font:inherit;font-size:15px;padding:16px;
+  border:1px solid var(--line-dark);background:#fff;color:var(--head);border-radius:0}
+.news button{flex:0 0 auto;border:1px solid #000;background:#000;color:#fff;
+  font-family:var(--f-body);font-size:13px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;padding:16px 28px;cursor:pointer;
+  transition:background .25s,color .25s}
+.news button:hover{background:#fff;color:#000}
+.news .note{font-size:12.5px;color:var(--grey-2);margin-top:14px}
 
 /* ---------- contacto ---------- */
 .dl{max-width:620px;margin:36px auto 0;text-align:left}
@@ -237,23 +332,23 @@ h2.title{font-size:clamp(1.55rem,3.6vw,2.15rem);font-weight:400}
   font-weight:700;white-space:nowrap}
 .dl .v{font-size:1rem;color:#fff;text-align:right}
 .tofill{border-bottom:1px dashed #777;color:#B0B0B0}
-form{max-width:620px;margin:42px auto 0;display:grid;gap:15px;text-align:left}
+form.lead{max-width:620px;margin:42px auto 0;display:grid;gap:15px;text-align:left}
 label{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
   color:#8C8C8C;font-weight:700;margin-bottom:7px}
-input,select,textarea{width:100%;font:inherit;font-size:15px;padding:14px;border-radius:0;
-  border:1px solid var(--line-dark);background:#141414;color:#fff}
-textarea{min-height:120px;resize:vertical}
-input:focus,select:focus,textarea:focus{outline:none;border-color:#fff}
-form button{font-family:var(--f-body);font-size:13.5px;font-weight:700;letter-spacing:.09em;
+.lead input,.lead select,.lead textarea{width:100%;font:inherit;font-size:15px;padding:14px;
+  border-radius:0;border:1px solid var(--line-dark);background:#141414;color:#fff}
+.lead textarea{min-height:120px;resize:vertical}
+.lead input:focus,.lead select:focus,.lead textarea:focus{outline:none;border-color:#fff}
+.lead button{font-family:var(--f-body);font-size:13.5px;font-weight:700;letter-spacing:.09em;
   text-transform:uppercase;padding:18px;border:1px solid #fff;background:#fff;color:#000;
   cursor:pointer;transition:background .25s,color .25s}
-form button:hover{background:transparent;color:#fff}
+.lead button:hover{background:transparent;color:#fff}
 .formnote{font-size:12.5px;color:#8C8C8C;text-align:center}
 
 /* ---------- pie ---------- */
-footer{background:#000;color:#8C8C8C;padding:58px 0 30px;font-size:14px}
+footer{background:#000;color:#8C8C8C;padding:56px 0 28px;font-size:14px}
 .f-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px;
-  padding-bottom:34px;border-bottom:1px solid var(--line-dark)}
+  padding-bottom:32px;border-bottom:1px solid var(--line-dark)}
 footer h4{font-family:var(--f-body);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
   color:#fff;margin:0 0 14px;font-weight:700}
 footer a{color:#8C8C8C;text-decoration:none}
@@ -264,11 +359,9 @@ footer li{margin-bottom:8px}
   font-size:12px;color:#666}
 
 /* ============================================================
-   SCROLL REVEAL. Los bloques suben al entrar; las fotos se
-   descubren con una mascara desde abajo. Si el JS no corre,
-   la clase no-js deja todo visible.
+   SCROLL REVEAL
    ============================================================ */
-.rv{opacity:0;transform:translateY(34px);
+.rv{opacity:0;transform:translateY(32px);
   transition:opacity 1s var(--ease),transform 1s var(--ease);
   transition-delay:var(--d,0ms)}
 .rv.in{opacity:1;transform:none}
@@ -281,6 +374,7 @@ footer li{margin-bottom:8px}
     transition:none!important}
   .scrollcue svg{animation:none}
   html{scroll-behavior:auto}
+  .car-track,.rev-track{scroll-behavior:auto}
 }
 </style>
 </head>
@@ -294,8 +388,9 @@ footer li{margin-bottom:8px}
     <a class="brand" href="#main"><b>CORTIZO</b><span>CONSTRUCTION</span></a>
     <nav class="nav" aria-label="Main">
       <a href="#services">Services</a>
-      <a href="#projects">Projects</a>
+      <a href="#work">Projects</a>
       <a href="#who">About us</a>
+      <a href="#reviews">Reviews</a>
       <a href="#contact">Contact</a>
       <a class="tel" href="tel:+17867360247">(786) 736-0247</a>
     </nav>
@@ -304,7 +399,7 @@ footer li{margin-bottom:8px}
 
 <main id="main">
 
-  <!-- ===== VIDEO DE INTRO, EL MISMO DEL SITIO ===== -->
+  <!-- ===== 1. VIDEO DE INTRO, EL MISMO DEL SITIO ===== -->
   <div class="hero">
     <video class="hero-video" id="herovid"
            autoplay muted loop playsinline preload="auto"
@@ -319,7 +414,7 @@ footer li{margin-bottom:8px}
     </a>
   </div>
 
-  <!-- ===== H1 + CTA ===== -->
+  <!-- ===== 2. EVERY PROJECT STARTS WITH THE RIGHT TEAM ===== -->
   <section class="dark" id="start">
     <div class="wrap">
       <h1 class="rv">Every project starts with the right team</h1>
@@ -340,7 +435,7 @@ footer li{margin-bottom:8px}
     </ul>
   </div>
 
-  <!-- ===== WHO WE ARE ===== -->
+  <!-- ===== 3. WHO WE ARE ===== -->
   <section id="who">
     <div class="wrap">
       <img class="whoimg mask" loading="lazy"
@@ -361,7 +456,7 @@ footer li{margin-bottom:8px}
     </div>
   </section>
 
-  <!-- ===== VALORES 1-4, SUS PROPIOS GRAFICOS ===== -->
+  <!-- ===== 4. LOS CUATRO VALORES, SUS PROPIOS GRAFICOS ===== -->
   <section style="padding-top:0">
     <div class="wrap">
       <div class="values">
@@ -381,34 +476,39 @@ footer li{margin-bottom:8px}
     </div>
   </section>
 
-  <!-- ===== SERVICIOS ===== -->
+  <!-- ===== 5. SERVICIOS ===== -->
   <section class="dark" id="services">
     <div class="wrap">
-      <h2 class="title rv">Two ways we build</h2>
-      <p class="sub rv" style="--d:100ms">Residential and hospitality, with the same
+      <p class="eyebrow rv" style="color:#8C8C8C">What we do</p>
+      <h2 class="title rv" style="--d:60ms">Two ways we build</h2>
+      <p class="sub rv" style="--d:120ms">Residential and hospitality, with the same
         systems behind both.</p>
       <div class="svc">
-        <article class="rv" style="--d:160ms">
+        <article class="rv" style="--d:180ms">
           <h3>Homes</h3>
-          <p>Full remodels and custom builds for people who want to be involved without
-            managing the chaos. Spaces made to be lived in, loved and trusted.</p>
+          <p>At Cortizo Construction, we build and renovate homes with clarity, structure
+            and care. From full remodels to custom builds, our approach is grounded in
+            communication, craftsmanship and respect for the way you live.</p>
           <ul>
             <li>Full home renovations</li>
-            <li>Custom new construction</li>
-            <li>Kitchens, baths and additions</li>
+            <li>Ground-up custom construction</li>
+            <li>Kitchens, bathrooms and additions</li>
+            <li>Structural modifications and impact windows</li>
             <li>Permitting and inspections</li>
           </ul>
           <a class="btn btn-light" href="#contact">Ask for your home</a>
         </article>
-        <article class="rv" style="--d:280ms">
+        <article class="rv" style="--d:300ms">
           <h3>Hospitality</h3>
-          <p>A hospitality mindset on every job: phased work that keeps you open, calm
-            coordination and finishes that survive real guest traffic.</p>
+          <p>We bring a hospitality mindset to every project, creating spaces that elevate
+            the guest experience while supporting the rhythm of daily operations, with
+            phased work that minimizes disruption.</p>
           <ul>
             <li>Boutique hotel renovations</li>
-            <li>Restaurants and bars</li>
-            <li>Phased work around operations</li>
-            <li>Brand-consistent finishes</li>
+            <li>Restaurants and commercial kitchens</li>
+            <li>Commercial plumbing and life safety systems</li>
+            <li>Permit recovery and code compliance</li>
+            <li>Phased work around live operations</li>
           </ul>
           <a class="btn btn-light" href="#contact">Ask for your business</a>
         </article>
@@ -416,72 +516,103 @@ footer li{margin-bottom:8px}
     </div>
   </section>
 
-  <!-- ===== PROYECTOS ===== -->
-  <section id="projects">
+  <!-- ===== 6. OUR PROCESS ===== -->
+  <section>
     <div class="wrap">
-      <img class="titleart rv" loading="lazy"
-           src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/TITULOSFINALES02-01-01.jpg/:/rs=w:900"
-           alt="Projects">
-      <div class="grid">
-        <a class="big mask" href="https://cortizoconstruction.com/rodriguez-residence">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/257ab500-723b-407d-9ab0-960d72e439f8.jpg/:/rs=w:1400,cg:true,m"
-               alt="Finished white kitchen with island and counter stools, Rodriguez Residence, Miami">
-          <figcaption><span class="t">Rodriguez Residence</span><span class="s">Full home renovation &middot; Miami</span></figcaption>
-        </a>
-        <a class="half mask" style="--d:120ms" href="https://cortizoconstruction.com/casa-bohemia">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/69894773783__BBDB50C4-07D9-447A-9A9D-C077EC69B.JPG/:/rs=w:900,cg:true,m"
-               alt="Exterior of Casa Bohemia after construction by Cortizo Construction">
-          <figcaption><span class="t">Casa Bohemia</span><span class="s">Custom build</span></figcaption>
-        </a>
-        <a class="half mask" style="--d:220ms" href="https://cortizoconstruction.com/rodriguez-residence">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6712.JPG/:/rs=w:900,cg:true,m"
-               alt="Finished shower with blue patterned tile and brass fixtures, Miami renovation">
-          <figcaption><span class="t">Tile &amp; finishes</span><span class="s">Rodriguez Residence</span></figcaption>
-        </a>
-        <a class="mask" style="--d:100ms" href="https://cortizoconstruction.com/the-bernal-residence">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5462.JPG/:/rs=w:800,cg:true,m"
-               alt="Restored hardwood flooring in the Bernal Residence renovation">
-          <figcaption><span class="t">The Bernal Residence</span><span class="s">Full residential</span></figcaption>
-        </a>
-        <a class="mask" style="--d:200ms" href="https://cortizoconstruction.com/matheson-residence">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/106Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:800,cg:true,m"
-               alt="Interior of the Matheson Residence during a remote full studio renovation">
-          <figcaption><span class="t">Matheson Residence</span><span class="s">Studio renovation</span></figcaption>
-        </a>
-        <a class="mask" style="--d:300ms" href="https://cortizoconstruction.com/san-juan-hotel">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9588.JPG/:/rs=w:800,cg:true,m"
-               alt="Mechanical systems upgrade at the San Juan Hotel by Cortizo Construction">
-          <figcaption><span class="t">San Juan Hotel</span><span class="s">Boutique hospitality</span></figcaption>
-        </a>
+      <p class="eyebrow rv">Our process</p>
+      <p class="process rv" style="--d:80ms">Clear guidance. Honest communication.
+        Elevated craftsmanship. A construction experience designed to feel effortless.</p>
+      <p class="process-by rv" style="--d:180ms">Laura Cortizo, Director</p>
+    </div>
+  </section>
+
+  <!-- ===== 7. RECENT TRANSFORMATIONS (galeria tipo carrusel) ===== -->
+  <section class="dark" style="padding-top:0;padding-bottom:clamp(58px,7vw,90px)" id="gallery">
+    <div style="background:var(--near);padding-top:clamp(58px,7.5vw,98px)">
+      <div class="wrap wide">
+        <p class="eyebrow rv" style="color:#8C8C8C">Recent transformations</p>
+        <h2 class="title rv" style="--d:60ms">Finished spaces, not renderings</h2>
+        <p class="sub rv" style="--d:120ms">Every photograph on this page is a space our
+          own team built or renovated in Miami-Dade.</p>
+
+        <div class="car rv" style="--d:200ms;margin-top:38px">
+          <button class="car-btn prev" type="button" data-car="gal" data-dir="-1" aria-label="Previous photos">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 4L7 12l8 8" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+          <div class="car-track" id="gal" tabindex="0" aria-label="Recent transformations gallery"></div>
+          <button class="car-btn next" type="button" data-car="gal" data-dir="1" aria-label="Next photos">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4l8 8-8 8" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+          <div class="thumbs" id="gal-thumbs" role="tablist" aria-label="Gallery thumbnails"></div>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== 8. PROYECTOS CON LO QUE SE HIZO EN CADA UNO ===== -->
+  <section id="work">
+    <div class="wrap">
+      <p class="eyebrow rv">Selected projects</p>
+      <h2 class="title rv" style="--d:60ms">What we actually did on each job</h2>
+      <p class="sub rv" style="--d:120ms">Scope, timeline and the problem we had to solve.
+        No project is only a photograph.</p>
+    </div>
+    <div class="wrap" style="margin-top:42px">
+      <div class="projects" id="projects"></div>
       <div class="btns rv" style="--d:120ms">
         <a class="btn btn-dark" href="https://cortizoconstruction.com/projects">Explore our projects</a>
       </div>
     </div>
   </section>
 
-  <!-- ===== RESEÑAS ===== -->
-  <section style="padding-top:0">
-    <div class="wrap">
-      <p class="eyebrow rv">Cortizo Construction</p>
-      <div class="rating rv" style="--d:80ms">5.0</div>
-      <div class="stars rv" style="--d:140ms" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <div class="quotes">
-        <blockquote class="rv" style="--d:180ms">&ldquo;The best of the best! Great experience from start to finish.&rdquo;
-          <cite>Richele Diaz</cite></blockquote>
-        <blockquote class="rv" style="--d:290ms">&ldquo;I highly recommend Cortizo Construction!&rdquo;
-          <cite>Valeria Wardini</cite></blockquote>
-        <blockquote class="rv" style="--d:400ms">&ldquo;Excellent service.&rdquo;
-          <cite>Leyanis Cabrera</cite></blockquote>
+  <!-- ===== 9. RESEÑAS DE GOOGLE ===== -->
+  <section class="reviews" id="reviews">
+    <div class="wrap wide">
+      <div class="gmark rv">
+        <span class="gbadge" aria-hidden="true"><span>G</span></span>
+        <span class="rating">5.0</span>
+        <span>
+          <span class="rev-name">Cortizo Construction</span><br>
+          <span class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="rev-count">&nbsp;5 Reviews</span>
+        </span>
+      </div>
+      <a class="viewall rv" style="--d:100ms" href="https://www.google.com/search?q=Cortizo+Construction+Miami+reviews">View all 5 reviews</a>
+
+      <div class="car rv" style="--d:180ms">
+        <button class="car-btn prev" type="button" data-car="rev" data-dir="-1" aria-label="Previous reviews">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 4L7 12l8 8" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
+        <div class="rev-track" id="rev" tabindex="0" aria-label="Google reviews"></div>
+        <button class="car-btn next" type="button" data-car="rev" data-dir="1" aria-label="Next reviews">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4l8 8-8 8" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- ===== CONTACTO ===== -->
+  <!-- ===== 10. NEWSLETTER ===== -->
+  <section class="news">
+    <div class="wrap">
+      <p class="eyebrow rv">Subscribe</p>
+      <h2 class="title rv" style="--d:60ms">Follow the work</h2>
+      <p class="sub rv" style="--d:120ms">Subscribe to our newsletter to receive updates on
+        the latest news and projects.</p>
+      <form id="newsform" class="rv" style="--d:200ms" novalidate>
+        <label for="nemail" class="sr-only" style="position:absolute;left:-9999px">Email</label>
+        <input id="nemail" type="email" name="email" placeholder="Email" autocomplete="email" required>
+        <button type="submit">Register</button>
+      </form>
+      <p class="note" id="newsnote">Demo form. Nothing is sent and no address is stored.</p>
+    </div>
+  </section>
+
+  <!-- ===== 11. CONTACTO ===== -->
   <section class="dark" id="contact">
     <div class="wrap">
-      <h2 class="title rv">Let&rsquo;s talk</h2>
-      <p class="sub rv" style="--d:100ms">We&rsquo;re here to answer questions, discuss projects,
+      <p class="eyebrow rv" style="color:#8C8C8C">Contact</p>
+      <h2 class="title rv" style="--d:60ms">Let&rsquo;s talk</h2>
+      <p class="sub rv" style="--d:120ms">We&rsquo;re here to answer questions, discuss projects,
         and explore new collaborations.</p>
 
       <div class="dl rv" style="--d:180ms">
@@ -492,7 +623,7 @@ footer li{margin-bottom:8px}
         <span class="row"><span class="k">License</span><span class="v">CGC1535571</span></span>
       </div>
 
-      <form id="leadform" class="rv" style="--d:260ms" novalidate>
+      <form id="leadform" class="lead rv" style="--d:260ms" novalidate>
         <div><label for="n">Name</label><input id="n" name="name" type="text" autocomplete="name" required></div>
         <div><label for="e">Email</label><input id="e" name="email" type="email" autocomplete="email" required></div>
         <div><label for="p">Phone</label><input id="p" name="phone" type="tel" autocomplete="tel"></div>
@@ -532,8 +663,9 @@ footer li{margin-bottom:8px}
         <ul>
           <li><a href="https://cortizoconstruction.com/casa-bohemia">Casa Bohemia</a></li>
           <li><a href="https://cortizoconstruction.com/rodriguez-residence">Rodriguez Residence</a></li>
-          <li><a href="https://cortizoconstruction.com/san-juan-hotel">San Juan Hotel</a></li>
           <li><a href="https://cortizoconstruction.com/the-bernal-residence">The Bernal Residence</a></li>
+          <li><a href="https://cortizoconstruction.com/matheson-residence">Matheson Residence</a></li>
+          <li><a href="https://cortizoconstruction.com/san-juan-hotel">San Juan Hotel</a></li>
         </ul>
       </div>
       <div>
@@ -554,70 +686,213 @@ footer li{margin-bottom:8px}
 
 <script>
 document.body.classList.remove('no-js');
+var CDN = 'https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/';
+function img(file, w){ return CDN + encodeURIComponent(file) + '/:/rs=w:' + w + ',cg:true,m'; }
+function esc(s){ var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
-// linea del header al salir del video
+/* ---------- galeria: las fotos de su propio carrusel ---------- */
+var GALLERY = [
+  ['c943f9406cd4eb5d675774e85e21bc21-uncropped_sca.jpg', 'Finished kitchen with island, pendant lighting and integrated appliances'],
+  ['175Claudia.Mor.Foto.Cortizo.construction-.jpg', 'Finished dining room with pendant light and framed artwork'],
+  ['55ccbcaa-658b-4996-b4a8-f5142c8ec62b.jpg', 'Freestanding bathtub beside a stone wall with a view to the pool'],
+  ['257ab500-723b-407d-9ab0-960d72e439f8.jpg', 'White kitchen with island and counter stools, Rodriguez Residence'],
+  ['IMG_6723 (1)-051be5c.JPG', 'Bedroom with full-height built-in wardrobe'],
+  ['161Claudia.Mor.Foto.Cortizo.construction-.jpg', 'Patterned tile wall with built-in oven'],
+  ['f1a8cddeb42852ddc8be3a3c2bde9c9c-uncropped_sca.jpg', 'Stairwell with new railing and artwork'],
+  ['143Claudia.Mor.Foto.Cortizo.construction-.jpg', 'Bathroom finished in blue and white patterned tile'],
+  ['IMG_6721.JPG', 'Wood slat feature wall with pendant lighting'],
+  ['cedc01bb-4000-409f-812a-2a57643a5c37.jpg', 'White kitchen with brass fixtures after full renovation'],
+  ['IMG_2408 (1).JPG', 'Patterned floor tile being set by our own crew'],
+  ['IMG_1299.JPG', 'Roof replacement in progress on a Miami residence']
+];
+
+var galTrack = document.getElementById('gal');
+var galThumbs = document.getElementById('gal-thumbs');
+galTrack.innerHTML = GALLERY.map(function(g, i){
+  return '<figure data-i="' + i + '"><img loading="lazy" src="' + img(g[0], 900) + '" alt="' + esc(g[1]) + '">'
+       + '<figcaption>' + esc(g[1]) + '</figcaption></figure>';
+}).join('');
+galThumbs.innerHTML = GALLERY.map(function(g, i){
+  return '<button type="button" role="tab" data-i="' + i + '" aria-current="' + (i === 0) + '">'
+       + '<img loading="lazy" src="' + img(g[0], 200) + '" alt="Show photo ' + (i + 1) + ': ' + esc(g[1]) + '"></button>';
+}).join('');
+
+/* ---------- proyectos: alcance real tomado de sus propias paginas ---------- */
+var PROJECTS = [
+  {
+    name: 'Casa Bohemia',
+    tag: 'Our first full build, and the project that defined our standards.',
+    type: 'Ground-up residential new construction',
+    time: '2021 to 2022',
+    did: 'Built entirely from the ground up. We were responsible for the structural work and all plumbing installations, coordinating every phase from foundation through completion. It became the foundation for the systems and standards we follow today.',
+    img: '69894773783__BBDB50C4-07D9-447A-9A9D-C077EC69B.JPG',
+    alt: 'Exterior of Casa Bohemia, a ground-up residential build in Miami',
+    url: 'https://cortizoconstruction.com/casa-bohemia'
+  },
+  {
+    name: 'Rodriguez Residence',
+    tag: 'A full renovation that lived or died on sequencing.',
+    type: 'Full residential renovation with structural modifications',
+    time: '2025',
+    did: 'Complete demolition of a detached studio, three bathrooms renovated including relocating one, and a full kitchen transformation. To open the kitchen we removed a structural wall and installed a metal beam with supporting columns, which required partial roof reconstruction. New impact windows and sliding doors throughout.',
+    img: '257ab500-723b-407d-9ab0-960d72e439f8.jpg',
+    alt: 'Finished white kitchen with island and counter stools, Rodriguez Residence, Miami',
+    url: 'https://cortizoconstruction.com/rodriguez-residence'
+  },
+  {
+    name: 'The Bernal Residence',
+    tag: 'Nearly every system in the house, on a fixed move-in date.',
+    type: 'Full residential renovation',
+    time: 'Began 2024, completed early 2025',
+    did: 'Three bathrooms, a new kitchen, new flooring throughout, new impact windows, a new roof, pool deck tile replacement and pool resurfacing. Full plumbing replacement including removal of old cast iron pipes, air conditioning relocation, a new electrical panel, exterior stucco repairs, and full interior and exterior painting.',
+    img: 'IMG_5462.JPG',
+    alt: 'Restored hardwood flooring in the Bernal Residence renovation',
+    url: 'https://cortizoconstruction.com/the-bernal-residence'
+  },
+  {
+    name: 'Matheson Residence',
+    tag: 'Building trust and clarity from a distance.',
+    type: 'Full studio renovation, design through construction',
+    time: 'Ongoing, construction began 2025',
+    did: 'A full studio renovation managed entirely from a distance. The client bought the apartment while living outside Miami and trusted us to guide the project from the earliest design and architectural phases through construction, with every decision, approval and update coordinated remotely.',
+    img: '106Claudia.Mor.Foto.Cortizo.construction-.jpg',
+    alt: 'Interior of the Matheson Residence during a remotely managed studio renovation',
+    url: 'https://cortizoconstruction.com/matheson-residence'
+  },
+  {
+    name: 'San Juan Hotel',
+    tag: 'A permit left open since 2018, and a kitchen that had to reopen.',
+    type: 'Hospitality renovation, commercial plumbing and life safety systems',
+    time: 'Construction began early 2024',
+    did: 'We took over an open permit originally issued in 2018, which a previous contractor never completed or called for inspection. We assessed existing conditions and brought the project back into compliance across multiple agencies. Scope centered on the cafeteria kitchen: replacement of the entire grease trap system and lift station, plus demolition and complete reinstallation of all plumbing serving the space.',
+    img: 'IMG_9588.JPG',
+    alt: 'Grease trap and lift station replacement at the San Juan Hotel cafeteria kitchen',
+    url: 'https://cortizoconstruction.com/san-juan-hotel'
+  }
+];
+
+document.getElementById('projects').innerHTML = PROJECTS.map(function(p, i){
+  return '<article class="proj rv" style="--d:' + (i * 90) + 'ms">'
+    + '<div class="proj-img"><img loading="lazy" src="' + img(p.img, 1000) + '" alt="' + esc(p.alt) + '"></div>'
+    + '<div class="proj-body">'
+      + '<h3>' + esc(p.name) + '</h3>'
+      + '<p class="tag">' + esc(p.tag) + '</p>'
+      + '<dl><dt>Type</dt><dd>' + esc(p.type) + '</dd>'
+      + '<dt>Timeline</dt><dd>' + esc(p.time) + '</dd></dl>'
+      + '<p class="did">' + esc(p.did) + '</p>'
+      + '<a class="more" href="' + p.url + '">Read the full case study</a>'
+    + '</div></article>';
+}).join('');
+
+/* ---------- resenas: texto, nombre y fecha tal como los muestra Google ---------- */
+var REVIEWS = [
+  ['Eugene Cruz', '3/27/2023', 'On time, within budget, while handling all the unexpected challenges that presented them…'],
+  ['Giovanna Fronduto', '3/7/2023', 'Recommended a 100%. Very professional, planned, responsive.'],
+  ['Leyanis Cabrera', '7/31/2026', '(Translated by Google) Excellent service. The Cortizo Construction team is very professional, punct…'],
+  ['Richele Diaz', '1/13/2026', 'The best of the best! Great experience from start to finish. Great communication with the o…'],
+  ['Valeria Wardini', '1/13/2026', 'I highly recommend Cortizo Construction! If you a looking for professionalism, reliability, paid…']
+];
+
+document.getElementById('rev').innerHTML = REVIEWS.map(function(r){
+  return '<article class="rev-card">'
+    + '<span class="avatar" aria-hidden="true">' + esc(r[0].charAt(0)) + '</span>'
+    + '<span class="stars" aria-label="5 out of 5 stars">★★★★★</span>'
+    + '<blockquote>&ldquo;' + esc(r[2]) + '&rdquo;</blockquote>'
+    + '<span class="who"><b>' + esc(r[0]) + '</b> &middot; ' + esc(r[1]) + '</span>'
+    + '</article>';
+}).join('');
+
+/* ---------- flechas de los carruseles ---------- */
+document.querySelectorAll('.car-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var track = document.getElementById(btn.getAttribute('data-car'));
+    var first = track.firstElementChild;
+    if (!first) return;
+    var step = first.getBoundingClientRect().width + 16;
+    track.scrollBy({ left: step * Number(btn.getAttribute('data-dir')), behavior: 'smooth' });
+  });
+});
+
+/* ---------- miniaturas de la galeria ---------- */
+galThumbs.addEventListener('click', function(ev){
+  var b = ev.target.closest('button');
+  if (!b) return;
+  var i = Number(b.getAttribute('data-i'));
+  var fig = galTrack.querySelector('figure[data-i="' + i + '"]');
+  if (fig) galTrack.scrollTo({ left: fig.offsetLeft - galTrack.offsetLeft, behavior: 'smooth' });
+});
+galTrack.addEventListener('scroll', function(){
+  var first = galTrack.firstElementChild;
+  if (!first) return;
+  var step = first.getBoundingClientRect().width + 12;
+  var i = Math.round(galTrack.scrollLeft / step);
+  galThumbs.querySelectorAll('button').forEach(function(b){
+    b.setAttribute('aria-current', String(Number(b.getAttribute('data-i')) === i));
+  });
+}, { passive: true });
+
+/* ---------- linea del header ---------- */
 var hdr = document.getElementById('hdr');
 function onScroll(){ hdr.classList.toggle('stuck', window.scrollY > 40); }
 onScroll();
-window.addEventListener('scroll', onScroll, {passive:true});
+window.addEventListener('scroll', onScroll, { passive: true });
 
-// scroll reveal: threshold 0 para que los bloques altos siempre disparen
+/* ---------- scroll reveal ---------- */
 var io = new IntersectionObserver(function(entries){
   entries.forEach(function(e){
-    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   });
-}, {threshold:0, rootMargin:'0px 0px -12% 0px'});
+}, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
 document.querySelectorAll('.rv, .mask').forEach(function(el){ io.observe(el); });
 
-// si el video no carga (liga de Dropbox caducada), mostramos la cocina
+/* ---------- video: respaldo y reproduccion ---------- */
 var v = document.getElementById('herovid');
 function videoFallback(){
-  if(!v || v.dataset.done) return;
+  if (!v || v.dataset.done) return;
   v.dataset.done = '1';
-  var img = document.createElement('img');
-  img.className = 'hero-video';
-  img.src = 'https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/257ab500-723b-407d-9ab0-960d72e439f8.jpg/:/rs=w:1600,cg:true,m';
-  img.alt = 'Finished white kitchen with island, Rodriguez Residence renovation in Miami';
-  v.replaceWith(img);
+  var im = document.createElement('img');
+  im.className = 'hero-video';
+  im.src = img('c943f9406cd4eb5d675774e85e21bc21-uncropped_sca.jpg', 1600);
+  im.alt = 'Finished kitchen with island and pendant lighting by Cortizo Construction in Miami';
+  v.replaceWith(im);
 }
 v.addEventListener('error', videoFallback, true);
 v.querySelector('source').addEventListener('error', videoFallback);
-setTimeout(function(){ if(v.isConnected && v.readyState === 0) videoFallback(); }, 9000);
+setTimeout(function(){ if (v.isConnected && v.readyState === 0) videoFallback(); }, 9000);
 
-// el autoplay puede quedar bloqueado: lo intentamos varias veces y
-// ademas pausamos el video cuando sale de pantalla
 function tryPlay(){
-  if(!v || !v.isConnected) return;
+  if (!v || !v.isConnected) return;
   var pr = v.play && v.play();
-  if(pr && pr.catch) pr.catch(function(){});
+  if (pr && pr.catch) pr.catch(function(){});
 }
 v.addEventListener('loadeddata', tryPlay);
 v.addEventListener('canplay', tryPlay);
 tryPlay();
-
 var vio = new IntersectionObserver(function(entries){
   entries.forEach(function(e){
-    if(!v.isConnected) return;
-    if(e.isIntersecting) tryPlay(); else v.pause();
+    if (!v.isConnected) return;
+    if (e.isIntersecting) tryPlay(); else v.pause();
   });
-}, {threshold:0.2});
+}, { threshold: 0.2 });
 vio.observe(v);
-
-// cualquier gesto del usuario desbloquea la reproduccion
 ['pointerdown','touchstart','keydown'].forEach(function(evt){
-  document.addEventListener(evt, function once(){
-    tryPlay(); document.removeEventListener(evt, once);
-  }, {once:true});
+  document.addEventListener(evt, function once(){ tryPlay(); }, { once: true });
 });
 v.style.cursor = 'pointer';
 v.addEventListener('click', function(){ v.paused ? tryPlay() : v.pause(); });
 
-// formulario de demostracion
+/* ---------- formularios de demostracion ---------- */
 document.getElementById('leadform').addEventListener('submit', function(ev){
   ev.preventDefault();
   var n = document.getElementById('fnote');
   n.textContent = 'Thank you. This is a demo, so nothing was sent. On the live site this lands in Laura’s inbox within seconds.';
   n.style.color = '#fff';
+});
+document.getElementById('newsform').addEventListener('submit', function(ev){
+  ev.preventDefault();
+  var n = document.getElementById('newsnote');
+  n.textContent = 'Thank you. This is a demo, so no address was stored.';
+  n.style.color = '#1B1B1B';
 });
 </script>
 </body>
