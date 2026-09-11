@@ -77,17 +77,21 @@
   var G = 'https://lh3.googleusercontent.com/';
   // ficha real de Google de Cortizo Construction, la misma que usa su sitio
   var GMAPS = 'https://maps.google.com/maps?cid=8160738004661650355';
+  // Orden: la mas reciente primero. Las fotos son las de Google de cada
+  // persona, las mismas que sirve el widget de su sitio. Tres de los cinco
+  // no tienen foto en su cuenta y Google devuelve una inicial de color:
+  // en su sitio se ven igual.
   var REVIEWS = [
-    ['Eugene Cruz', '3/27/2023', 'On time, within budget, while handling all the unexpected challenges that presented them…',
-     G + 'a/ACg8ocKnfVbUAfDEBP6maBk8XVYQK8eMU3ymEQNL4DMnqmn8dwuq9A=s120-c-rp-mo-br100'],
-    ['Giovanna Fronduto', '3/7/2023', 'Recommended a 100%. Very professional, planned, responsive.',
-     G + 'a/ACg8ocLBxbvJQAVMvj2LDry7GBfhNW-Zc1Yxy6gXODRLwRHw-f9bSA=s120-c-rp-mo-br100'],
     ['Leyanis Cabrera', '7/31/2026', '(Translated by Google) Excellent service. The Cortizo Construction team is very professional, punct…',
-     G + 'a-/ALV-UjWo-kJAGN4V79iUKpqdzAA0Dk4g7nAVSRBFfehp-qgWu-5buCA=s120-c-rp-mo-br100'],
+     G + 'a-/ALV-UjWo-kJAGN4V79iUKpqdzAA0Dk4g7nAVSRBFfehp-qgWu-5buCA=s200-c-rp-mo-br100'],
     ['Richele Diaz', '1/13/2026', 'The best of the best! Great experience from start to finish. Great communication with the o…',
-     G + 'a-/ALV-UjVptYmhttPjahjo_80CP8tjpD36cr0yUZ7hCqLL4m4aUm9MCFI=s120-c-rp-mo-ba12-br100'],
+     G + 'a-/ALV-UjVptYmhttPjahjo_80CP8tjpD36cr0yUZ7hCqLL4m4aUm9MCFI=s200-c-rp-mo-ba12-br100'],
     ['Valeria Wardini', '1/13/2026', 'I highly recommend Cortizo Construction! If you a looking for professionalism, reliability, paid…',
-     G + 'a/ACg8ocIDxOANUWjkGu-VdVN_64s32PsXBaT30rAl1DbaZYni8qRWpw=s120-c-rp-mo-ba12-br100']
+     G + 'a/ACg8ocIDxOANUWjkGu-VdVN_64s32PsXBaT30rAl1DbaZYni8qRWpw=s200-c-rp-mo-ba12-br100'],
+    ['Eugene Cruz', '3/27/2023', 'On time, within budget, while handling all the unexpected challenges that presented them…',
+     G + 'a/ACg8ocKnfVbUAfDEBP6maBk8XVYQK8eMU3ymEQNL4DMnqmn8dwuq9A=s200-c-rp-mo-br100'],
+    ['Giovanna Fronduto', '3/7/2023', 'Recommended a 100%. Very professional, planned, responsive.',
+     G + 'a/ACg8ocLBxbvJQAVMvj2LDry7GBfhNW-Zc1Yxy6gXODRLwRHw-f9bSA=s200-c-rp-mo-br100']
   ];
   var revTrack = document.getElementById('rev');
   if (revTrack) {
