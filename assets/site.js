@@ -90,7 +90,18 @@
     ['IMG_6721.JPG', 'Wood slat feature wall with pendant lighting'],
     ['cedc01bb-4000-409f-812a-2a57643a5c37.jpg', 'White kitchen with brass fixtures after full renovation'],
     ['IMG_2408 (1).JPG', 'Patterned floor tile being set by our own crew'],
-    ['IMG_1299.JPG', 'Roof replacement in progress on a Miami residence']
+    ['IMG_1299.JPG', 'Roof replacement in progress on a Miami residence'],
+    // faltaban: su galeria de portada tiene 16 fotos y aqui habia 12. Estas
+    // cuatro salieron del blob de galeria de GoDaddy, que es donde viven de
+    // verdad, y se describieron mirandolas una por una.
+    ['65463793535__0045B052-DD00-406B-B491-C1D171F9.jpeg',
+     'Finished bathroom with floating dark-wood vanity, backlit mirror and large-format tile'],
+    ['0cd8462e4ae6a9d74c26a7b0bc238c2d-uncropped_sca.jpg',
+     'Renovated pool and rear elevation of a white two-storey Miami residence'],
+    ['0503051801d635c45dde1209b371e3c2-uncropped_sca.jpg',
+     'Formal dining room with marble floor, chandelier and a view through to the living area'],
+    ['0a090398-c944-4741-b7b5-f6a91a4fe948.jpg',
+     'Crew setting new roof joists over an open Miami residence']
   ];
 
   var galTrack = document.getElementById('gal');
