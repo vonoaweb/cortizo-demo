@@ -19,6 +19,52 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
+  /* ---------- menu movil ---------- */
+  var burger = document.getElementById('burger');
+  var mobnav = document.getElementById('mobnav');
+  if (burger && mobnav) {
+    var enlaces = [].slice.call(mobnav.querySelectorAll('nav a'));
+    enlaces.forEach(function (a, i) { a.style.setProperty('--i', i); });
+
+    var abrir = function () {
+      mobnav.classList.add('open');
+      mobnav.setAttribute('aria-hidden', 'false');
+      burger.setAttribute('aria-expanded', 'true');
+      burger.setAttribute('aria-label', 'Close menu');
+      document.body.classList.add('nav-abierto');
+      if (enlaces[0]) setTimeout(function () { enlaces[0].focus(); }, 260);
+    };
+    var cerrar = function () {
+      mobnav.classList.remove('open');
+      mobnav.setAttribute('aria-hidden', 'true');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-label', 'Open menu');
+      document.body.classList.remove('nav-abierto');
+    };
+    var alternar = function () {
+      if (mobnav.classList.contains('open')) cerrar(); else abrir();
+    };
+
+    burger.addEventListener('click', alternar);
+    enlaces.forEach(function (a) { a.addEventListener('click', cerrar); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mobnav.classList.contains('open')) { cerrar(); burger.focus(); }
+    });
+    // si se agranda la ventana, el panel no debe quedar colgado
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 980 && mobnav.classList.contains('open')) cerrar();
+    }, { passive: true });
+    // el foco no debe salirse del panel abierto
+    mobnav.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab' || !mobnav.classList.contains('open')) return;
+      var foco = [burger].concat([].slice.call(
+        mobnav.querySelectorAll('a[href], button')));
+      var primero = foco[0], ultimo = foco[foco.length - 1];
+      if (e.shiftKey && document.activeElement === primero) { e.preventDefault(); ultimo.focus(); }
+      else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primero.focus(); }
+    });
+  }
+
   /* ---------- scroll reveal ---------- */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
