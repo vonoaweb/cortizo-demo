@@ -22,6 +22,7 @@
   /* ---------- menu movil ---------- */
   var burger = document.getElementById('burger');
   var mobnav = document.getElementById('mobnav');
+  var mobclose = document.getElementById('mobclose');
   if (burger && mobnav) {
     var enlaces = [].slice.call(mobnav.querySelectorAll('nav a'));
     enlaces.forEach(function (a, i) { a.style.setProperty('--i', i); });
@@ -32,7 +33,9 @@
       burger.setAttribute('aria-expanded', 'true');
       burger.setAttribute('aria-label', 'Close menu');
       document.body.classList.add('nav-abierto');
-      if (enlaces[0]) setTimeout(function () { enlaces[0].focus(); }, 260);
+      // se enfoca el panel, no el primer enlace: enfocar el enlace le dibujaba
+      // un recuadro de foco encima y parecia un error de diseno
+      setTimeout(function () { mobnav.focus({ preventScroll: true }); }, 60);
     };
     var cerrar = function () {
       mobnav.classList.remove('open');
@@ -46,6 +49,7 @@
     };
 
     burger.addEventListener('click', alternar);
+    if (mobclose) mobclose.addEventListener('click', function () { cerrar(); burger.focus(); });
     enlaces.forEach(function (a) { a.addEventListener('click', cerrar); });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && mobnav.classList.contains('open')) { cerrar(); burger.focus(); }
@@ -57,8 +61,8 @@
     // el foco no debe salirse del panel abierto
     mobnav.addEventListener('keydown', function (e) {
       if (e.key !== 'Tab' || !mobnav.classList.contains('open')) return;
-      var foco = [burger].concat([].slice.call(
-        mobnav.querySelectorAll('a[href], button')));
+      var foco = [].slice.call(mobnav.querySelectorAll('a[href], button'));
+      if (!foco.length) return;
       var primero = foco[0], ultimo = foco[foco.length - 1];
       if (e.shiftKey && document.activeElement === primero) { e.preventDefault(); ultimo.focus(); }
       else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primero.focus(); }

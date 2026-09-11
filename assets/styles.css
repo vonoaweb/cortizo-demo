@@ -400,23 +400,23 @@ footer li{margin-bottom:8px}
   .svcrow{grid-template-columns:1fr;gap:26px;text-align:left}
   .svcrow.flip .svcart{order:0}
 }
-/* El grafico de ella es un cuadro de 800x800: espiral arriba, hueco blanco
-   y la foto abajo. Puesto entero quedaba un recuadro blanco enorme con la
-   foto cortada por el borde. En un contenedor mas ancho que alto, cover
-   recorta en vertical, y con object-position al 100% se queda justo la
-   foto de abajo, en banda ancha. */
-.svcart{margin:0;background:#0A0A0A;overflow:hidden;position:relative}
-.svcart{aspect-ratio:16/10}
+/* Su grafico es un PNG cuadrado: espiral arriba, hueco transparente en
+   medio y la foto abajo. Antes se metia entero y se ampliaba por CSS para
+   sacar la franja de la foto, y quedaba tan cerca que no se reconocia el
+   inmueble. Ahora el recorte lo hace su propio CDN (ver crop() en build.py)
+   y aqui llega ya solo la foto, cuadrada, como en su sitio. */
+.svcart{margin:0;background:#0A0A0A;overflow:hidden;position:relative;
+  aspect-ratio:1/1}
 .svcart::after{content:"";position:absolute;inset:auto 0 0 0;height:34%;z-index:2;
-  background:linear-gradient(transparent,rgba(10,10,10,.55));pointer-events:none}
-/* el PNG es transparente y la foto ocupa solo la franja central, asi que se
-   amplia para que sangre a todo lo ancho de la banda */
+  background:linear-gradient(transparent,rgba(10,10,10,.45));pointer-events:none}
 .svcart img{position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:50% 100%;display:block;
-  transform:scale(1.55);transform-origin:50% 74%;
+  object-fit:cover;object-position:50% 50%;display:block;
+  transform:scale(1.02);transform-origin:50% 50%;
   filter:grayscale(1) contrast(1.06);
   transition:transform 1.4s var(--ease),filter .8s ease}
-.svcrow:hover .svcart img{transform:scale(1.62);filter:grayscale(1) contrast(1.12)}
+.svcrow:hover .svcart img{transform:scale(1.08);filter:grayscale(1) contrast(1.12)}
+/* apilado el cuadrado se come la pantalla: se baja a una banda 4/3 */
+@media(max-width:860px){.svcart{aspect-ratio:4/3}}
 /* sin marca de agua: el rotulo "01 / RESIDENTIAL" ya lleva el numero y
    encima de la foto competia con ella */
 .svcbody{text-align:left}
@@ -520,12 +520,23 @@ footer li{margin-bottom:8px}
   .nav .tel{padding:10px 12px;font-size:11.5px;letter-spacing:.04em}
 }
 
-.mobnav{position:fixed;inset:0;z-index:250;background:var(--near);color:#fff;
-  display:flex;flex-direction:column;justify-content:center;gap:8px;
-  padding:104px 30px 40px;
+/* El panel tapa la ventana entera, barra de maqueta incluida (esa lleva
+   z-index 300), y trae su propia X. Antes flotaba por debajo y habia que
+   sacar la barra y el header del flujo para dejar ver el boton: el
+   documento se acortaba y la pagina daba un salto al abrir el menu. */
+.mobnav{position:fixed;inset:0;z-index:400;background:var(--near);color:#fff;
+  display:flex;flex-direction:column;justify-content:safe center;gap:8px;
+  padding:96px 30px 44px;overflow-y:auto;-webkit-overflow-scrolling:touch;
   opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .4s var(--ease),visibility .4s}
+.mobclose{position:absolute;top:24px;right:20px;width:46px;height:46px;padding:0;
+  border:0;background:transparent;cursor:pointer;z-index:2;
+  display:flex;flex-direction:column;justify-content:center;align-items:center}
+.mobclose span{display:block;width:26px;height:2px;background:#fff;position:absolute}
+.mobclose span:nth-child(1){transform:rotate(45deg)}
+.mobclose span:nth-child(2){transform:rotate(-45deg)}
 .mobnav.open{opacity:1;visibility:visible;pointer-events:auto}
+.mobnav:focus{outline:none}
 .mobnav nav{display:flex;flex-direction:column;gap:4px}
 .mobnav nav a{font-family:var(--f-head);font-weight:700;text-transform:uppercase;
   letter-spacing:.03em;font-size:clamp(1.7rem,8vw,2.5rem);color:#fff;text-decoration:none;
@@ -545,16 +556,16 @@ footer li{margin-bottom:8px}
   border-bottom:1px solid #3A3A3A;padding-bottom:3px}
 .mobnav-foot p{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E6E6E;
   margin-top:4px}
+/* el que hace scroll es <html>, asi que bloquearlo solo en body no basta */
 body.nav-abierto{overflow:hidden}
-/* con el panel abierto el header debe flotar encima, o la X para cerrar
-   queda tapada. Se vuelve transparente y su marca pasa a blanco. */
-body.nav-abierto .demobar{display:none}
-body.nav-abierto .hdr{position:fixed;top:0;left:0;right:0;z-index:260;
-  background:transparent;box-shadow:none;border-bottom-color:transparent}
-body.nav-abierto .brand b{color:#fff}
-body.nav-abierto .brand span{color:#B0B0B0}
-body.nav-abierto .nav .tel{background:#fff;color:#000}
+html:has(body.nav-abierto){overflow:hidden}
 @media(prefers-reduced-motion:reduce){
   .mobnav,.mobnav nav a,.mobnav-foot,.burger span{transition:none!important}
   .mobnav nav a,.mobnav-foot{opacity:1;transform:none}
+}
+/* pantallas bajas: que el menu quepa sin tapar el primer enlace */
+@media(max-height:620px){
+  .mobnav{padding-top:80px}
+  .mobnav nav a{font-size:clamp(1.3rem,6vw,1.8rem);padding:7px 0}
+  .mobnav-foot{margin-top:22px}
 }
