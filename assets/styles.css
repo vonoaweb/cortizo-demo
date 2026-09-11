@@ -394,8 +394,25 @@ footer li{margin-bottom:8px}
 /* ---------- filas de proyecto, como en su pagina Projects ---------- */
 .prow{text-align:left;padding:clamp(38px,5vw,64px) 0;border-top:1px solid var(--line)}
 .prow:first-child{border-top:0;padding-top:0}
-.prow-head{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1.35fr) auto;
+/* la primera columna se acota: con el tipo de obra debajo del nombre, un
+   "auto" la estiraba y dejaba el parrafo en una tira de texto ilegible */
+.prow-head{display:grid;grid-template-columns:minmax(0,0.82fr) minmax(0,1.35fr) auto;
   gap:clamp(20px,3vw,46px);align-items:start}
+/* Tipo de obra y fechas subidos aqui desde la ficha. En su pagina hay que
+   entrar en cada proyecto para saber si es vivienda u hosteleria y de cuando
+   es; puestos en el listado, un prospecto contesta de un vistazo la unica
+   pregunta que importa: "has hecho lo mio". El dato es suyo, solo cambia
+   donde se lee. */
+.prow-id{min-width:0}
+.pmeta{display:flex;flex-direction:column;gap:3px;margin-top:12px;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--grey-2);line-height:1.5}
+.pmeta span{color:#A8A8A8}
+/* la primera foto va al doble de ancho: da un punto de entrada a la tira en
+   vez de una plancha de miniaturas todas iguales */
+.pstrip a:first-child{grid-column:span 2}
+.pcount{margin-top:12px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--grey-2)}
 .prow h2{font-family:var(--f-head);font-weight:700;font-size:clamp(1.25rem,2.4vw,1.7rem);
   letter-spacing:.03em;text-transform:uppercase;max-width:13ch}
 .prow p{color:var(--grey);font-size:.97rem;line-height:1.7}
@@ -433,9 +450,30 @@ footer li{margin-bottom:8px}
 @media(max-width:800px){.split{grid-template-columns:1fr}}
 
 /* ---------- foto grande de la pagina de proyecto ---------- */
-.casehero{overflow:hidden;background:#111}
-.casehero img{width:100%;height:clamp(260px,46vw,600px);object-fit:cover;
-  will-change:transform}
+/* ============================================================
+   CABECERA DE FICHA DE PROYECTO
+   Antes era una franja a sangre de 2.17:1 con la foto recortada
+   a cover. Sus fotos de portada son verticales (la de Casa
+   Bohemia es 1600x2133, o sea 0.75): meterla en una franja casi
+   tres veces mas ancha que su proporcion le cortaba el tejado y
+   el suelo, y se perdian dos tercios de la imagen. Ahora la foto
+   va entera, al lado de los datos del proyecto. Asi no se recorta
+   nada, sirve igual para foto vertical que apaisada, y el tipo de
+   obra y las fechas se leen sin bajar: son lo que un prospecto
+   necesita para saber si haces SU tipo de trabajo.
+   ============================================================ */
+.casehead{padding-bottom:clamp(36px,4.5vw,70px)}
+.chead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);
+  gap:clamp(26px,4vw,64px);align-items:center;text-align:left}
+.chead-txt{text-align:left}
+.chead-txt .crumbs,.chead-txt .lede{margin-left:0;margin-right:0}
+.chead-img{margin:0;background:#111;display:flex;justify-content:center}
+.chead-img img{display:block;width:auto;max-width:100%;
+  max-height:min(74vh,660px);object-fit:contain}
+@media(max-width:900px){
+  .chead{grid-template-columns:1fr;gap:24px}
+  .chead-img img{max-height:56vh;margin:0 auto}
+}
 
 /* ---------- subrayado animado en el menu ---------- */
 .nav a:not(.tel){position:relative}
