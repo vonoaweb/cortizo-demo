@@ -74,23 +74,38 @@
   }
 
   /* ---------- resenas de Google, tal como las muestra su widget ---------- */
+  var G = 'https://lh3.googleusercontent.com/';
   var REVIEWS = [
-    ['Eugene Cruz', '3/27/2023', 'On time, within budget, while handling all the unexpected challenges that presented them…'],
-    ['Giovanna Fronduto', '3/7/2023', 'Recommended a 100%. Very professional, planned, responsive.'],
-    ['Leyanis Cabrera', '7/31/2026', '(Translated by Google) Excellent service. The Cortizo Construction team is very professional, punct…'],
-    ['Richele Diaz', '1/13/2026', 'The best of the best! Great experience from start to finish. Great communication with the o…'],
-    ['Valeria Wardini', '1/13/2026', 'I highly recommend Cortizo Construction! If you a looking for professionalism, reliability, paid…']
+    ['Eugene Cruz', '3/27/2023', 'On time, within budget, while handling all the unexpected challenges that presented them…',
+     G + 'a/ACg8ocKnfVbUAfDEBP6maBk8XVYQK8eMU3ymEQNL4DMnqmn8dwuq9A=s120-c-rp-mo-br100'],
+    ['Giovanna Fronduto', '3/7/2023', 'Recommended a 100%. Very professional, planned, responsive.',
+     G + 'a/ACg8ocLBxbvJQAVMvj2LDry7GBfhNW-Zc1Yxy6gXODRLwRHw-f9bSA=s120-c-rp-mo-br100'],
+    ['Leyanis Cabrera', '7/31/2026', '(Translated by Google) Excellent service. The Cortizo Construction team is very professional, punct…',
+     G + 'a-/ALV-UjWo-kJAGN4V79iUKpqdzAA0Dk4g7nAVSRBFfehp-qgWu-5buCA=s120-c-rp-mo-br100'],
+    ['Richele Diaz', '1/13/2026', 'The best of the best! Great experience from start to finish. Great communication with the o…',
+     G + 'a-/ALV-UjVptYmhttPjahjo_80CP8tjpD36cr0yUZ7hCqLL4m4aUm9MCFI=s120-c-rp-mo-ba12-br100'],
+    ['Valeria Wardini', '1/13/2026', 'I highly recommend Cortizo Construction! If you a looking for professionalism, reliability, paid…',
+     G + 'a/ACg8ocIDxOANUWjkGu-VdVN_64s32PsXBaT30rAl1DbaZYni8qRWpw=s120-c-rp-mo-ba12-br100']
   ];
   var revTrack = document.getElementById('rev');
   if (revTrack) {
     revTrack.innerHTML = REVIEWS.map(function (r) {
       return '<article class="rev-card">'
-        + '<span class="avatar" aria-hidden="true">' + esc(r[0].charAt(0)) + '</span>'
+        + '<span class="avatar" data-initial="' + esc(r[0].charAt(0)) + '">'
+        +   '<img loading="lazy" src="' + r[3] + '" alt="' + esc(r[0]) + ' on Google">'
+        + '</span>'
         + '<span class="stars" aria-label="5 out of 5 stars">★★★★★</span>'
         + '<blockquote>&ldquo;' + esc(r[2]) + '&rdquo;</blockquote>'
         + '<span class="who"><b>' + esc(r[0]) + '</b> &middot; ' + esc(r[1]) + '</span>'
         + '</article>';
     }).join('');
+    // si Google no sirve la foto, queda la inicial
+    revTrack.querySelectorAll('.avatar img').forEach(function (im2) {
+      im2.addEventListener('error', function () {
+        var box = im2.parentElement;
+        box.textContent = box.getAttribute('data-initial');
+      });
+    });
   }
 
   /* ---------- flechas de los carruseles ---------- */
