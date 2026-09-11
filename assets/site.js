@@ -336,4 +336,204 @@
       n.style.color = '#1B1B1B';
     });
   }
+
+  /* ---------- visor de fotos ----------
+     Las fotos de proyecto no daban ninguna senal de que se pudieran abrir.
+     La insignia de lupa la pone el CSS (asi la traen todas las .shot desde
+     el primer pintado, venga el marcado de build.py o de donde venga) y
+     aqui solo se monta el visor.
+     El clic se delega en el documento a proposito: las tiras y las rejillas
+     las escribe build.py y pueden crecer o cambiar de pagina sin que este
+     archivo se entere.
+     Sobre el scroll: la capa es position:fixed y no saca del flujo ni la
+     barra de maqueta ni el header, que fue lo que un dia hizo que el
+     documento se acortara y la pagina saltara sola. Lo unico que se toca es
+     un overflow:hidden en html y body, el mismo truco del menu movil, que
+     congela la posicion sin moverla. */
+  var visor = null, vImg = null, vTxt = null, vNum = null;
+  var vGrupo = [], vIndice = 0, vOrigen = null, vTimer = null;
+  var vMM = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  // se consulta en cada uso, no al cargar: el visitante puede cambiar el
+  // ajuste del sistema con la pagina abierta
+  function vQuieto() { return vMM.matches; }
+
+  function vDos(n) { return (n < 10 ? '0' : '') + n; }
+
+  function vFlecha(d) {
+    return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+      + '<path d="' + d + '" stroke="currentColor" stroke-width="2"/></svg>';
+  }
+
+  function vCrear() {
+    visor = document.createElement('div');
+    visor.className = 'visor';
+    visor.id = 'visor';
+    visor.setAttribute('role', 'dialog');
+    visor.setAttribute('aria-modal', 'true');
+    visor.setAttribute('aria-label', 'Photo viewer');
+    visor.setAttribute('aria-hidden', 'true');
+    visor.tabIndex = -1;
+    visor.innerHTML =
+      '<button type="button" class="visor-x" aria-label="Close photo viewer">'
+      + '<span></span><span></span></button>'
+      + '<button type="button" class="visor-nav prev" aria-label="Previous photo">'
+      + vFlecha('M15 4L7 12l8 8') + '</button>'
+      + '<button type="button" class="visor-nav next" aria-label="Next photo">'
+      + vFlecha('M9 4l8 8-8 8') + '</button>'
+      + '<figure class="visor-fig">'
+      + '<img class="visor-img" alt="">'
+      + '<figcaption class="visor-cap" aria-live="polite">'
+      + '<span class="visor-num"></span><span class="visor-txt"></span>'
+      + '</figcaption></figure>';
+    document.body.appendChild(visor);
+    vImg = visor.querySelector('.visor-img');
+    vTxt = visor.querySelector('.visor-txt');
+    vNum = visor.querySelector('.visor-num');
+
+    visor.querySelector('.visor-x').addEventListener('click', vCerrar);
+    visor.querySelector('.visor-nav.prev').addEventListener('click', function () { vIr(-1); });
+    visor.querySelector('.visor-nav.next').addEventListener('click', function () { vIr(1); });
+
+    visor.addEventListener('click', function (ev) {
+      if (ev.target.closest('button')) return;
+      if (ev.target.closest('.visor-img, .visor-cap')) {
+        // la foto y el pie no cierran, pero al pulsarlos el foco se iria al
+        // body y entonces Escape y las flechas dejarian de responder
+        visor.focus({ preventScroll: true });
+        return;
+      }
+      vCerrar();
+    });
+
+    // pase con el dedo: en telefono es el gesto que todo el mundo prueba
+    var vTx = 0, vTy = 0, vTocando = false;
+    visor.addEventListener('touchstart', function (ev) {
+      vTocando = ev.touches.length === 1;
+      if (!vTocando) return;
+      vTx = ev.touches[0].clientX;
+      vTy = ev.touches[0].clientY;
+    }, { passive: true });
+    visor.addEventListener('touchend', function (ev) {
+      if (!vTocando) return;
+      vTocando = false;
+      var t = ev.changedTouches[0];
+      var dx = t.clientX - vTx, dy = t.clientY - vTy;
+      // solo pasa de foto si el gesto es claramente horizontal, para no
+      // confundir un arrastre vertical con un pase
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      vIr(dx < 0 ? 1 : -1);
+    }, { passive: true });
+  }
+
+  function vPintar() {
+    var enlace = vGrupo[vIndice];
+    if (!enlace) return;
+    var foto = enlace.querySelector('img');
+    var pie = enlace.getAttribute('data-caption') || (foto && foto.alt) || '';
+    vImg.src = enlace.getAttribute('href');
+    vImg.alt = pie;
+    vTxt.textContent = pie;
+    vNum.textContent = vDos(vIndice + 1) + ' / ' + vDos(vGrupo.length);
+  }
+
+  // la foto que viene y la que queda atras se piden al vuelo: al cambiar ya
+  // estan en cache y el pase no se queda en negro esperando la descarga
+  function vPrecargar() {
+    [-1, 0, 1].forEach(function (d) {
+      var enlace = vGrupo[(vIndice + d + vGrupo.length) % vGrupo.length];
+      if (!enlace) return;
+      var previa = new Image();
+      previa.src = enlace.getAttribute('href');
+    });
+  }
+
+  function vIr(paso) {
+    if (vGrupo.length < 2) return;
+    vIndice = (vIndice + paso + vGrupo.length) % vGrupo.length;
+    if (vQuieto()) { vPintar(); vPrecargar(); return; }
+    vPrecargar();
+    clearTimeout(vTimer);
+    visor.classList.add('cambiando');
+    vTimer = setTimeout(function () {
+      vPintar();
+      visor.classList.remove('cambiando');
+    }, 200);
+  }
+
+  function vAbrir(enlace) {
+    if (!visor) vCrear();
+    var grupo = enlace.getAttribute('data-group');
+    // se compara el atributo en lugar de meterlo en un selector: el nombre
+    // del grupo lo escribe build.py y no hay por que fiarse de que no lleve
+    // comillas
+    vGrupo = grupo
+      ? [].slice.call(document.querySelectorAll('.shot[data-group]')).filter(function (s) {
+          return s.getAttribute('data-group') === grupo;
+        })
+      : [enlace];
+    vIndice = vGrupo.indexOf(enlace);
+    if (vIndice < 0) { vGrupo = [enlace]; vIndice = 0; }
+    vOrigen = enlace;
+    // en telefono la tira solo ensena 3 de las 5 fotos; el grupo las lleva
+    // todas, asi que desde el visor se llega a las que la rejilla esconde
+    visor.classList.toggle('sola', vGrupo.length < 2);
+    clearTimeout(vTimer);
+    visor.classList.remove('cambiando');
+    vPintar();
+    visor.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('visor-abierto');
+    if (vQuieto()) {
+      visor.classList.add('abierto');
+    } else {
+      // el navegador tiene que ver el estado cerrado pintado antes de la
+      // clase que abre, si no no hay a que transicionar y entra de golpe
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { visor.classList.add('abierto'); });
+      });
+    }
+    // se enfoca la capa y no la X, por lo mismo que en el menu movil: el
+    // recuadro de foco sobre el boton parecia un error de diseno
+    setTimeout(function () { visor.focus({ preventScroll: true }); }, 40);
+    vPrecargar();
+  }
+
+  function vCerrar() {
+    if (!visor || !visor.classList.contains('abierto')) return;
+    clearTimeout(vTimer);
+    visor.classList.remove('abierto', 'cambiando');
+    visor.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('visor-abierto');
+    // preventScroll: devolver el foco no puede mover la pagina ni un pixel
+    if (vOrigen) { vOrigen.focus({ preventScroll: true }); vOrigen = null; }
+  }
+
+  document.addEventListener('click', function (ev) {
+    if (!ev.target || !ev.target.closest) return;
+    var enlace = ev.target.closest('.shot');
+    // sin href no hay foto grande que ensenar: mejor no secuestrar el clic
+    if (!enlace || !enlace.getAttribute('href')) return;
+    // con Ctrl, Cmd o Shift el visitante quiere la foto en otra pestana:
+    // se deja pasar el enlace tal cual
+    if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+    ev.preventDefault();
+    vAbrir(enlace);
+  });
+
+  document.addEventListener('keydown', function (ev) {
+    if (!visor || !visor.classList.contains('abierto')) return;
+    if (ev.key === 'Escape') { ev.preventDefault(); vCerrar(); return; }
+    if (ev.key === 'ArrowLeft') { ev.preventDefault(); vIr(-1); return; }
+    if (ev.key === 'ArrowRight') { ev.preventDefault(); vIr(1); return; }
+    if (ev.key !== 'Tab') return;
+    // el foco no debe salirse del visor, igual que en el menu movil
+    var vFoco = [].slice.call(visor.querySelectorAll('button')).filter(function (bt) {
+      return bt.getClientRects().length; // con una sola foto las flechas no estan
+    });
+    if (!vFoco.length) return;
+    var vPrimero = vFoco[0], vUltimo = vFoco[vFoco.length - 1];
+    if (!visor.contains(document.activeElement)) { ev.preventDefault(); vPrimero.focus(); return; }
+    if (ev.shiftKey && document.activeElement === vPrimero) { ev.preventDefault(); vUltimo.focus(); }
+    else if (!ev.shiftKey && document.activeElement === vUltimo) { ev.preventDefault(); vPrimero.focus(); }
+  });
 })();

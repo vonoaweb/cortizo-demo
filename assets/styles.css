@@ -18,7 +18,11 @@
   --ease:cubic-bezier(.22,1,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* El hueco de la barra de scroll se reserva siempre. Al abrir el menu
+   o el visor se pone overflow:hidden en <html>, y sin esto la barra
+   desaparecia, la pagina se ensanchaba, el texto se recomponia y la
+   posicion de lectura se corria unas decenas de pixeles al cerrar. */
+html{scroll-behavior:smooth;scrollbar-gutter:stable}
 body{margin:0;background:#FFFFFF;color:var(--head);
   font-family:var(--f-body);font-size:17px;line-height:1.75;font-weight:400;
   -webkit-font-smoothing:antialiased}
@@ -431,10 +435,16 @@ footer li{margin-bottom:8px}
 /* ---------- sus banners de titulo, invertidos para el fondo oscuro ---------- */
 .pagehero h1.art{margin:0}
 /* invert pasa el arte negro a blanco; screen descarta el fondo del JPG,
-   que si no deja un recuadro visible sobre el negro de la seccion */
-.pagehero h1.art img{width:min(520px,86%);margin:0 auto;
-  filter:invert(1);mix-blend-mode:screen}
-@media(max-width:600px){.pagehero h1.art img{width:min(320px,90%)}}
+   que si no deja un recuadro visible sobre el negro de la seccion.
+   El JPG de ella es 1400x158 con el rotulo ocupando solo un tercio del
+   ancho: puesto entero y encogido a 320px los trazos del texto quedaban
+   por debajo de un pixel y el titulo desaparecia del todo sobre el negro.
+   Ahora el recorte a la tinta lo hace su CDN (ver crop() en build.py) y
+   aqui solo se fija el tamano, con mas contraste para que el trazo fino
+   aguante el escalado. */
+.pagehero h1.art img{width:min(460px,88%);margin:0 auto;
+  filter:invert(1) contrast(1.35);mix-blend-mode:screen}
+@media(max-width:600px){.pagehero h1.art img{width:min(300px,92%)}}
 
 /* ---------- grafico de curvas decorativo ---------- */
 .contour{width:min(560px,80%);aspect-ratio:900/377;margin:0 auto 30px;
@@ -568,4 +578,146 @@ html:has(body.nav-abierto){overflow:hidden}
   .mobnav{padding-top:80px}
   .mobnav nav a{font-size:clamp(1.3rem,6vw,1.8rem);padding:7px 0}
   .mobnav-foot{margin-top:22px}
+}
+
+/* ============================================================
+   VISOR DE FOTOS
+   Las fotos de proyecto parecian muertas: nada decia que se
+   pudieran abrir. La insignia de lupa vive aqui, en CSS, y no
+   en JS, para que cualquier .shot la traiga desde el primer
+   pintado y sin importar si la escribio build.py o el propio
+   script. En telefono no hay hover, asi que es visible siempre
+   y el raton solo la refuerza.
+   ============================================================ */
+.shot{position:relative;display:block;overflow:hidden;background:#111;cursor:zoom-in}
+.shot img{width:100%;height:100%;object-fit:cover;filter:grayscale(.25);
+  transition:transform .9s var(--ease),filter .5s ease}
+.shot:hover img,.shot:focus-visible img{transform:scale(1.07);filter:grayscale(0)}
+.shot::after{content:"";position:absolute;right:0;bottom:0;width:32px;height:32px;
+  pointer-events:none;opacity:.82;transform-origin:100% 100%;
+  background:rgba(0,0,0,.6) center/15px 15px no-repeat;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2020%2020'%20fill='none'%20stroke='%23fff'%20stroke-width='1.5'%3E%3Ccircle%20cx='8.4'%20cy='8.4'%20r='5.4'/%3E%3Cpath%20d='M12.6%2012.6%2017%2017'/%3E%3Cpath%20d='M5.9%208.4h5M8.4%205.9v5'/%3E%3C/svg%3E");
+  transition:opacity .3s ease,transform .45s var(--ease),background-color .3s ease}
+.shot:hover::after,.shot:focus-visible::after{opacity:1;background-color:#000;transform:scale(1.14)}
+/* en la tira de 5, en telefono el cuadro baja de 110px: la insignia a 32
+   se comia la foto */
+@media(max-width:700px){
+  .shot::after{width:26px;height:26px;background-size:13px 13px}
+}
+
+/* ---------- contenedores de .shot ----------
+   La tira de 5 (.pstrip) ya traia su cuadro. Aqui van las rejillas: la de
+   la pagina de proyecto (.casephotos), que conserva su banda de 230px
+   ahora que cada foto va envuelta en su enlace, y la de servicios
+   (.shotgrid), que es nueva. .pgrid queda por el nombre del contrato, por
+   si build.py estrena rejilla. */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;
+  margin-top:16px}
+.casephotos .shot,.pgrid .shot{height:230px}
+/* 8 fotos en la seccion oscura de Servicios: 4 y 4, cuadradas como la tira */
+.shotgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:30px}
+.shotgrid .shot{aspect-ratio:1/1}
+@media(max-width:900px){.shotgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.shotgrid{grid-template-columns:repeat(2,1fr);gap:8px}}
+
+/* ---------- la capa ----------
+   Por encima del menu movil (400) y de la barra de maqueta (300). */
+.visor{position:fixed;inset:0;z-index:500;background:#000;
+  /* safe center: si la foto y el pie no caben, que se desborde por abajo y
+     no por arriba, donde quedaria cortada la cabeza de la foto. El center
+     de antes es el respaldo para navegadores sin la palabra safe */
+  display:flex;align-items:center;align-items:safe center;justify-content:center;
+  padding:clamp(54px,8vh,80px) clamp(56px,7vw,110px) clamp(26px,5vh,52px);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .36s var(--ease),visibility .36s}
+.visor.abierto{opacity:1;visibility:visible;pointer-events:auto}
+.visor:focus{outline:none}
+.visor-fig{margin:0;display:flex;flex-direction:column;align-items:center;
+  gap:clamp(14px,2.4vh,22px);max-width:100%;min-width:0}
+.visor-img{max-width:100%;max-height:72vh;width:auto;height:auto;object-fit:contain;
+  background:#0D0D0D;opacity:0;transform:scale(.965) translateY(24px);
+  transition:opacity .42s var(--ease),transform .42s var(--ease)}
+.visor.abierto .visor-img{opacity:1;transform:none}
+/* el pie y el contador entran un pelo despues que la foto */
+.visor-cap{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;
+  opacity:0;transform:translateY(12px);
+  transition:opacity .45s var(--ease),transform .45s var(--ease);transition-delay:.14s}
+.visor.abierto .visor-cap{opacity:1;transform:none}
+.visor-num{font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;
+  color:var(--grey-2);font-variant-numeric:tabular-nums}
+.visor-txt{color:#fff;font-size:.95rem;line-height:1.6;max-width:60ch;letter-spacing:.02em}
+/* al pasar de una foto a otra no se salta de golpe: se apaga, se cambia la
+   fuente y se vuelve a encender */
+.visor.cambiando .visor-img{opacity:0;transform:scale(.99) translateY(8px);
+  transition-duration:.2s}
+.visor.cambiando .visor-cap{opacity:0;transform:translateY(6px);
+  transition-duration:.2s;transition-delay:0s}
+
+/* fixed y no absolute: si la foto y el pie no caben (telefono tumbado) la
+   capa se desplaza por dentro, y en absolute la X se iria con el desplace */
+.visor button{position:fixed;border:0;background:transparent;color:#fff;cursor:pointer;
+  padding:0;display:flex;align-items:center;justify-content:center;
+  transition:opacity .25s ease}
+.visor-x{top:clamp(8px,1.8vh,22px);right:clamp(8px,1.8vw,26px);width:48px;height:48px;
+  opacity:.8}
+.visor-x span{display:block;width:26px;height:2px;background:#fff;position:absolute}
+.visor-x span:nth-child(1){transform:rotate(45deg)}
+.visor-x span:nth-child(2){transform:rotate(-45deg)}
+.visor-x:hover{opacity:1}
+.visor-nav{top:50%;transform:translateY(-50%);width:clamp(44px,6vw,68px);height:84px;
+  opacity:.5}
+.visor-nav:hover{opacity:1}
+.visor-nav.prev{left:0}
+.visor-nav.next{right:0}
+.visor-nav svg{width:20px;height:20px}
+/* una foto sola no se recorre ni se cuenta */
+.visor.sola .visor-nav,.visor.sola .visor-num{display:none}
+@media(max-width:700px){
+  /* el hueco de abajo es la banda de las flechas: sin el se montarian
+     encima del pie */
+  .visor{padding:clamp(50px,7vh,66px) 14px 64px}
+  .visor-img{max-height:62vh}
+  /* en telefono las flechas a los lados taparian la foto; ademas ahi el
+     gesto natural es deslizar */
+  .visor-nav{top:auto;bottom:4px;transform:none;height:54px;opacity:.7}
+}
+body.visor-abierto{overflow:hidden}
+html:has(body.visor-abierto){overflow:hidden}
+@media(prefers-reduced-motion:reduce){
+  .visor,.visor-img,.visor-cap,.visor button,.shot img,.shot::after{transition:none!important}
+  .visor-img,.visor-cap,
+  .visor.cambiando .visor-img,.visor.cambiando .visor-cap{opacity:1!important;
+    transform:none!important}
+}
+
+/* ============================================================
+   CITA FINAL DE SERVICIOS
+   Como en su pagina: franja negra, su grafico de curvas a la
+   izquierda y la cita a la derecha. El PNG ya viene en blanco
+   sobre fondo transparente, asi que aqui no lleva ni invert ni
+   mix-blend-mode, al reves que .contour, que es arte negro.
+   ============================================================ */
+.quoteband{padding-top:clamp(30px,4vw,56px);padding-bottom:clamp(48px,6vw,86px)}
+.qb{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  gap:clamp(24px,5vw,70px);align-items:center}
+.qb-art img{width:100%;height:auto;display:block}
+.qb-art.rv{opacity:0;transform:scale(.97)}
+.qb-art.rv.in{opacity:1;transform:none;
+  transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.qb-text{margin:0;text-align:left}
+.qb-mark{display:block;font-family:var(--f-head);font-size:clamp(2.6rem,6vw,4rem);
+  line-height:.6;color:var(--grey);margin-bottom:18px}
+.quoteband .process{text-align:left;margin:0;max-width:34ch}
+/* la raya corta antes del credito, como en su pagina */
+.quoteband .process-by{text-align:left;margin-top:26px;
+  display:flex;align-items:center;gap:16px}
+.quoteband .process-by::before{content:"";width:34px;height:1px;background:#6E6E6E;
+  flex:0 0 auto}
+@media(max-width:820px){
+  .qb{grid-template-columns:1fr;gap:26px}
+  .qb-art img{max-width:420px;margin:0 auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .qb-art.rv{opacity:1;transform:none}
 }
