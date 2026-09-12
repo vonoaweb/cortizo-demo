@@ -110,9 +110,24 @@ p{margin:0}
    se ensucia al escalar como le pasaba a su PNG. Va encima del titulo y no
    detras: montada sobre la palabra era justo lo que hacia ilegible su
    rotulo original. */
-.pagehero .ola{width:min(460px,78%);margin:0 auto 18px;color:var(--head)}
+/* En su arte la ola va a la IZQUIERDA del rotulo, no encima. Aqui se
+   reproduce esa composicion, pero como dos piezas separadas en linea en vez
+   de montada sobre las letras: montada era justo lo que volvia ilegible su
+   version original. El conjunto se centra, asi que la pagina sigue
+   equilibrada. En telefono se apila, porque en linea la ola dejaria el
+   rotulo en un canto de 120px. */
+.pagehero .titulo{display:flex;align-items:center;justify-content:center;
+  gap:clamp(14px,2.4vw,34px);flex-wrap:wrap}
+.pagehero .titulo-txt{text-align:left}
+.pagehero .ola{width:clamp(180px,24vw,300px);margin:0;color:var(--head);flex:0 0 auto}
 .pagehero .ola img,.pagehero .ola svg{display:block;width:100%;height:auto}
-@media(max-width:600px){.pagehero .ola{width:min(300px,86%)}}
+.pagehero .titulo .hrule{margin:0 0 12px}
+@media(max-width:720px){
+  .pagehero .titulo{flex-direction:column;gap:14px}
+  .pagehero .titulo-txt{text-align:center}
+  .pagehero .titulo .hrule{margin:0 auto 14px}
+  .pagehero .ola{width:min(320px,84%)}
+}
 .casehead .hrule{background:#fff}
 .pagehero .kicker{font-size:11px;letter-spacing:.26em;text-transform:uppercase;
   color:var(--grey-2);font-weight:700;margin-bottom:18px}
