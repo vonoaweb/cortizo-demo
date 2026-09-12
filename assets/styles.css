@@ -93,11 +93,23 @@ p{margin:0}
    boton se lee. Es ademas lo que ella tiene. */
 .pagehero{background:#fff;color:var(--head);padding:clamp(56px,8vw,104px) 0
   clamp(52px,7vw,96px)}
-.pagehero h1{color:var(--head);font-size:clamp(1.9rem,5vw,3rem);text-transform:uppercase;
-  letter-spacing:.04em;font-family:var(--f-head);font-weight:700}
+/* El titulo va en tipografia, no con su JPEG de rotulo. El de ella es un
+   raster de 900x181 con la mancha encima de la palabra y descentrada, y
+   dibujado a 480px salia al 53% de su tamano: trazo fino borroso y la
+   mancha convertida en un manchurron. Ademas pesaba menos que el parrafo
+   de debajo, asi que la portada no tenia jerarquia. En Cabin, que es la
+   familia de su marca, sale nitido a cualquier tamano, escala en movil y
+   se puede seleccionar y leer. La rayita corta de encima es el mismo
+   recurso que ella lleva en su arte, pero dibujado limpio. */
+.pagehero h1{color:var(--head);font-size:clamp(2.3rem,6.4vw,4rem);text-transform:uppercase;
+  letter-spacing:.01em;font-family:var(--f-head);font-weight:700;line-height:1.04}
+.pagehero .hrule{display:block;width:54px;height:2px;background:var(--head);
+  margin:0 auto 24px}
+.casehead .hrule{background:#fff}
 .pagehero .kicker{font-size:11px;letter-spacing:.26em;text-transform:uppercase;
   color:var(--grey-2);font-weight:700;margin-bottom:18px}
-.pagehero .lede{color:var(--grey);font-size:1.05rem;max-width:56ch;margin:20px auto 0}
+.pagehero .lede{color:var(--grey);font-size:1rem;line-height:1.75;max-width:54ch;
+  margin:24px auto 0}
 .crumbs{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E6E6E;
   margin-bottom:16px}
 .crumbs a{text-decoration:none}
