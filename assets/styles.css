@@ -105,6 +105,14 @@ p{margin:0}
   letter-spacing:.01em;font-family:var(--f-head);font-weight:700;line-height:1.04}
 .pagehero .hrule{display:block;width:54px;height:2px;background:var(--head);
   margin:0 auto 24px}
+/* La "ola" de su marca, redibujada en SVG. Hereda currentColor, asi que sirve
+   igual sobre la portada blanca que sobre fondo oscuro, y al ser vectorial no
+   se ensucia al escalar como le pasaba a su PNG. Va encima del titulo y no
+   detras: montada sobre la palabra era justo lo que hacia ilegible su
+   rotulo original. */
+.pagehero .ola{width:min(300px,62%);margin:0 auto 22px;color:var(--head)}
+.pagehero .ola svg{display:block;width:100%;height:auto}
+@media(max-width:600px){.pagehero .ola{width:min(220px,70%)}}
 .casehead .hrule{background:#fff}
 .pagehero .kicker{font-size:11px;letter-spacing:.26em;text-transform:uppercase;
   color:var(--grey-2);font-weight:700;margin-bottom:18px}
