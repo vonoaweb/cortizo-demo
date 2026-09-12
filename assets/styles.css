@@ -790,10 +790,21 @@ html:has(body.nav-abierto){overflow:hidden}
   .casephotos .shot:first-child{grid-column:span 2;grid-row:span 2}
 }
 /* 8 fotos en la seccion oscura de Servicios: 4 y 4, cuadradas como la tira */
-.shotgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:30px}
-.shotgrid .shot{aspect-ratio:1/1}
-@media(max-width:900px){.shotgrid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.shotgrid{grid-template-columns:repeat(2,1fr);gap:8px}}
+/* Galeria de obra de Servicios y de About.
+   Iba en cuadros con object-fit:cover, y sus fotos traen proporciones muy
+   distintas: hay panoramicas de 2.39 y verticales de 0.75. En un cuadro de
+   1.00 la panoramica perdia el 58% de la imagen; medido, no estimado. Ahora
+   la altura de la fila es fija y el ancho lo pone cada foto segun su propia
+   proporcion, asi que no se recorta ninguna. Las filas quedan de ancho
+   desigual: se centran, que es como se compone una galeria justificada. */
+.shotgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:30px}
+.shotgrid .shot{flex:0 0 auto;width:auto;aspect-ratio:auto;
+  height:clamp(150px,17vw,215px)}
+.shotgrid .shot img{height:100%;width:auto;max-width:none;object-fit:contain}
+@media(max-width:640px){
+  .shotgrid{gap:8px}
+  .shotgrid .shot{height:clamp(118px,32vw,160px)}
+}
 
 /* ---------- la capa ----------
    Por encima del menu movil (400) y de la barra de maqueta (300). */
