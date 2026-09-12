@@ -84,13 +84,20 @@ p{margin:0}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 
 /* ---------- encabezado de paginas interiores ---------- */
-.pagehero{background:var(--near);color:#fff;padding:clamp(64px,9vw,120px) 0
-  clamp(56px,8vw,104px)}
-.pagehero h1{color:#fff;font-size:clamp(1.9rem,5vw,3rem);text-transform:uppercase;
+/* La portada de Projects, About y Services va en blanco, como la suya.
+   Estaba en negro y eso rompia dos cosas a la vez: su arte de titulo esta
+   dibujado en negro sobre blanco, asi que habia que invertirlo y el
+   degradado de la mancha se volvia un borron gris con motas; y el boton
+   "Explore our projects" es negro con letra blanca, o sea negro sobre
+   negro. En blanco el arte va tal cual, sin invertir ni mezclar, y el
+   boton se lee. Es ademas lo que ella tiene. */
+.pagehero{background:#fff;color:var(--head);padding:clamp(56px,8vw,104px) 0
+  clamp(52px,7vw,96px)}
+.pagehero h1{color:var(--head);font-size:clamp(1.9rem,5vw,3rem);text-transform:uppercase;
   letter-spacing:.04em;font-family:var(--f-head);font-weight:700}
 .pagehero .kicker{font-size:11px;letter-spacing:.26em;text-transform:uppercase;
   color:var(--grey-2);font-weight:700;margin-bottom:18px}
-.pagehero .lede{color:#C9C9C9;font-size:1.05rem;max-width:56ch;margin:20px auto 0}
+.pagehero .lede{color:var(--grey);font-size:1.05rem;max-width:56ch;margin:20px auto 0}
 .crumbs{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E6E6E;
   margin-bottom:16px}
 .crumbs a{text-decoration:none}
@@ -498,7 +505,9 @@ footer li{margin-bottom:8px}
    obra y las fechas se leen sin bajar: son lo que un prospecto
    necesita para saber si haces SU tipo de trabajo.
    ============================================================ */
-.casehead{padding-bottom:clamp(36px,4.5vw,70px)}
+.casehead{background:var(--near);color:#fff;padding-bottom:clamp(36px,4.5vw,70px)}
+.casehead h1{color:#fff}
+.casehead .lede{color:#C9C9C9}
 .chead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);
   gap:clamp(26px,4vw,64px);align-items:center;text-align:left}
 .chead-txt{text-align:left}
@@ -573,8 +582,7 @@ footer li{margin-bottom:8px}
    Ahora el recorte a la tinta lo hace su CDN (ver crop() en build.py) y
    aqui solo se fija el tamano, con mas contraste para que el trazo fino
    aguante el escalado. */
-.pagehero h1.art img{width:min(460px,88%);margin:0 auto;
-  filter:invert(1) contrast(1.35);mix-blend-mode:screen}
+.pagehero h1.art img{width:min(480px,90%);margin:0 auto}
 @media(max-width:600px){.pagehero h1.art img{width:min(300px,92%)}}
 
 /* ---------- grafico de curvas decorativo ---------- */
