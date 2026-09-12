@@ -121,10 +121,14 @@ p{margin:0}
 .pagehero .titulo-txt{text-align:left}
 /* la ola es 3.84 de ancho por 1 de alto: necesita mas ancho que el blob
    anterior para no quedar en una cinta de 80px de alto */
-.pagehero .ola{width:clamp(240px,32vw,420px);margin:0;color:var(--head);flex:0 0 auto}
+.pagehero .ola{width:clamp(300px,34vw,440px);margin:0;color:var(--head);flex:0 0 auto}
 .pagehero .ola img,.pagehero .ola svg{display:block;width:100%;height:auto}
 .pagehero .titulo .hrule{margin:0 0 12px}
-@media(max-width:720px){
+/* Se apila ya a 900 y no a 720. Entre esas dos medidas iba al lado del
+   titulo y le tocaban unos 270px de ancho: a ese tamano las curvas quedan a
+   tres pixeles una de otra y se empastan en una mancha gris, que es
+   justamente lo que se venia arreglando. Apilada recibe el ancho entero. */
+@media(max-width:900px){
   .pagehero .titulo{flex-direction:column;gap:14px}
   .pagehero .titulo-txt{text-align:center}
   .pagehero .titulo .hrule{margin:0 auto 14px}
