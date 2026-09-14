@@ -1062,7 +1062,14 @@
     }
 
     /* --- revelado --- */
-    gsap.utils.toArray('.rv').forEach(function (el) {
+    // La portada NO entra por scroll. Esta sobre el pliegue, asi que su
+    // disparador se cumple en el acto y solo aporta un punto de fallo: si
+    // GSAP tarda o el disparador se calcula sobre una altura vieja, el
+    // titular se queda invisible y la primera impresion es una pagina en
+    // blanco. Entra con la cortina, en secuencia, mas abajo.
+    gsap.utils.toArray('.rv').filter(function (el) {
+      return !el.closest('.pagehero');
+    }).forEach(function (el) {
       var d = parseFloat((el.style.getPropertyValue('--d') || '0').replace('ms', '')) / 1000;
       gsap.fromTo(el, { y: 34, autoAlpha: 0 }, {
         y: 0, autoAlpha: 1, duration: 1, ease: 'power3.out', delay: d || 0,
@@ -1088,6 +1095,7 @@
     if (window.SplitText) {
       gsap.utils.toArray('h1, h2.title, .casetitulo, .cierre-titulo, .svcline-head h3')
         .forEach(function (el) {
+          var enPortada = !!el.closest('.pagehero');
           if (!el.textContent.trim()) return;
           var partido;
           try { partido = new window.SplitText(el, { type: 'lines', linesClass: 'linea' }); }
@@ -1099,12 +1107,47 @@
             l.parentNode.insertBefore(caja, l);
             caja.appendChild(l);
           });
+          if (enPortada) {
+            // se guarda para que la cortina lo encadene
+            el.__lineas = partido.lines;
+            gsap.set(partido.lines, { yPercent: 108 });
+            return;
+          }
           gsap.fromTo(partido.lines, { yPercent: 108 }, {
             yPercent: 0, duration: 1.05, ease: 'power4.out', stagger: 0.09,
             scrollTrigger: { trigger: el, start: 'top 88%', once: true }
           });
         });
     }
+
+    /* --- entrada de la portada, encadenada a la cortina ---
+       Va aqui y no arriba porque necesita que SplitText ya haya partido el
+       titular. El retraso empalma con el momento en que la cortina termina
+       de subir. */
+    (function () {
+      var piezas = gsap.utils.toArray('.pagehero .rv');
+      var h1 = document.querySelector('.pagehero h1');
+      var tl = gsap.timeline({ delay: cortina ? 0.62 : 0.1 });
+      if (piezas.length) {
+        tl.to(piezas, {
+          autoAlpha: 1, y: 0, duration: 0.95, ease: 'power3.out', stagger: 0.09
+        }, 0);
+      }
+      if (h1 && h1.__lineas) {
+        tl.to(h1.__lineas, {
+          yPercent: 0, duration: 1.1, ease: 'power4.out', stagger: 0.09
+        }, 0.12);
+      }
+      // Red de seguridad, por la misma razon que la de la cortina: una
+      // portada en blanco es peor que una portada sin animacion.
+      setTimeout(function () {
+        piezas.forEach(function (el) {
+          var c = getComputedStyle(el);
+          if (parseFloat(c.opacity) < 0.98) gsap.set(el, { autoAlpha: 1, y: 0 });
+        });
+        if (h1 && h1.__lineas) gsap.set(h1.__lineas, { yPercent: 0 });
+      }, 3000);
+    })();
 
     /* --- la montana se dibuja sola ---
        Cada curva de nivel lleva pathLength="1", asi que su longitud cuenta

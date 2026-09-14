@@ -91,8 +91,19 @@ p{margin:0}
    "Explore our projects" es negro con letra blanca, o sea negro sobre
    negro. En blanco el arte va tal cual, sin invertir ni mezclar, y el
    boton se lee. Es ademas lo que ella tiene. */
-.pagehero{background:#fff;color:var(--head);padding:clamp(56px,8vw,104px) 0
-  clamp(52px,7vw,96px)}
+/* ---------- PORTADA DE PAGINA ----------
+   Estaba todo centrado: rotulo, ola, raya, titulo y parrafo, uno debajo de
+   otro en el eje. Eso es lo que hacia que, quieta, la maqueta se viera
+   igual que el sitio original por mucha animacion que llevara encima.
+   Ahora la composicion es asimetrica: el titulo pegado al margen izquierdo
+   y a toda la altura que da la caja, y la montana grande, detras y saliendo
+   por el borde derecho. La familia, el color y las piezas son las mismas;
+   lo que cambia es donde esta cada una. */
+.pagehero{background:#fff;color:var(--head);position:relative;overflow:hidden;
+  text-align:left;display:flex;align-items:center;
+  min-height:clamp(440px,74vh,820px);
+  padding:clamp(40px,6vw,72px) 0 clamp(40px,6vw,72px)}
+.pagehero > .wrap{width:100%;position:relative;z-index:1;text-align:left}
 /* El titulo va en tipografia, no con su JPEG de rotulo. El de ella es un
    raster de 900x181 con la mancha encima de la palabra y descentrada, y
    dibujado a 480px salia al 53% de su tamano: trazo fino borroso y la
@@ -105,7 +116,7 @@ p{margin:0}
   letter-spacing:-.035em;font-family:var(--f-head);font-weight:700;line-height:.86;
   text-wrap:balance}
 .pagehero .hrule{display:block;width:clamp(54px,7vw,96px);height:2px;background:var(--head);
-  margin:0 auto 24px}
+  margin:0 0 20px}
 /* La "ola" de su marca, redibujada en SVG. Hereda currentColor, asi que sirve
    igual sobre la portada blanca que sobre fondo oscuro, y al ser vectorial no
    se ensucia al escalar como le pasaba a su PNG. Va encima del titulo y no
@@ -117,12 +128,15 @@ p{margin:0}
    version original. El conjunto se centra, asi que la pagina sigue
    equilibrada. En telefono se apila, porque en linea la ola dejaria el
    rotulo en un canto de 120px. */
-.pagehero .titulo{display:flex;align-items:center;justify-content:center;
-  gap:clamp(14px,2.4vw,34px);flex-wrap:wrap}
-.pagehero .titulo-txt{text-align:left}
+.pagehero .titulo{display:block}
+.pagehero .titulo-txt{text-align:left;position:relative;z-index:1}
 /* la ola es 3.84 de ancho por 1 de alto: necesita mas ancho que el blob
    anterior para no quedar en una cinta de 80px de alto */
-.pagehero .ola{width:clamp(300px,38vw,560px);margin:0;color:var(--head);flex:0 0 auto}
+/* la montana sale del flujo: grande, detras del titulo y cortada por el
+   borde derecho. Rebajada de tinta para que no le pelee al rotulo */
+.pagehero .ola{position:absolute;z-index:0;pointer-events:none;
+  right:-14%;top:50%;transform:translateY(-50%);
+  width:min(74vw,1020px);margin:0;color:var(--head);opacity:.34}
 .pagehero .ola img,.pagehero .ola svg{display:block;width:100%;height:auto}
 .pagehero .titulo .hrule{margin:0 0 12px}
 /* Se apila ya a 900 y no a 720. Entre esas dos medidas iba al lado del
@@ -130,15 +144,14 @@ p{margin:0}
    tres pixeles una de otra y se empastan en una mancha gris, que es
    justamente lo que se venia arreglando. Apilada recibe el ancho entero. */
 @media(max-width:900px){
-  .pagehero .titulo{flex-direction:column;gap:14px}
-  .pagehero .titulo-txt{text-align:center}
-  .pagehero .titulo .hrule{margin:0 auto 14px}
-  .pagehero .ola{width:min(420px,92%)}
+  .pagehero{min-height:clamp(380px,62vh,560px)}
+  .pagehero .ola{right:-22%;width:min(120vw,760px);opacity:.28}
+  .pagehero .lede{max-width:none}
 }
 .pagehero .kicker{font-size:11px;letter-spacing:.26em;text-transform:uppercase;
   color:var(--grey-2);font-weight:700;margin-bottom:18px}
-.pagehero .lede{color:var(--grey);font-size:1rem;line-height:1.75;max-width:54ch;
-  margin:24px auto 0}
+.pagehero .lede{color:var(--grey);font-size:clamp(1rem,1.5vw,1.16rem);line-height:1.7;
+  max-width:44ch;margin:clamp(22px,3vw,34px) 0 0}
 .crumbs{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E6E6E;
   margin-bottom:16px}
 .crumbs a{text-decoration:none}
