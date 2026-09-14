@@ -1074,3 +1074,73 @@ html:has(body.visor-abierto){overflow:hidden}
   .pcard:hover{transform:none!important;box-shadow:none!important}
   .pcard:hover .pcard-foto img{transform:none!important}
 }
+
+
+/* ============================================================
+   FICHA DE PROYECTO — caso de estudio
+   Estructura tomada de la maqueta que paso Fernando: distintivo
+   de caso, cinta de datos, narrativa con una nota al lado, lo
+   aprendido numerado, los estandares en tarjetas y la cita.
+   Su referencia venia en serif editorial, crema y terracota, con
+   pastillas redondeadas; aqui va en el sistema de ella. Y el
+   contenido es el suyo: la referencia traia datos inventados
+   ("100% Passed & Certified", "Forensic Plan Review") que no
+   estan en su sitio.
+   ============================================================ */
+
+/* distintivo bajo las migas */
+.casebadge{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0 0 14px;
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey-2)}
+.casebadge span{background:#fff;color:#000;font-weight:700;padding:6px 11px}
+.casehead .casebadge span{background:#fff;color:#000}
+
+/* cinta de datos a todo lo ancho, bajo la cabecera */
+.cinta{background:var(--near);border-top:1px solid var(--line-dark)}
+.cinta-datos{display:flex;flex-wrap:wrap;margin:0}
+.cinta-datos div{flex:1 1 190px;padding:18px 22px;border-right:1px solid var(--line-dark);
+  text-align:left}
+.cinta-datos div:last-child{border-right:0}
+.cinta-datos dt{font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--grey-2);margin-bottom:6px}
+.cinta-datos dd{margin:0;font-size:.92rem;color:#fff;line-height:1.5}
+@media(max-width:700px){
+  .cinta-datos div{flex:1 1 100%;border-right:0;border-bottom:1px solid var(--line-dark)}
+  .cinta-datos div:last-child{border-bottom:0}
+}
+
+/* narrativa con la nota del reto al lado */
+.caserow{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);
+  gap:clamp(26px,4vw,64px);align-items:start;text-align:left}
+.caserow-txt{max-width:none}
+.caseaside{background:var(--near);color:#fff;padding:26px 24px 28px;position:sticky;top:96px}
+.caseaside-rotulo{font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--grey-2);font-weight:700;margin:0 0 12px;
+  padding-bottom:12px;border-bottom:1px solid var(--line-dark)}
+.caseaside p:not(.caseaside-rotulo){color:#BDBDBD;font-size:.93rem;line-height:1.75;margin:0}
+@media(max-width:900px){
+  .caserow{grid-template-columns:1fr}
+  .caseaside{position:static}
+}
+
+/* lo aprendido, enumerado */
+.lecciones{list-style:none;margin:36px 0 0;padding:0;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
+  gap:1px;background:var(--line-dark);border:1px solid var(--line-dark)}
+.lecciones li{background:var(--near);padding:24px 22px 26px;text-align:left;
+  color:#A8A8A8;font-size:.93rem;line-height:1.7}
+.lecciones li span{display:block;font-family:var(--f-head);font-weight:700;font-size:13px;
+  letter-spacing:.1em;color:#fff;margin-bottom:12px;font-variant-numeric:tabular-nums}
+
+/* los estandares, en tarjetas */
+.estandares{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:12px;margin-top:34px}
+.estandar{border:1px solid var(--line);padding:22px 20px;text-align:left;
+  color:var(--grey);font-size:.93rem;line-height:1.7;
+  transition:border-color .35s ease,transform .45s var(--ease)}
+@media(hover:hover){
+  .estandar:hover{border-color:var(--head);transform:translateY(-3px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .estandar{transition:none!important}
+  .estandar:hover{transform:none!important}
+}
