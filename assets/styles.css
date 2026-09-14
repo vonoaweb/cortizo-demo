@@ -280,25 +280,19 @@ h2.title{font-size:clamp(1.55rem,3.6vw,2.15rem);font-weight:400}
 .prose li::before{content:"";position:absolute;left:2px;top:22px;width:11px;height:1px;
   background:#000}
 /* ============================================================
-   GALERIA DE PROYECTO — rejilla editorial
-   Antes eran todas del mismo tamano: una plancha de miniaturas
-   que se lee como carpeta compartida, no como portafolio. Con
-   una foto principal que manda y el resto alrededor, el ojo sabe
-   por donde entrar y la pagina se lee como una lamina de
-   portafolio. La rejilla es estricta (4 columnas, filas fijas) y
-   lo que varia es cuantas celdas ocupa cada foto; asi se rompe la
-   monotonia sin perder la alineacion.
+   GALERIA DE PROYECTO — columnas tipo mamposteria
+   La version anterior era una galeria justificada de filas de
+   alto fijo con la primera foto al doble de alto. No recortaba,
+   pero dejaba un hueco muerto enorme: la foto grande ocupaba dos
+   filas y las cortas de al lado no tenian con que rellenar el
+   espacio de debajo.
+   En columnas cada foto entra con su alto natural y la columna se
+   rellena sola: no queda hueco, no se recorta nada y las alturas
+   dejan de repetirse. Sin fondo negro ni pie encima; el pie se lee
+   al abrir la foto en el visor.
    ============================================================ */
-/* Galeria justificada: altura de fila fija y ancho segun la proporcion de
-   cada foto, con la primera al doble de alto para que siga mandando. Antes
-   era una rejilla de celdas fijas con cover; la composicion estaba bien pero
-   el precio era el recorte: sus fotos van de verticales de 0.67 a apaisadas,
-   y en telefono una vertical en celda apaisada perdia el 44% de la imagen.
-   Asi se conserva la foto principal y no se recorta ninguna. */
-.casephotos{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
-  margin-top:16px}
-.casephotos img{height:100%;width:auto;max-width:none;object-fit:contain;
-  background:#111}
+.casephotos{columns:3;column-gap:12px;margin-top:16px}
+.casephotos img{width:100%;height:auto;display:block;background:#F0F0F0}
 .nextprev{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
   border-top:1px solid var(--line);padding-top:26px;margin-top:16px;
   font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
@@ -803,19 +797,14 @@ html:has(body.nav-abierto){overflow:hidden}
    ahora que cada foto va envuelta en su enlace, y la de servicios
    (.shotgrid), que es nueva. .pgrid queda por el nombre del contrato, por
    si build.py estrena rejilla. */
-.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;
-  margin-top:16px}
-/* la principal manda: cuatro celdas */
-.casephotos .shot{flex:0 0 auto;width:auto;aspect-ratio:auto;
-  height:clamp(150px,16vw,205px)}
-.casephotos .shot:first-child{height:clamp(250px,34vw,430px)}
-/* en telefono una fila de 118px dejaba las verticales en 89 de ancho: se
-   leian como sellos. Con 150 la vertical sale a 112 y la apaisada a 225. */
-@media(max-width:640px){
-  .casephotos{gap:8px}
-  .casephotos .shot{height:clamp(150px,38vw,195px)}
-  .casephotos .shot:first-child{height:clamp(250px,66vw,330px)}
-}
+.casephotos .shot{display:block;width:auto;height:auto;aspect-ratio:auto;
+  break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 12px;
+  background:#F0F0F0}
+/* sin el pie encima de la miniatura: era la banda oscura que cruzaba cada
+   foto. El texto sigue estando, se lee al abrirla en el visor. */
+.casephotos .shot::before{display:none}
+@media(max-width:900px){.casephotos{columns:2}}
+@media(max-width:560px){.casephotos{columns:1;column-gap:0}}
 /* 8 fotos en la seccion oscura de Servicios: 4 y 4, cuadradas como la tira */
 /* Galeria de obra de Servicios y de About.
    Iba en cuadros con object-fit:cover, y sus fotos traen proporciones muy
