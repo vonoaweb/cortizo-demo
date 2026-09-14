@@ -445,7 +445,41 @@ label{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercas
 .formnote{font-size:12.5px;color:#8C8C8C;text-align:center}
 
 /* ---------- pie ---------- */
-footer{background:#000;color:#8C8C8C;padding:56px 0 28px;font-size:14px}
+/* ---------- cierre: la llamada final, igual en las diez paginas ----------
+   Va dentro del footer y un tono por encima del negro puro, con una linea
+   de un pixel, para que se lea como una banda propia y no como el footer
+   estirado. */
+.cierre{background:var(--near);
+  /* la de arriba hace falta: about, services y projects ya terminan en una
+     seccion oscura del mismo tono y sin la linea la banda y la seccion se
+     fundian en un solo bloque negro larguisimo */
+  border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);
+  padding:clamp(52px,7vw,92px) 0 clamp(48px,6.5vw,84px);
+  margin-bottom:56px;text-align:center}
+.cierre .eyebrow{color:#7A7A7A;margin-bottom:16px}
+.cierre-titulo{font-family:var(--f-head);font-weight:400;color:#fff;margin:0;
+  font-size:clamp(1.75rem,4.4vw,2.85rem);line-height:1.12;letter-spacing:-.005em;
+  max-width:19ch;margin-inline:auto;text-wrap:balance}
+.cierre-sub{color:#A8A8A8;font-size:clamp(.98rem,1.5vw,1.08rem);line-height:1.7;
+  max-width:58ch;margin:20px auto 0}
+.cierre-btns{display:flex;flex-wrap:wrap;justify-content:center;
+  gap:14px;margin-top:clamp(28px,3.6vw,42px)}
+.cierre-btns .btn{min-width:0;display:inline-flex;align-items:center;
+  justify-content:center;gap:10px}
+/* el verde es el de WhatsApp: es lo que hace que se reconozca de un
+   vistazo. El texto va oscuro y no blanco porque sobre ese verde el
+   blanco se queda en 2.4:1 y no se lee bien */
+.btn-wa{background:#25D366;color:#0A1A0F;border-color:#25D366}
+.btn-wa svg{width:17px;height:17px;flex:0 0 auto}
+.btn-wa:hover{background:transparent;color:#25D366}
+.btn-borde{background:transparent;color:#fff;border-color:rgba(255,255,255,.34)}
+.btn-borde:hover{background:#fff;color:#000;border-color:#fff}
+@media(max-width:560px){
+  .cierre-btns{flex-direction:column;align-items:stretch}
+  .cierre-btns .btn{width:100%}
+}
+
+footer{background:#000;color:#8C8C8C;padding:0 0 28px;font-size:14px}
 .f-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px;
   padding-bottom:32px;border-bottom:1px solid var(--line-dark)}
 footer h4{font-family:var(--f-body);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
