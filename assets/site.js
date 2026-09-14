@@ -1034,6 +1034,39 @@
         });
     }
 
+    /* --- la montana se dibuja sola ---
+       Cada curva de nivel lleva pathLength="1", asi que su longitud cuenta
+       como 1 pase lo que pase y el trazo se dibuja moviendo el desfase de 1
+       a 0, sin medir nada en el navegador.
+
+       El orden no es el del archivo: se ordenan por tamano, de la curva mas
+       pequena a la mas grande, para que el dibujo crezca desde el nucleo
+       hacia fuera en vez de aparecer a trozos sueltos. Es como se lee un
+       plano topografico. */
+    gsap.utils.toArray('.ola-svg').forEach(function (svg) {
+      var trazos = [].slice.call(svg.querySelectorAll('path'));
+      if (!trazos.length) return;
+      trazos.sort(function (a, b) {
+        var ca, cb;
+        try { ca = a.getBBox(); cb = b.getBBox(); } catch (e) { return 0; }
+        return (ca.width * ca.height) - (cb.width * cb.height);
+      });
+      gsap.set(trazos, { strokeDasharray: 1, strokeDashoffset: 1, opacity: 1 });
+      gsap.to(trazos, {
+        strokeDashoffset: 0,
+        duration: 1.5,
+        ease: 'power2.inOut',
+        stagger: { each: 0.035, from: 'start' },
+        scrollTrigger: { trigger: svg, start: 'top 92%', once: true }
+      });
+      // deriva muy lenta al bajar: da profundidad sin que se note el truco
+      gsap.fromTo(svg, { yPercent: -3 }, {
+        yPercent: 5, ease: 'none',
+        scrollTrigger: { trigger: svg.parentNode, start: 'top bottom',
+                         end: 'bottom top', scrub: 0.8 }
+      });
+    });
+
     /* --- paralaje, solo donde la foto ya iba recortada --- */
     gsap.utils.toArray('.portada-foto').forEach(function (img) {
         gsap.fromTo(img, { yPercent: -6 }, {

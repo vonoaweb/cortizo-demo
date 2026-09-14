@@ -452,6 +452,11 @@ body:not(.no-js) .team figure{cursor:pointer}
    despues de comprobar que GSAP cargo y que el visitante no pidio menos
    movimiento. Sin ella el sitio se ve exactamente igual que antes. */
 .linea-caja{display:block;overflow:hidden}
+/* la montana en linea ocupa lo mismo que ocupaba como <img> */
+.pagehero .ola .ola-svg{display:block;width:100%;height:auto}
+/* con la capa montada los trazos arrancan sin dibujar; sin ella se ven
+   enteros desde el primer pintado, como hasta ahora */
+.mov .pagehero .ola-svg path{stroke-dasharray:1;stroke-dashoffset:1}
 /* la foto con paralaje se agranda un pelo: si no, al recorrerla se veria el
    borde de su marco */
 .mov .portada-foto{height:114%;margin-top:-7%}
