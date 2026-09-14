@@ -467,6 +467,23 @@ body:not(.no-js) .team figure{cursor:pointer}
    movimiento. Sin ella el sitio se ve exactamente igual que antes. */
 .linea-caja{display:block;overflow:hidden}
 
+/* ---------- camino del proceso ----------
+   La linea recta del proceso pasa a ser un camino que serpentea entre las
+   cinco fases, con un marcador que lo recorre al hacer scroll y va
+   encendiendo cada punto al pasar. Es el mismo lenguaje de curvas de nivel
+   que lleva su marca, aplicado a la unica parte del sitio que ya era una
+   secuencia.
+   Solo se ve con la capa de movimiento montada; si no, se queda la linea
+   recta de antes y no se pinta nada de esto. */
+.timeline .ruta{position:absolute;left:0;top:0;width:100%;height:100%;
+  overflow:visible;pointer-events:none;z-index:0;display:none}
+.mov .timeline .ruta{display:block}
+/* con el camino puesto, la linea recta y su relleno sobran */
+.mov .timeline::before,.mov .timeline .fill{display:none}
+.ruta-linea{stroke:var(--line);stroke-width:1.5}
+.ruta-hecho{stroke:var(--head);stroke-width:1.5}
+.ruta-punto{fill:var(--head);stroke:#fff;stroke-width:3}
+
 /* la montana en linea ocupa lo mismo que ocupaba como <img> */
 .pagehero .ola .ola-svg{display:block;width:100%;height:auto}
 /* con la capa montada los trazos arrancan sin dibujar; sin ella se ven

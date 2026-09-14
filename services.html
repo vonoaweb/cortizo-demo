@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=112">
+<link rel="stylesheet" href="assets/styles.css?v=118">
 
 <script type="application/ld+json">
 {
@@ -256,6 +256,15 @@
       <p class="eyebrow rv">Our process</p>
       <ol class="timeline" id="timeline">
         <span class="fill" aria-hidden="true"></span>
+        <!-- El camino y su marcador. Van vacios: la ruta la calcula el script
+             desde la posicion real de cada punto, porque depende del largo
+             de cada texto y cambia al redimensionar. Sin JavaScript no se
+             pintan y queda la linea recta de siempre. -->
+        <svg class="ruta" aria-hidden="true" focusable="false">
+          <path class="ruta-linea" fill="none"></path>
+          <path class="ruta-hecho" fill="none"></path>
+          <circle class="ruta-punto" r="7"></circle>
+        </svg>
         <li class="tstep">
           <span class="dot" aria-hidden="true">01</span>
           <div class="tbody">
@@ -389,7 +398,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/MotionPathPlugin.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
-<script src="assets/site.js?v=112"></script>
+<script src="assets/site.js?v=118"></script>
 </body>
 </html>

@@ -962,11 +962,12 @@
     /* --- desplazamiento suave --- */
     var lenis = null;
     if (window.Lenis) {
-      lenis = new window.Lenis({
-        duration: 1.05,
-        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-        smoothWheel: true
-      });
+      // autoRaf en falso es obligatorio aqui: Lenis 1.3 arranca su propio
+      // bucle salvo que se le diga que no, y este lo mueve el ticker de
+      // GSAP unas lineas mas abajo. Con los dos a la vez su estado interno
+      // se corrompia y scrollTo reventaba con "t is not a function" en
+      // todas sus formas, asi que los enlaces de ancla no hacian nada.
+      lenis = new window.Lenis({ lerp: 0.085, smoothWheel: true, autoRaf: false });
       lenis.on('scroll', ST.update);
       gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
       gsap.ticker.lagSmoothing(0);
@@ -986,10 +987,17 @@
         if (!a) return;
         var id = a.getAttribute('href');
         if (!id || id === '#') return;
-        var destino = document.querySelector(id);
+        var destino;
+        try { destino = document.querySelector(id); } catch (e) { return; }
         if (!destino) return;
         ev.preventDefault();
-        lenis.scrollTo(destino, { offset: -90 });
+        // Se desplaza a pelo y no con lenis.scrollTo: en Lenis 1.3.11 ese
+        // metodo revienta con "t is not a function" con cualquier destino
+        // numerico, con y sin opciones. Probado uno a uno. El nativo
+        // funciona y Lenis se mantiene sincronizado: comprobado, los dos
+        // marcaban 900 despues de un scrollTo suave.
+        var y = destino.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top: y, behavior: 'smooth' });
       });
     }
 
@@ -1223,6 +1231,92 @@
         });
       }
     }
+
+    /* --- el camino del proceso, con sus cinco puntos ---
+       La linea recta pasa a ser un camino que serpentea entre las fases,
+       con un marcador que lo recorre al hacer scroll y enciende cada punto
+       al pasar por el.
+
+       La ruta NO va escrita en el HTML: se calcula desde la posicion real
+       de cada punto, porque depende del largo de cada texto y cambia al
+       redimensionar. Se traza una curva cubica por tramo, con las asas
+       desviadas a un lado y a otro alternando, asi que la linea pasa
+       exactamente por cada punto y se curva entre ellos. */
+    (function () {
+      var linea = document.getElementById('timeline');
+      if (!linea || !window.MotionPathPlugin) return;
+      gsap.registerPlugin(window.MotionPathPlugin);
+
+      var svg = linea.querySelector('.ruta');
+      var camino = linea.querySelector('.ruta-linea');
+      var hecho = linea.querySelector('.ruta-hecho');
+      var punto = linea.querySelector('.ruta-punto');
+      var pasos = [].slice.call(linea.querySelectorAll('.tstep'));
+      if (!svg || !camino || pasos.length < 2) return;
+
+      var largo = 0;
+
+      function trazar() {
+        var base = linea.getBoundingClientRect();
+        svg.setAttribute('viewBox', '0 0 ' + base.width + ' ' + base.height);
+        var pts = pasos.map(function (paso) {
+          var d = paso.querySelector('.dot');
+          var r = (d || paso).getBoundingClientRect();
+          return { x: r.left - base.left + r.width / 2,
+                   y: r.top - base.top + r.height / 2 };
+        });
+        var d = 'M' + pts[0].x + ' ' + pts[0].y;
+        for (var i = 1; i < pts.length; i++) {
+          var a = pts[i - 1], b = pts[i];
+          var dy = (b.y - a.y) / 2.4;
+          // el desvio va siempre hacia el texto, con dos amplitudes que se
+          // alternan. Alternando de lado, el tramo que iba a la izquierda se
+          // salia del contenedor: los puntos estan a 23 px del borde y el
+          // asa caia en -10, medido.
+          var k = (i % 2 ? 36 : 13);
+          d += ' C' + (a.x + k) + ' ' + (a.y + dy)
+             + ' ' + (b.x + k) + ' ' + (b.y - dy)
+             + ' ' + b.x + ' ' + b.y;
+        }
+        camino.setAttribute('d', d);
+        hecho.setAttribute('d', d);
+        largo = camino.getTotalLength() || 1;
+        gsap.set(hecho, { strokeDasharray: largo, strokeDashoffset: largo });
+      }
+
+      trazar();
+
+      function marcar(avance) {
+        // el punto i esta en (i / (n-1)) del recorrido
+        pasos.forEach(function (paso, i) {
+          var suyo = i / (pasos.length - 1);
+          paso.classList.toggle('reached', avance >= suyo - 0.02);
+        });
+      }
+
+      var recorrido = gsap.to(punto, {
+        motionPath: { path: camino, align: camino, alignOrigin: [0.5, 0.5] },
+        ease: 'none',
+        scrollTrigger: {
+          trigger: linea,
+          start: 'top 68%',
+          end: 'bottom 75%',
+          scrub: 0.45,
+          onUpdate: function (self) {
+            marcar(self.progress);
+            gsap.set(hecho, { strokeDashoffset: largo * (1 - self.progress) });
+          },
+          onRefreshInit: trazar
+        }
+      });
+
+      // al redimensionar cambian las alturas de los textos y con ellas los
+      // puntos: hay que rehacer la ruta o el marcador va por fuera
+      ST.addEventListener('refresh', function () {
+        trazar();
+        if (recorrido.scrollTrigger) marcar(recorrido.scrollTrigger.progress);
+      });
+    })();
 
     /* --- paralaje, solo donde la foto ya iba recortada --- */
     gsap.utils.toArray('.portada-foto').forEach(function (img) {
