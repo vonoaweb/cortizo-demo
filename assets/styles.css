@@ -101,9 +101,10 @@ p{margin:0}
    familia de su marca, sale nitido a cualquier tamano, escala en movil y
    se puede seleccionar y leer. La rayita corta de encima es el mismo
    recurso que ella lleva en su arte, pero dibujado limpio. */
-.pagehero h1{color:var(--head);font-size:clamp(2.3rem,6.4vw,4rem);text-transform:uppercase;
-  letter-spacing:.01em;font-family:var(--f-head);font-weight:700;line-height:1.04}
-.pagehero .hrule{display:block;width:54px;height:2px;background:var(--head);
+.pagehero h1{color:var(--head);font-size:clamp(3rem,11vw,8.5rem);text-transform:uppercase;
+  letter-spacing:-.035em;font-family:var(--f-head);font-weight:700;line-height:.86;
+  text-wrap:balance}
+.pagehero .hrule{display:block;width:clamp(54px,7vw,96px);height:2px;background:var(--head);
   margin:0 auto 24px}
 /* La "ola" de su marca, redibujada en SVG. Hereda currentColor, asi que sirve
    igual sobre la portada blanca que sobre fondo oscuro, y al ser vectorial no
@@ -121,7 +122,7 @@ p{margin:0}
 .pagehero .titulo-txt{text-align:left}
 /* la ola es 3.84 de ancho por 1 de alto: necesita mas ancho que el blob
    anterior para no quedar en una cinta de 80px de alto */
-.pagehero .ola{width:clamp(300px,34vw,440px);margin:0;color:var(--head);flex:0 0 auto}
+.pagehero .ola{width:clamp(300px,38vw,560px);margin:0;color:var(--head);flex:0 0 auto}
 .pagehero .ola img,.pagehero .ola svg{display:block;width:100%;height:auto}
 .pagehero .titulo .hrule{margin:0 0 12px}
 /* Se apila ya a 900 y no a 720. Entre esas dos medidas iba al lado del
@@ -452,6 +453,20 @@ body:not(.no-js) .team figure{cursor:pointer}
    despues de comprobar que GSAP cargo y que el visitante no pidio menos
    movimiento. Sin ella el sitio se ve exactamente igual que antes. */
 .linea-caja{display:block;overflow:hidden}
+
+/* ---------- cortina de entrada y de paso ----------
+   Por encima de todo, incluido el visor (500) y el menu movil (400).
+   Solo existe con la capa de movimiento montada: sin ella nunca se ve,
+   asi que la pagina entra como siempre. */
+.cortina{position:fixed;inset:0;z-index:900;background:#000;display:none;
+  align-items:center;justify-content:center;pointer-events:none}
+.mov .cortina{display:flex}
+.cortina-marca{display:flex;align-items:baseline;gap:10px;opacity:0}
+.cortina-marca b{font-family:var(--f-head);font-weight:700;letter-spacing:.06em;
+  font-size:clamp(1.1rem,2.6vw,1.6rem);color:#fff}
+.cortina-marca i{font-style:normal;font-family:var(--f-body);font-weight:300;
+  letter-spacing:.34em;font-size:clamp(.58rem,1.2vw,.76rem);color:#8C8C8C;
+  text-transform:uppercase}
 /* la montana en linea ocupa lo mismo que ocupaba como <img> */
 .pagehero .ola .ola-svg{display:block;width:100%;height:auto}
 /* con la capa montada los trazos arrancan sin dibujar; sin ella se ven

@@ -959,6 +959,74 @@
     // llevan paralaje, para que el recorrido no descubra el borde
     document.documentElement.classList.add('mov');
 
+    /* --- cortina: entrada y paso entre paginas ---
+       La pagina deja de aparecer de golpe. Al llegar, la cortina se retira
+       hacia arriba y el encabezado entra detras; al pulsar un enlace del
+       propio sitio, baja antes de navegar. Es lo que hace que se sienta un
+       sitio y no una sucesion de cargas.
+
+       No usa Barba ni ninguna libreria de mas: se anima el clip-path de un
+       div y luego se cambia location. La pagina siguiente hace su propia
+       entrada, asi que el empalme se ve continuo. */
+    var cortina = document.getElementById('cortina');
+    if (cortina) {
+      var marca = cortina.querySelector('.cortina-marca');
+      // Medido: con la primera version la cortina tardaba casi 2 s en
+      // levantarse y eso es pantalla negra mirando. Aqui el conjunto dura
+      // algo menos de un segundo y la marca se va mientras la cortina sube,
+      // no despues.
+      var entrada = gsap.timeline();
+      entrada
+        .to(marca, { opacity: 1, duration: 0.3, ease: 'power2.out' })
+        .to(marca, { opacity: 0, duration: 0.25, ease: 'power2.in' }, '+=0.05')
+        .to(cortina, {
+          clipPath: 'inset(0% 0% 100% 0%)', duration: 0.7, ease: 'power3.inOut'
+        }, '-=0.22')
+        // Nada de clearProps: se aplica al terminar el paso y llegaba a
+        // borrar el display:none puesto justo despues. En escritorio colaba
+        // y en telefono no: la cortina se quedaba tapando la pantalla
+        // entera, negra, con el sitio detras. Se apagan las dos propiedades
+        // a mano y en el mismo paso.
+        .set(cortina, { clipPath: 'none', display: 'none' })
+        .from('.hdr', { yPercent: -100, duration: 0.6, ease: 'power3.out' }, '-=0.45');
+
+      var yendo = false;
+      document.addEventListener('click', function (ev) {
+        if (yendo || ev.defaultPrevented) return;
+        if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button !== 0) return;
+        var a = ev.target.closest && ev.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        // ni anclas, ni telefono, ni correo, ni WhatsApp, ni pestana nueva,
+        // ni las fotos que abre el visor
+        if (!href || href.charAt(0) === '#' || a.target === '_blank'
+            || a.hasAttribute('download') || a.classList.contains('shot')
+            || /^(tel:|mailto:|https?:\/\/)/.test(href)) return;
+        ev.preventDefault();
+        yendo = true;
+        gsap.set(cortina, { display: 'flex', clipPath: 'inset(100% 0% 0% 0%)' });
+        gsap.to(cortina, {
+          clipPath: 'inset(0% 0% 0% 0%)', duration: 0.62, ease: 'power3.inOut',
+          onComplete: function () { window.location.href = href; }
+        });
+      });
+
+      // volver con el boton atras devuelve la pagina desde la cache con la
+      // cortina bajada: hay que levantarla
+      window.addEventListener('pageshow', function (e) {
+        if (!e.persisted) return;
+        yendo = false;
+        gsap.set(cortina, { clipPath: 'none', display: 'none' });
+      });
+
+      // Red de seguridad. Una cortina que se quede puesta es una pantalla
+      // negra y el sitio inutilizable, asi que pasados dos segundos y medio
+      // se apaga pase lo que pase, salvo que se este saliendo a otra pagina.
+      setTimeout(function () {
+        if (!yendo) cortina.style.display = 'none';
+      }, 2500);
+    }
+
     /* --- desplazamiento suave --- */
     var lenis = null;
     if (window.Lenis) {
