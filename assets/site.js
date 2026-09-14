@@ -1012,7 +1012,11 @@
           scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
     });
 
-    /* --- titulares linea a linea --- */
+    /* --- titulares linea a linea ---
+       Cada linea va dentro de su propia ventana con overflow oculto, puesta
+       a mano. Se probo la opcion mask del propio SplitText y en esta
+       compilacion no crea ninguna: medido, cero ventanas, y sin ventana la
+       linea se ve deslizandose fuera de su caja en vez de descubrirse. */
     if (window.SplitText) {
       gsap.utils.toArray('h1, h2.title, .casetitulo, .cierre-titulo, .svcline-head h3')
         .forEach(function (el) {
@@ -1020,7 +1024,7 @@
           var partido;
           try { partido = new window.SplitText(el, { type: 'lines', linesClass: 'linea' }); }
           catch (e) { return; }
-          // cada linea dentro de su propia ventana, para que suba tapada
+          if (!partido.lines || !partido.lines.length) return;
           partido.lines.forEach(function (l) {
             var caja = document.createElement('span');
             caja.className = 'linea-caja';
@@ -1066,6 +1070,68 @@
                          end: 'bottom top', scrub: 0.8 }
       });
     });
+
+    /* --- la montana responde al raton ---
+       No se anade ningun elemento nuevo ni un solo byte de descarga: se
+       mueven las curvas que ya estan. Cada capa va a su propia velocidad, la
+       del nucleo mas que la de fuera, asi que al mover el raton el relieve se
+       separa y se vuelve a juntar como un mapa que se inclina.
+
+       Los trazos se reparten en cinco capas y se anima la capa, no el trazo:
+       con 50 trazos sueltos serian miles de actualizaciones por segundo para
+       un efecto que se ve igual con cinco.
+
+       Se escucha en la ventana y no en el encabezado, porque lo que se pidio
+       es que el fondo responda al raton en cualquier parte de la pagina. Y
+       solo con raton de verdad: en tactil no hay puntero al que seguir. */
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      var capas = [];
+      gsap.utils.toArray('.ola-svg').forEach(function (svg) {
+        var trazos = [].slice.call(svg.querySelectorAll('path'));
+        if (!trazos.length) return;
+        trazos.sort(function (a, b) {
+          var ca, cb;
+          try { ca = a.getBBox(); cb = b.getBBox(); } catch (e) { return 0; }
+          return (ca.width * ca.height) - (cb.width * cb.height);
+        });
+        var N = 5, porCapa = Math.ceil(trazos.length / N);
+        for (var k = 0; k < N; k++) {
+          var trozo = trazos.slice(k * porCapa, (k + 1) * porCapa);
+          if (!trozo.length) continue;
+          var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          svg.appendChild(g);
+          trozo.forEach(function (t) { g.appendChild(t); });
+          capas.push({
+            svg: svg,
+            x: gsap.quickTo(g, 'x', { duration: 1, ease: 'power3.out' }),
+            y: gsap.quickTo(g, 'y', { duration: 1, ease: 'power3.out' }),
+            // 10 px la capa del nucleo, 2 la de fuera
+            f: 10 - (k / (N - 1)) * 8
+          });
+        }
+      });
+
+      if (capas.length) {
+        var px = 0, py = 0, pendiente = false;
+        window.addEventListener('pointermove', function (ev) {
+          px = (ev.clientX / window.innerWidth - 0.5) * 2;
+          py = (ev.clientY / window.innerHeight - 0.5) * 2;
+          pendiente = true;
+        }, { passive: true });
+        // una sola pasada por fotograma: el pointermove dispara mucho mas
+        gsap.ticker.add(function () {
+          if (!pendiente) return;
+          pendiente = false;
+          capas.forEach(function (c) {
+            // si su montana no esta en pantalla no se gasta nada en moverla
+            var r = c.svg.getBoundingClientRect();
+            if (r.bottom < 0 || r.top > window.innerHeight) return;
+            c.x(px * c.f);
+            c.y(py * c.f * 0.5);
+          });
+        });
+      }
+    }
 
     /* --- paralaje, solo donde la foto ya iba recortada --- */
     gsap.utils.toArray('.portada-foto').forEach(function (img) {
