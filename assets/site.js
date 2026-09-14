@@ -1449,14 +1449,15 @@
 
           if (fino && m.mx > -9000) {
             var dx = m.tx - m.mx, dy = m.ty - m.my;
-            if (Math.abs(dx) > 0.4 || Math.abs(dy) > 0.4) {
-              m.mx += dx * 0.09; m.my += dy * 0.09;
-              // si el cerro ya paso de largo, deja de valer la pena repintar
-              var fuera = m.mx < -RADIO || m.my < -RADIO ||
-                          m.mx > m.w + RADIO || m.my > m.h + RADIO;
-              if (!(fuera && m.fuera)) m.sucio = true;
-              m.fuera = fuera;
-            }
+            var movio = Math.abs(dx) > 0.4 || Math.abs(dy) > 0.4;
+            if (movio) { m.mx += dx * 0.09; m.my += dy * 0.09; }
+            // si el cerro ya paso de largo deja de valer la pena repintar,
+            // pero el fotograma en que entra o sale hay que darlo igual: si
+            // no, el relieve se queda clavado en el ultimo estado
+            var fuera = m.mx < -RADIO || m.my < -RADIO ||
+                        m.mx > m.w + RADIO || m.my > m.h + RADIO;
+            if ((movio && !fuera) || fuera !== m.fuera) m.sucio = true;
+            m.fuera = fuera;
           }
           if (m.sucio) { m.sucio = false; pintar(m); }
         }
