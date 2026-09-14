@@ -1173,21 +1173,30 @@ html:has(body.nav-abierto){overflow:hidden}
    La galeria de About NO lleva esta clase, y no es un olvido: alli cuatro
    de las nueve son panoramicas de 2,39 y en un vertical perderian dos
    tercios de la imagen. Esa se queda justificada. */
-/* Mamposteria: el ancho de columna es fijo y cada foto conserva su alto.
-   Es la unica de las cinco que se le enseno que no recorta ni un pixel, y
-   la unica de las galerias estudiadas que sigue usando rejilla sin recortar
-   (Snohetta). Antes de esto se probo justificada, que dejaba las filas de
-   anchos desiguales, y rejilla 3:4, que recortaba un 17% de media. Las dos
-   se rechazaron al verlas. */
-.shotgrid.rejilla{display:block;columns:5;column-gap:clamp(12px,1.5vw,20px)}
-.shotgrid.rejilla .shot{display:block;width:auto;height:auto;aspect-ratio:auto;
+/* Mamposteria, y en dos densidades distintas.
+   Lo terminado y el proceso no comparten rejilla: puestos juntos, el bano
+   acabado y el operario tapando con plastico competian y ninguno lucia.
+   Lo terminado va en tres columnas, grande, que es lo que se vende. El
+   proceso va detras en cinco, mas pequeno, que es lo que da credibilidad
+   pero no es el escaparate.
+   Ninguna de las dos recorta: sus proporciones van del 0,56 al 2,39. */
+.shotgrid.terminada,.shotgrid.enobra{display:block;
+  column-gap:clamp(14px,1.8vw,24px);margin-top:clamp(26px,3.5vw,42px)}
+.shotgrid.terminada{columns:3}
+.shotgrid.enobra{columns:5}
+.shotgrid.terminada .shot,.shotgrid.enobra .shot{display:block;
+  width:auto;height:auto;aspect-ratio:auto;
   break-inside:avoid;-webkit-column-break-inside:avoid;
-  margin:0 0 clamp(12px,1.5vw,20px)}
-.shotgrid.rejilla .shot img{width:100%;height:auto;max-width:100%;object-fit:contain;
-  display:block}
-@media(max-width:1100px){.shotgrid.rejilla{columns:4}}
-@media(max-width:860px){.shotgrid.rejilla{columns:3}}
-@media(max-width:640px){.shotgrid.rejilla{columns:2}}
+  margin:0 0 clamp(14px,1.8vw,24px)}
+.shotgrid.terminada .shot img,.shotgrid.enobra .shot img{width:100%;height:auto;
+  max-width:100%;object-fit:contain;display:block}
+/* el proceso se apaga un punto en reposo: esta ahi para probar, no para
+   robarle la mirada a lo terminado */
+.shotgrid.enobra .shot img{filter:grayscale(.45)}
+.shotgrid.enobra .shot:hover img,.shotgrid.enobra .shot:focus-visible img{filter:grayscale(0)}
+@media(max-width:1100px){.shotgrid.terminada{columns:2}.shotgrid.enobra{columns:4}}
+@media(max-width:860px){.shotgrid.enobra{columns:3}}
+@media(max-width:640px){.shotgrid.terminada{columns:1}.shotgrid.enobra{columns:2}}
 
 /* ---------- la capa ----------
    Por encima del menu movil (400) y de la barra de maqueta (300). */

@@ -901,10 +901,10 @@
   function gjTodas() {
     // la de Servicios va en rejilla uniforme y la coloca el CSS: si el
     // algoritmo le escribiera ancho y alto en linea la descuadraria
-    [].slice.call(document.querySelectorAll('.shotgrid:not(.rejilla)')).forEach(gjColocar);
+    [].slice.call(document.querySelectorAll('.shotgrid:not(.terminada):not(.enobra)')).forEach(gjColocar);
   }
 
-  if (document.querySelector('.shotgrid:not(.rejilla)')) {
+  if (document.querySelector('.shotgrid:not(.terminada):not(.enobra)')) {
     gjTodas();
     window.addEventListener('resize', function () {
       clearTimeout(gjTimer);
