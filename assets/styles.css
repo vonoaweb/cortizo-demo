@@ -1169,3 +1169,16 @@ html:has(body.visor-abierto){overflow:hidden}
   .visor.cargando .visor-img{filter:none!important;transform:none!important}
   .visor-fig::before{display:none}
 }
+
+
+/* rotulo pequeno encima del titular de cada bloque de la ficha: el rotulo
+   dice de que es la seccion y el titular dice que paso en ESTE proyecto.
+   Antes solo estaba el rotulo, igual en las cinco fichas, y se leia como
+   formulario. */
+.bloque-rotulo{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--grey-2);font-weight:700;margin:0 0 10px}
+.caserow-txt h2{font-family:var(--f-head);font-weight:700;
+  font-size:clamp(1.3rem,2.7vw,1.9rem);line-height:1.2;letter-spacing:-.005em;
+  margin:0 0 18px;text-wrap:balance}
+.caseaside h3{font-family:var(--f-head);font-weight:700;font-size:1.02rem;
+  line-height:1.35;color:#fff;margin:0 0 12px;text-wrap:balance}
