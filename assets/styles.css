@@ -401,6 +401,47 @@ body:not(.no-js) .team figure{cursor:pointer}
   .svcobras-lista a:hover,.svcobras-lista a:focus-visible{padding-left:6px}
 }
 
+/* ============================================================
+   INDICE DE SERVICIOS
+   Antes los dos servicios vivian dentro del mismo bloque, pegados
+   uno al otro: medido, cero separacion entre ellos y 4.319 px de
+   tramo oscuro seguido, casi cinco pantallas. De doce paginas de
+   constructoras y estudios que se cargaron para comparar, quien
+   tiene varias lineas las comprime en un indice y manda el peso a
+   paginas hijas.
+   La numeracion S-01 y S-02 no es adorno: es como se referencian
+   las laminas de un juego de planos.
+   ============================================================ */
+.plano{list-style:none;margin:clamp(24px,3.5vw,40px) 0 0;padding:0;
+  border-top:1px solid var(--line-dark)}
+.plano li{border-bottom:1px solid var(--line-dark)}
+.plano a{display:grid;grid-template-columns:104px minmax(0,1fr) auto;
+  gap:6px 24px;align-items:baseline;padding:clamp(24px,3.2vw,38px) 6px;
+  text-decoration:none;text-align:left;
+  transition:padding-left .4s var(--ease),background-color .4s ease}
+.plano a:hover,.plano a:focus-visible{padding-left:18px;background:rgba(255,255,255,.05)}
+.plano-cod{font-family:var(--f-head);font-weight:700;font-size:12px;letter-spacing:.18em;
+  color:var(--grey-2);font-variant-numeric:tabular-nums}
+.plano-nom{font-family:var(--f-head);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.25rem,3vw,2rem);letter-spacing:.03em;line-height:1.05;color:#fff}
+.plano-meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--grey-2);font-weight:700;white-space:nowrap}
+/* el resumen cuelga bajo el nombre, en la misma columna */
+.plano-des{grid-column:2;font-size:.97rem;line-height:1.6;color:#A8A8A8;
+  max-width:52ch;margin-top:4px}
+.plano a::after{content:"";grid-column:3;grid-row:2;justify-self:end;
+  width:26px;height:9px;align-self:center;
+  background:currentColor;color:var(--grey-2);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 9'%3E%3Cpath d='M0 4.5h24M20 1l4 3.5-4 3.5' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 9'%3E%3Cpath d='M0 4.5h24M20 1l4 3.5-4 3.5' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3C/svg%3E") center/contain no-repeat;
+  transition:transform .4s var(--ease),color .4s ease}
+.plano a:hover::after,.plano a:focus-visible::after{transform:translateX(6px);color:#fff}
+@media(max-width:700px){
+  .plano a{grid-template-columns:62px minmax(0,1fr);row-gap:4px}
+  .plano-meta{grid-column:2;white-space:normal}
+  .plano a::after{grid-column:2;grid-row:auto;justify-self:start;margin-top:10px}
+}
+
 /* ---------- franja de confianza ---------- */
 .trust{background:#000;color:#fff;border-top:1px solid var(--line-dark)}
 .trust ul{list-style:none;margin:0 auto;padding:19px 26px;max-width:var(--maxw);
