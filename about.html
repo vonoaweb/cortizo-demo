@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=76">
+<link rel="stylesheet" href="assets/styles.css?v=80">
 
 <script type="application/ld+json">
 {
@@ -102,14 +102,22 @@
   <div class="pagehero">
     <div class="wrap">
       <div class="titulo">
-        <div class="ola rv"><img src="assets/ola-about.svg?v=76" alt="" width="1444" height="346"></div>
+        <div class="ola rv"><img src="assets/ola-about.svg?v=80" alt="" width="1444" height="346"></div>
         <div class="titulo-txt">
           <span class="hrule rv" style="--d:80ms" aria-hidden="true"></span>
           <h1 class="rv" style="--d:60ms">About us</h1>
         </div>
       </div>
-      <p class="lede rv" style="--d:120ms">Construction is not only about structures, but about
-        experiences and people. Spaces carry emotion, memory, and intention.</p>
+      <!-- Antes aqui iba "Construction is not only about structures...", que es
+           filosofia y ademas repetia palabra por palabra el sexto parrafo de la
+           biografia de Laura. Medido en la pagina publicada, la primera frase que
+           decia a que se dedica la empresa estaba a 2.229 px, dos pantallas y media
+           abajo. La frase mas clara de todas estaba en el pie, a ocho pantallas.
+           Esta es suya: abre su propia biografia. -->
+      <p class="lede rv" style="--d:120ms">Cortizo Construction is a Miami general contractor
+        devoted to the art of construction through the lens of hospitality. We build homes from
+        the ground up, renovate them room by room, and bring commercial kitchens and boutique
+        hospitality spaces back into service across Miami-Dade.</p>
     </div>
   </div>
 
@@ -123,11 +131,56 @@
   </div>
 
   <section>
-    <div class="wrap">
-      <img class="whoimg mask" loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/FullSizeRender_VSCO.jpg/:/rs=w:1200,cg:true,m"
-           alt="Portrait of Laura Cortizo, founder and director of Cortizo Construction">
-      <div class="prose rv" style="margin-top:30px">
-        <h2>Laura Cortizo</h2>
+    <div class="wrap wide">
+      <div class="quehace">
+        <div class="quehace-txt rv">
+          <p class="bloque-rotulo">What we do</p>
+          <h2>Two kinds of work, one way of working</h2>
+          <p>Most of what we build is residential: full home renovations with structural work,
+            and houses built from the ground up. The rest is hospitality, where the job is
+            usually to bring a kitchen or a space back into service without closing the
+            business down around it.</p>
+          <p>Both run the same way. Complete plans before anyone starts, trades coordinated
+            early, schedules with room in them, and everything that changes put in writing.</p>
+          <div class="btns inline rv" style="--d:140ms">
+            <a class="btn btn-dark" href="services.html">Our services</a>
+            <a class="btn btn-dark" href="projects.html">See the projects</a>
+          </div>
+        </div>
+        <dl class="facts rv" style="--d:100ms">
+          <div>
+            <dt>What we build</dt>
+            <dd>Ground-up homes &middot; Full home renovations &middot; Kitchens and bathrooms
+              &middot; Commercial kitchens &middot; Boutique hospitality</dd>
+          </div>
+          <div>
+            <dt>Where we work</dt>
+            <dd>Miami &middot; Coral Gables &middot; Coconut Grove &middot; Key Biscayne
+              &middot; Miami Beach</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- La biografia pasa de foto a sangre + ocho parrafos seguidos a un
+       rail con su retrato, su cargo y su cita, y el texto a su lado. Medido
+       antes: 95 caracteres por linea, cuando el maximo comodo son 75, y ocho
+       parrafos sin un solo corte. El texto es el mismo, no se toca. -->
+  <section>
+    <div class="wrap wide">
+      <div class="fundadora">
+        <div class="fundadora-rail">
+          <img class="mask" loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/FullSizeRender_VSCO.jpg/:/rs=w:1200,cg:true,m" width="560" height="833"
+               alt="Portrait of Laura Cortizo, founder and director of Cortizo Construction">
+          <h2 class="rv">Laura Cortizo</h2>
+          <p class="fundadora-cargo rv" style="--d:60ms">Founder &amp; Director</p>
+          <blockquote class="fundadora-cita rv" style="--d:120ms">
+            <p>Clear guidance. Honest communication. Elevated craftsmanship. A construction
+              experience designed to feel effortless.</p>
+          </blockquote>
+        </div>
+        <div class="fundadora-txt prose rv" style="--d:100ms">
         <!-- Su biografia, literal y parrafo a parrafo como en /about-us. La
              version anterior la parafraseaba: fundia dos parrafos en uno,
              quitaba las comas de enumeracion y se comia tres cosas que ella
@@ -159,6 +212,7 @@
           intention. Building them thoughtfully is both a craft and a form of care.</p>
         <p>This path is shaped by lineage, movement, and meaning.</p>
         <p>Join the journey. Let&rsquo;s build.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -288,6 +342,20 @@
   </section>
 
   <section>
+    <div class="wrap wide">
+      <p class="bloque-rotulo rv">The work</p>
+      <h2 class="title rv" style="--d:60ms">Five projects you can read end to end</h2>
+      <ol class="obras">
+        <li class="rv" style="--d:0ms"><a href="casa-bohemia.html"><span class="obra-n">01</span><span class="obra-nom">Casa Bohemia</span><span class="obra-tipo">Ground-up residential new construction</span><span class="obra-ano">2021 to 2022</span></a></li>
+        <li class="rv" style="--d:70ms"><a href="rodriguez-residence.html"><span class="obra-n">02</span><span class="obra-nom">Rodriguez Residence</span><span class="obra-tipo">Full residential renovation with structural modifications</span><span class="obra-ano">2025</span></a></li>
+        <li class="rv" style="--d:140ms"><a href="san-juan-hotel.html"><span class="obra-n">03</span><span class="obra-nom">San Juan Hotel</span><span class="obra-tipo">Hospitality renovation, commercial plumbing and life safety systems</span><span class="obra-ano">Construction began in early 2024</span></a></li>
+        <li class="rv" style="--d:210ms"><a href="the-bernal-residence.html"><span class="obra-n">04</span><span class="obra-nom">The Bernal Residence</span><span class="obra-tipo">Full residential renovation</span><span class="obra-ano">Construction began in 2024 and was completed in early 2025</span></a></li>
+        <li class="rv" style="--d:280ms"><a href="matheson-residence.html"><span class="obra-n">05</span><span class="obra-nom">Matheson Residence</span><span class="obra-tipo">Full studio renovation, design to construction</span><span class="obra-ano">Ongoing project, construction began in 2025</span></a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
     <div class="wrap">
       <h2 class="title rv">What guides our work</h2>
       <div style="margin-top:44px">
@@ -303,7 +371,9 @@
 
   <section class="dark tight" style="padding-top:clamp(58px,7.5vw,98px)">
     <div class="wrap wide">
-      <div class="shotgrid rv">
+      <p class="bloque-rotulo rv" style="color:#8C8C8C">On site</p>
+      <h2 class="title rv" style="--d:60ms">The team at work</h2>
+      <div class="shotgrid rv" style="margin-top:clamp(28px,4vw,46px)">
         <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_1869.jpeg/:/rs=w:1600,cg:true,m" data-caption="Laura Cortizo standing inside a block-wall structure under construction" data-group="about"><img loading="lazy" width="560" height="234" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_1869.jpeg/:/rs=w:560,cg:true,m" alt="Laura Cortizo standing inside a block-wall structure under construction"></a>
         <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/132Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Technician fitting a recessed light into a new ceiling frame" data-group="about"><img loading="lazy" width="560" height="784" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/132Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Technician fitting a recessed light into a new ceiling frame"></a>
         <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/114Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Laura Cortizo at the supply counter with a coffee in hand" data-group="about"><img loading="lazy" width="560" height="784" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/114Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Laura Cortizo at the supply counter with a coffee in hand"></a>
@@ -391,6 +461,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=76"></script>
+<script src="assets/site.js?v=80"></script>
 </body>
 </html>
