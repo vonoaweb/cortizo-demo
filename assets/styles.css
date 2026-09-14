@@ -447,6 +447,14 @@ body:not(.no-js) .team figure{cursor:pointer}
   .serv__n{font-size:10px;padding:5px 8px}
 }
 
+/* ---------- capa de movimiento (GSAP) ----------
+   Solo aplica cuando la capa se monta de verdad: la clase la pone el script
+   despues de comprobar que GSAP cargo y que el visitante no pidio menos
+   movimiento. Sin ella el sitio se ve exactamente igual que antes. */
+.linea-caja{display:block;overflow:hidden}
+/* la foto con paralaje se agranda un pelo: si no, al recorrerla se veria el
+   borde de su marco */
+.mov .portada-foto{height:114%;margin-top:-7%}
 /* ---------- franja de confianza ---------- */
 .trust{background:#000;color:#fff;border-top:1px solid var(--line-dark)}
 .trust ul{list-style:none;margin:0 auto;padding:19px 26px;max-width:var(--maxw);

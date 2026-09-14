@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=97">
+<link rel="stylesheet" href="assets/styles.css?v=98">
 
 <script type="application/ld+json">
 {
@@ -102,7 +102,7 @@
   <div class="pagehero">
     <div class="wrap">
       <div class="titulo">
-        <div class="ola rv"><img src="assets/ola-projects.svg?v=97" alt="" width="1477" height="409"></div>
+        <div class="ola rv"><img src="assets/ola-projects.svg?v=98" alt="" width="1477" height="409"></div>
         <div class="titulo-txt">
           <span class="hrule rv" style="--d:80ms" aria-hidden="true"></span>
           <h1 class="rv" style="--d:60ms">Projects</h1>
@@ -339,6 +339,18 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=97"></script>
+<!-- GSAP, ScrollTrigger, SplitText y Lenis. Son 142 KB y el sitio funcionaba
+     sin ellos: el revelado, la cortinilla y el zoom en hover ya estaban
+     escritos a mano. Fernando los pidio despues de ver easyseller.it, que
+     monta exactamente esta pila, y davidecattaneo.it, que usa Lenis.
+     Van sin defer y antes de site.js a proposito: site.js comprueba si
+     window.gsap existe y, si esta, apaga su propio observador y deja que
+     GSAP lleve las animaciones. Si alguno no carga, o si el visitante pide
+     menos movimiento, sigue funcionando el de antes. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
+<script src="assets/site.js?v=98"></script>
 </body>
 </html>

@@ -69,13 +69,22 @@
     });
   }
 
-  /* ---------- scroll reveal ---------- */
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
-  document.querySelectorAll('.rv, .mask').forEach(function (el) { io.observe(el); });
+  /* ---------- scroll reveal ----------
+     Dos caminos. Si GSAP y ScrollTrigger cargaron, y el visitante no ha
+     pedido menos movimiento, manda GSAP y este observador no llega a
+     montarse. Si falta cualquiera de las dos cosas, se queda el de siempre,
+     que es el que ha llevado el sitio hasta hoy. */
+  var quietoYa = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hayGsap = !!(window.gsap && window.ScrollTrigger) && !quietoYa;
+
+  if (!hayGsap) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
+    document.querySelectorAll('.rv, .mask').forEach(function (el) { io.observe(el); });
+  }
 
   /* ---------- galeria "Recent transformations" ---------- */
   var GALLERY = [
@@ -915,4 +924,129 @@
       document.fonts.ready.then(gjTodas).catch(function () {});
     }
   }
+
+  /* ==========================================================
+     CAPA DE MOVIMIENTO (GSAP + ScrollTrigger + SplitText + Lenis)
+     Solo se monta si las cuatro cargaron y el visitante no ha pedido
+     menos movimiento. Todo lo de arriba sigue funcionando sin ella.
+
+     Lo que hace, y por que cada cosa:
+     - Lenis: el desplazamiento deja de ir a saltos del raton. Es lo que
+       mas cambia la sensacion y es lo que usan las dos referencias.
+     - El revelado pasa de encender una clase a una animacion con su curva
+       y su escalonado, disparada por posicion en pantalla.
+     - Los titulares se descubren linea a linea, que es para lo que existe
+       SplitText.
+     - Paralaje solo donde la foto ya iba recortada a proposito: las fichas
+       de servicio y las portadas. En la galeria no, porque ahi la foto va
+       entera y moverla obligaria a recortarla.
+     ========================================================== */
+  if (hayGsap) (function () {
+    // si algo de aqui dentro revienta, los elementos se quedarian invisibles
+    // para siempre porque el observador de arriba ya no se monto. La red:
+    // encender todo a mano y dejar el sitio como sin animaciones.
+    try { montar(); } catch (e) {
+      document.querySelectorAll('.rv, .mask').forEach(function (el) {
+        el.classList.add('in');
+      });
+      return;
+    }
+
+    function montar() {
+    var ST = window.ScrollTrigger;
+    gsap.registerPlugin(ST);
+    // marca para el CSS: solo con la capa montada se agrandan las fotos que
+    // llevan paralaje, para que el recorrido no descubra el borde
+    document.documentElement.classList.add('mov');
+
+    /* --- desplazamiento suave --- */
+    var lenis = null;
+    if (window.Lenis) {
+      lenis = new window.Lenis({
+        duration: 1.05,
+        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+        smoothWheel: true
+      });
+      lenis.on('scroll', ST.update);
+      gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+      gsap.ticker.lagSmoothing(0);
+      // el visor, la ficha de equipo y el menu movil congelan la pagina con
+      // overflow:hidden; Lenis tiene que parar tambien o sigue moviendo por
+      // debajo de la capa abierta
+      window.__lenis = lenis;
+      var obs = new MutationObserver(function () {
+        var cerrado = document.body.classList.contains('visor-abierto')
+          || document.body.classList.contains('nav-abierto');
+        if (cerrado) lenis.stop(); else lenis.start();
+      });
+      obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+      // los enlaces de ancla los lleva Lenis, si no saltan de golpe
+      document.addEventListener('click', function (ev) {
+        var a = ev.target.closest && ev.target.closest('a[href^="#"]');
+        if (!a) return;
+        var id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        var destino = document.querySelector(id);
+        if (!destino) return;
+        ev.preventDefault();
+        lenis.scrollTo(destino, { offset: -90 });
+      });
+    }
+
+    /* --- revelado --- */
+    gsap.utils.toArray('.rv').forEach(function (el) {
+      var d = parseFloat((el.style.getPropertyValue('--d') || '0').replace('ms', '')) / 1000;
+      gsap.fromTo(el, { y: 34, autoAlpha: 0 }, {
+        y: 0, autoAlpha: 1, duration: 1, ease: 'power3.out', delay: d || 0,
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      });
+    });
+
+    /* --- la cortinilla, con la misma idea pero con curva --- */
+    gsap.utils.toArray('.mask').forEach(function (el) {
+      var d = parseFloat((el.style.getPropertyValue('--d') || '0').replace('ms', '')) / 1000;
+      gsap.fromTo(el,
+        { clipPath: 'inset(100% 0% 0% 0%)' },
+        { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.25, ease: 'power3.inOut',
+          delay: d || 0,
+          scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+    });
+
+    /* --- titulares linea a linea --- */
+    if (window.SplitText) {
+      gsap.utils.toArray('h1, h2.title, .casetitulo, .cierre-titulo, .svcline-head h3')
+        .forEach(function (el) {
+          if (!el.textContent.trim()) return;
+          var partido;
+          try { partido = new window.SplitText(el, { type: 'lines', linesClass: 'linea' }); }
+          catch (e) { return; }
+          // cada linea dentro de su propia ventana, para que suba tapada
+          partido.lines.forEach(function (l) {
+            var caja = document.createElement('span');
+            caja.className = 'linea-caja';
+            l.parentNode.insertBefore(caja, l);
+            caja.appendChild(l);
+          });
+          gsap.fromTo(partido.lines, { yPercent: 108 }, {
+            yPercent: 0, duration: 1.05, ease: 'power4.out', stagger: 0.09,
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+          });
+        });
+    }
+
+    /* --- paralaje, solo donde la foto ya iba recortada --- */
+    gsap.utils.toArray('.portada-foto').forEach(function (img) {
+        gsap.fromTo(img, { yPercent: -6 }, {
+          yPercent: 6, ease: 'none',
+          scrollTrigger: { trigger: img.parentNode, start: 'top bottom',
+                           end: 'bottom top', scrub: 0.6 }
+        });
+      });
+
+    // las fotos entran con carga diferida y cambian el alto de la pagina:
+    // sin esto los disparadores se quedan calculados sobre el alto viejo
+    window.addEventListener('load', function () { ST.refresh(); });
+    }
+  })();
+
 })();
