@@ -1175,6 +1175,7 @@ html:has(body.visor-abierto){overflow:hidden}
    dice de que es la seccion y el titular dice que paso en ESTE proyecto.
    Antes solo estaba el rotulo, igual en las cinco fichas, y se leia como
    formulario. */
+.caserow-txt .bloque-rotulo,.reto .bloque-rotulo{text-align:left}
 .bloque-rotulo{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--grey-2);font-weight:700;margin:0 0 10px}
 .caserow-txt h2{font-family:var(--f-head);font-weight:700;
@@ -1182,3 +1183,31 @@ html:has(body.visor-abierto){overflow:hidden}
   margin:0 0 18px;text-wrap:balance}
 .caseaside h3{font-family:var(--f-head);font-weight:700;font-size:1.02rem;
   line-height:1.35;color:#fff;margin:0 0 12px;text-wrap:balance}
+
+
+/* --- lista de alcance del lateral, con marca de verificacion --- */
+.alcance{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.alcance li{position:relative;padding-left:26px;color:#BDBDBD;font-size:.9rem;
+  line-height:1.6}
+.alcance li::before{content:"";position:absolute;left:0;top:7px;width:11px;height:6px;
+  border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;
+  transform:rotate(-45deg)}
+
+/* --- el reto, panel a todo el ancho --- */
+.reto{background:var(--near);color:#fff;text-align:left;
+  padding:clamp(28px,4vw,54px) clamp(24px,3.6vw,52px)}
+.reto h2{font-family:var(--f-head);font-weight:700;color:#fff;
+  font-size:clamp(1.35rem,3vw,2.1rem);line-height:1.16;margin:0 0 18px;
+  text-wrap:balance;max-width:24ch}
+.reto p{color:#BDBDBD;font-size:1rem;line-height:1.78;margin:0;max-width:72ch}
+
+/* --- leccion: numero, titulo corto y su frase --- */
+.lecciones li b{display:block;font-family:var(--f-head);font-weight:700;font-size:1rem;
+  color:#fff;margin-bottom:8px;letter-spacing:.005em}
+
+/* --- estandar: numero y frase como titulo --- */
+.estandar{display:flex;flex-direction:column;gap:12px}
+.estandar span{font-family:var(--f-head);font-weight:700;font-size:12px;
+  letter-spacing:.14em;color:var(--grey-2);font-variant-numeric:tabular-nums}
+.estandar h3{font-family:var(--f-head);font-weight:700;font-size:1.02rem;line-height:1.35;
+  color:var(--head);margin:0;text-wrap:balance}
