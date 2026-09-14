@@ -1115,6 +1115,25 @@ html:has(body.nav-abierto){overflow:hidden}
   .shotgrid .shot{height:clamp(150px,40vw,200px)}
 }
 
+/* --- Servicios: rejilla uniforme ---
+   Contadas sus proporciones una a una: de las 31 fotos de obra 29 son
+   verticales y quince comparten exactamente la misma forma (0,671). El
+   rango de 0,56 a 2,39 que obligaba a justificar lo producen dos fotos
+   sueltas. En 3:4 se conserva el 83% del area de media y el 89% en la
+   mediana, y la rejilla queda en columnas rectas.
+   Es lo que hacen tres de cada cuatro rejillas de estudio que se pudieron
+   inspeccionar para comparar: recortar a una forma unica en vez de
+   perseguir la proporcion de cada foto.
+   La galeria de About NO lleva esta clase, y no es un olvido: alli cuatro
+   de las nueve son panoramicas de 2,39 y en un vertical perderian dos
+   tercios de la imagen. Esa se queda justificada. */
+.shotgrid.rejilla{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
+.shotgrid.rejilla .shot{height:auto;width:auto;aspect-ratio:3/4}
+.shotgrid.rejilla .shot img{width:100%;height:100%;object-fit:cover}
+@media(max-width:1100px){.shotgrid.rejilla{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-width:860px){.shotgrid.rejilla{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:640px){.shotgrid.rejilla{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
 /* ---------- la capa ----------
    Por encima del menu movil (400) y de la barra de maqueta (300). */
 .visor{position:fixed;inset:0;z-index:500;background:#000;
