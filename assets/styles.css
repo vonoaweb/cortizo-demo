@@ -1144,3 +1144,28 @@ html:has(body.visor-abierto){overflow:hidden}
   .estandar{transition:none!important}
   .estandar:hover{transform:none!important}
 }
+
+
+/* ============================================================
+   VISOR — estado de carga
+   Mientras baja la foto grande se muestra la miniatura, que ya
+   esta en cache, desenfocada. Asi el clic responde en el acto y
+   nunca se ve el hueco negro. Al llegar la grande el desenfoque
+   se retira y el cambio no se nota, porque decode() espera a que
+   este lista para pintar.
+   La barra fina de arriba dice que algo esta pasando sin recurrir
+   a una rueda girando, que envejece mal.
+   ============================================================ */
+.visor-img{transition:opacity .38s var(--ease),transform .5s var(--ease),
+  filter .45s var(--ease)}
+.visor.cargando .visor-img{filter:blur(14px) saturate(1.06);transform:scale(1.012)}
+.visor-fig{position:relative}
+.visor-fig::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;
+  background:#fff;transform:scaleX(0);transform-origin:0 50%;opacity:0;
+  transition:transform .9s var(--ease),opacity .3s ease}
+.visor.cargando .visor-fig::before{transform:scaleX(.72);opacity:.55}
+@media(prefers-reduced-motion:reduce){
+  .visor-img{transition:none!important}
+  .visor.cargando .visor-img{filter:none!important;transform:none!important}
+  .visor-fig::before{display:none}
+}

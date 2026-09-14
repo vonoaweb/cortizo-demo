@@ -416,7 +416,7 @@
      un overflow:hidden en html y body, el mismo truco del menu movil, que
      congela la posicion sin moverla. */
   var visor = null, vImg = null, vTxt = null, vNum = null;
-  var vGrupo = [], vIndice = 0, vOrigen = null, vTimer = null;
+  var vGrupo = [], vIndice = 0, vOrigen = null, vTimer = null, vPeticion = 0;
   var vMM = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   // se consulta en cada uso, no al cargar: el visitante puede cambiar el
@@ -491,15 +491,49 @@
     }, { passive: true });
   }
 
+  /* La foto grande no se pide a pelo: hasta que baja, la capa se queda en
+     negro y eso es lo que delata a una pagina hecha a medias.
+
+     Se pinta primero la miniatura, que el navegador ya tiene en cache porque
+     esta en la pagina, asi que aparece en el mismo fotograma del clic. Va
+     desenfocada a proposito, para que se lea como "cargando" y no como una
+     foto de mala calidad. Cuando la grande termina de decodificarse se
+     cambia el src y el desenfoque se va: el salto no se ve porque decode()
+     garantiza que ya esta lista para pintar.
+
+     vPeticion descarta las respuestas que llegan tarde: si pasas dos fotos
+     rapido, la grande de la primera no puede aterrizar encima de la
+     tercera. */
   function vPintar() {
     var enlace = vGrupo[vIndice];
     if (!enlace) return;
     var foto = enlace.querySelector('img');
     var pie = enlace.getAttribute('data-caption') || (foto && foto.alt) || '';
-    vImg.src = enlace.getAttribute('href');
+    var grande = enlace.getAttribute('href');
+    var mini = foto ? (foto.currentSrc || foto.src) : grande;
+
     vImg.alt = pie;
     vTxt.textContent = pie;
     vNum.textContent = vDos(vIndice + 1) + ' / ' + vDos(vGrupo.length);
+
+    var mia = ++vPeticion;
+    if (vImg.src !== grande) {
+      vImg.src = mini;
+      visor.classList.add('cargando');
+    }
+    var lista = function () {
+      if (mia !== vPeticion) return;
+      vImg.src = grande;
+      visor.classList.remove('cargando');
+    };
+    var grande_img = new Image();
+    grande_img.src = grande;
+    if (grande_img.decode) {
+      grande_img.decode().then(lista).catch(lista);
+    } else {
+      grande_img.onload = lista;
+      grande_img.onerror = lista;
+    }
   }
 
   // la foto que viene y la que queda atras se piden al vuelo: al cambiar ya
