@@ -824,27 +824,33 @@ html:has(body.nav-abierto){overflow:hidden}
   /* safe center: si la foto y el pie no caben, que se desborde por abajo y
      no por arriba, donde quedaria cortada la cabeza de la foto. El center
      de antes es el respaldo para navegadores sin la palabra safe */
-  display:flex;align-items:center;align-items:safe center;justify-content:center;
-  padding:clamp(54px,8vh,80px) clamp(56px,7vw,110px) clamp(26px,5vh,52px);
-  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:clamp(54px,7vh,76px) clamp(56px,7vw,110px) 0;
+  overflow:hidden;
   opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .36s var(--ease),visibility .36s}
 .visor.abierto{opacity:1;visibility:visible;pointer-events:auto}
 .visor:focus{outline:none}
-.visor-fig{margin:0;display:flex;flex-direction:column;align-items:center;
-  gap:clamp(14px,2.4vh,22px);max-width:100%;min-width:0}
-.visor-img{max-width:100%;max-height:72vh;width:auto;height:auto;object-fit:contain;
-  background:#0D0D0D;opacity:0;transform:scale(.965) translateY(24px);
+.visor-fig{margin:0;flex:1 1 auto;min-height:0;min-width:0;max-width:100%;width:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(14px,2.4vh,22px)}
+.visor-img{max-width:100%;max-height:100%;min-height:0;width:auto;height:auto;
+  object-fit:contain;background:#0D0D0D;
+  box-shadow:0 30px 80px rgba(0,0,0,.72);
+  outline:1px solid rgba(255,255,255,.09);outline-offset:-1px;
+  opacity:0;transform:scale(.965) translateY(24px);
   transition:opacity .42s var(--ease),transform .42s var(--ease)}
 .visor.abierto .visor-img{opacity:1;transform:none}
 /* el pie y el contador entran un pelo despues que la foto */
-.visor-cap{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;
+.visor-cap{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;
+  gap:10px;text-align:center;
   opacity:0;transform:translateY(12px);
   transition:opacity .45s var(--ease),transform .45s var(--ease);transition-delay:.14s}
 .visor.abierto .visor-cap{opacity:1;transform:none}
-.visor-num{font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;
-  color:var(--grey-2);font-variant-numeric:tabular-nums}
-.visor-txt{color:#fff;font-size:.95rem;line-height:1.6;max-width:60ch;letter-spacing:.02em}
+.visor-num{font-size:10px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;
+  color:rgba(255,255,255,.42);font-variant-numeric:tabular-nums}
+.visor-txt{color:rgba(255,255,255,.94);font-size:1rem;line-height:1.6;max-width:62ch;
+  letter-spacing:.01em}
 /* al pasar de una foto a otra no se salta de golpe: se apaga, se cambia la
    fuente y se vuelve a encender */
 .visor.cambiando .visor-img{opacity:0;transform:scale(.99) translateY(8px);
@@ -857,17 +863,23 @@ html:has(body.nav-abierto){overflow:hidden}
 .visor button{position:fixed;border:0;background:transparent;color:#fff;cursor:pointer;
   padding:0;display:flex;align-items:center;justify-content:center;
   transition:opacity .25s ease}
-.visor-x{top:clamp(8px,1.8vh,22px);right:clamp(8px,1.8vw,26px);width:48px;height:48px;
-  opacity:.8}
+.visor-x{top:clamp(10px,2vh,26px);right:clamp(10px,2vw,28px);width:46px;height:46px;
+  border-radius:50%;border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.05);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:.85}
 .visor-x span{display:block;width:26px;height:2px;background:#fff;position:absolute}
 .visor-x span:nth-child(1){transform:rotate(45deg)}
 .visor-x span:nth-child(2){transform:rotate(-45deg)}
-.visor-x:hover{opacity:1}
-.visor-nav{top:50%;transform:translateY(-50%);width:clamp(44px,6vw,68px);height:84px;
-  opacity:.5}
-.visor-nav:hover{opacity:1}
-.visor-nav.prev{left:0}
-.visor-nav.next{right:0}
+.visor-x:hover{opacity:1;background:rgba(255,255,255,.14);
+  border-color:rgba(255,255,255,.5)}
+.visor-nav{top:50%;transform:translateY(-50%);
+  width:clamp(44px,5vw,56px);height:clamp(44px,5vw,56px);border-radius:50%;
+  border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:.7}
+.visor-nav:hover{opacity:1;background:rgba(255,255,255,.14);
+  border-color:rgba(255,255,255,.5)}
+.visor-nav.prev{left:clamp(10px,2vw,28px)}
+.visor-nav.next{right:clamp(10px,2vw,28px)}
 .visor-nav svg{width:20px;height:20px}
 /* una foto sola no se recorre ni se cuenta */
 .visor.sola .visor-nav,.visor.sola .visor-num{display:none}
@@ -875,6 +887,7 @@ html:has(body.nav-abierto){overflow:hidden}
   /* el hueco de abajo es la banda de las flechas: sin el se montarian
      encima del pie */
   .visor{padding:clamp(50px,7vh,66px) 14px 64px}
+  .visor-img{box-shadow:0 18px 44px rgba(0,0,0,.6)}
   .visor-img{max-height:62vh}
   /* en telefono las flechas a los lados taparian la foto; ademas ahi el
      gesto natural es deslizar */
@@ -958,15 +971,42 @@ html:has(body.visor-abierto){overflow:hidden}
   .shot:hover,.shot:focus-visible{transform:none!important}
 }
 
-/* El visor deja de ser una pantalla negra a sangre y pasa a ser una
-   ficha centrada sobre el fondo atenuado: se entiende que la pagina
-   sigue detras y que esto se cierra. */
-.visor{background:rgba(0,0,0,.93)}
-.visor-fig{background:var(--near);border:1px solid var(--line-dark);
-  padding:clamp(14px,2vw,26px) clamp(14px,2.4vw,30px) clamp(16px,2vw,24px);
-  max-width:min(1080px,94vw)}
-.visor-cap{padding-top:clamp(12px,1.6vh,18px);margin-top:clamp(12px,1.6vh,18px);
-  border-top:1px solid var(--line-dark);width:100%}
+/* Antes esto era una tarjeta gris centrada sobre un negro al 93%: se
+   veian las miniaturas de la pagina por detras y la foto quedaba
+   pequena dentro de un recuadro. Ahora el fondo es opaco, el recuadro
+   desaparece y lo unico que se ve es la foto. */
+.visor{background:#070707}
+.visor-fig{background:transparent;border:0;padding:0;max-width:min(1280px,96vw)}
+.visor-cap{padding-top:0;margin-top:0;border-top:0;width:100%}
+
+/* --- tira de miniaturas ---
+   Con catorce fotos por proyecto, las flechas solas no dicen ni cuantas
+   quedan ni que viene. La tira reusa la miniatura que ya esta en la
+   pagina, asi que no pide una sola imagen mas. */
+.visor-tira{flex:0 0 auto;align-self:stretch;
+  margin:clamp(14px,2vh,22px) calc(-1 * clamp(56px,7vw,110px)) 0;
+  display:flex;align-items:center;gap:8px;
+  padding:14px clamp(14px,3vw,34px) 16px;
+  overflow-x:auto;overflow-y:hidden;scrollbar-width:none;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .45s var(--ease),transform .45s var(--ease);
+  transition-delay:.2s}
+.visor-tira::-webkit-scrollbar{display:none}
+.visor.abierto .visor-tira{opacity:1;transform:none}
+.visor .visor-tira button{position:relative;flex:0 0 auto;
+  width:74px;height:52px;padding:0;overflow:hidden;opacity:.38;
+  transition:opacity .3s ease}
+.visor .visor-tira button img{width:100%;height:100%;object-fit:cover;display:block}
+.visor .visor-tira button:hover{opacity:.8}
+.visor .visor-tira button.activo{opacity:1}
+.visor .visor-tira button.activo::after{content:"";position:absolute;inset:0;
+  border:2px solid #fff}
+.visor.sola .visor-tira{display:none}
+@media(max-width:760px){
+  /* en telefono el hueco de abajo ya es de las flechas y el gesto es
+     deslizar: la tira sobraria y apretaria la foto */
+  .visor-tira{display:none}
+}
 
 
 /* ============================================================
@@ -1155,14 +1195,14 @@ html:has(body.visor-abierto){overflow:hidden}
   filter .45s var(--ease)}
 .visor.cargando .visor-img{filter:blur(14px) saturate(1.06);transform:scale(1.012)}
 .visor-fig{position:relative}
-.visor-fig::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;
+.visor::before{content:"";position:fixed;left:0;right:0;top:0;height:2px;z-index:4;
   background:#fff;transform:scaleX(0);transform-origin:0 50%;opacity:0;
   transition:transform .9s var(--ease),opacity .3s ease}
-.visor.cargando .visor-fig::before{transform:scaleX(.72);opacity:.55}
+.visor.cargando::before{transform:scaleX(.72);opacity:.55}
 @media(prefers-reduced-motion:reduce){
   .visor-img{transition:none!important}
   .visor.cargando .visor-img{filter:none!important;transform:none!important}
-  .visor-fig::before{display:none}
+  .visor::before{display:none}
 }
 
 
@@ -1226,15 +1266,59 @@ html:has(body.visor-abierto){overflow:hidden}
   color:var(--head);margin:0 0 18px;text-wrap:balance}
 .caselede{font-size:clamp(1.05rem,2vw,1.4rem);line-height:1.45;color:var(--grey);
   max-width:46ch;margin:0 0 clamp(28px,3.6vw,46px)}
-.caseportada{position:relative;margin:0 0 clamp(22px,3vw,38px);overflow:hidden;
-  background:#F0F0F0}
-.caseportada img{width:100%;height:100%;object-fit:cover;display:block;
-  aspect-ratio:21/10}
-.caseportada figcaption{position:absolute;left:clamp(12px,1.6vw,22px);
-  bottom:clamp(12px,1.6vw,20px);background:rgba(0,0,0,.78);color:#fff;
-  padding:9px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  max-width:calc(100% - 44px)}
-@media(max-width:768px){.caseportada img{aspect-ratio:16/10}}
+/* ============================================================
+   PORTADA DE CASO
+   Sus fotos van del 9:16 al 3:2. Una banda ancha con proporcion
+   fija recortaba hasta dos tercios de la imagen, y dejarla entera
+   dentro de la banda la reducia a una tira perdida en negro.
+   Aqui la caja de la foto toma la proporcion REAL del archivo
+   (--r la escribe build.py leyendo el tamano medido), de modo que
+   no se recorta nada, y el ancho que sobra lo ocupa la ficha del
+   proyecto en vez de quedar vacio.
+   ============================================================ */
+.caseportada{position:relative;margin:0 0 clamp(22px,3vw,38px);
+  display:flex;align-items:stretch;background:#0A0A0A;overflow:hidden}
+.portada-lado{flex:0 0 var(--w,54%);aspect-ratio:var(--rc,1.5);
+  overflow:hidden;background:#0A0A0A}
+.portada-foto{width:100%;height:100%;object-fit:cover;display:block}
+.portada-info{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;
+  justify-content:center;padding:clamp(22px,2.8vw,42px) clamp(20px,2.6vw,40px)}
+.portada-rotulo{font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  font-weight:700;color:#7A7A7A;margin:0 0 clamp(14px,1.8vw,22px)}
+.portada-info .cinta-datos{display:grid;border:0;margin:0;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0 clamp(18px,2.4vw,38px)}
+@media(max-width:1020px){
+  .portada-info .cinta-datos{grid-template-columns:minmax(0,1fr)}
+}
+.portada-info .cinta-datos div{padding:11px 0;border:0;
+  border-bottom:1px solid rgba(255,255,255,.12);text-align:left}
+.portada-info .cinta-datos dt{font-size:9.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:#7A7A7A;margin-bottom:5px}
+.portada-info .cinta-datos dd{margin:0;color:#fff;font-weight:400;
+  font-size:.9rem;line-height:1.45}
+.caseportada figcaption{position:absolute;z-index:2;left:0;bottom:0;
+  color:#fff;background:rgba(8,8,8,.62);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-top:1px solid rgba(255,255,255,.16);
+  border-right:1px solid rgba(255,255,255,.16);
+  padding:9px 16px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  max-width:min(var(--w,54%),560px)}
+@media(max-width:860px){
+  /* apilado: en vertical la foto se ve mejor a todo el ancho y con su
+     propia forma que encogida al lado de la ficha */
+  .caseportada{flex-direction:column;height:auto}
+  /* la altura manda y el ancho la sigue: asi no hay recorte en ningun
+     ancho de pantalla, ni en telefono ni en tableta */
+  .portada-lado{flex:0 0 auto;width:100%;height:auto;
+    aspect-ratio:var(--rc,1.5)}
+  .portada-info{padding:clamp(20px,5vw,30px)}
+  .caseportada figcaption{position:static;max-width:none;background:transparent;
+    backdrop-filter:none;-webkit-backdrop-filter:none;border:0;
+    padding:12px clamp(20px,5vw,30px) 0;color:#9A9A9A;
+    border-top:1px solid rgba(255,255,255,.12);
+    margin:0 clamp(20px,5vw,30px) clamp(20px,5vw,30px)}
+}
 
 /* la cinta pasa de banda oscura a tarjeta con borde bajo la foto */
 .cinta-datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));

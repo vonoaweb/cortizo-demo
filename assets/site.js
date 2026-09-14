@@ -410,7 +410,7 @@
      documento se acortara y la pagina saltara sola. Lo unico que se toca es
      un overflow:hidden en html y body, el mismo truco del menu movil, que
      congela la posicion sin moverla. */
-  var visor = null, vImg = null, vTxt = null, vNum = null;
+  var visor = null, vImg = null, vTxt = null, vNum = null, vTira = null;
   var vGrupo = [], vIndice = 0, vOrigen = null, vTimer = null, vPeticion = 0;
   var vMM = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -445,11 +445,23 @@
       + '<img class="visor-img" alt="">'
       + '<figcaption class="visor-cap" aria-live="polite">'
       + '<span class="visor-num"></span><span class="visor-txt"></span>'
-      + '</figcaption></figure>';
+      + '</figcaption></figure>'
+      + '<div class="visor-tira"></div>';
     document.body.appendChild(visor);
     vImg = visor.querySelector('.visor-img');
     vTxt = visor.querySelector('.visor-txt');
     vNum = visor.querySelector('.visor-num');
+    vTira = visor.querySelector('.visor-tira');
+
+    // un solo oyente para toda la tira: los botones se rehacen en cada
+    // apertura porque el grupo cambia de una galeria a otra
+    vTira.addEventListener('click', function (ev) {
+      var b = ev.target.closest('button');
+      if (!b || !b.parentNode) return;
+      var n = +b.getAttribute('data-n');
+      if (n === vIndice) return;
+      vIr(n - vIndice);
+    });
 
     visor.querySelector('.visor-x').addEventListener('click', vCerrar);
     visor.querySelector('.visor-nav.prev').addEventListener('click', function () { vIr(-1); });
@@ -499,6 +511,41 @@
      vPeticion descarta las respuestas que llegan tarde: si pasas dos fotos
      rapido, la grande de la primera no puede aterrizar encima de la
      tercera. */
+  /* La tira se arma con la MISMA miniatura que ya esta en la pagina
+     (currentSrc), asi que no se descarga ni un byte de mas y aparece
+     pintada en el mismo fotograma en que se abre el visor. */
+  function vTiraArmar() {
+    if (!vTira) return;
+    if (vGrupo.length < 2) { vTira.innerHTML = ''; return; }
+    var trozos = vGrupo.map(function (enlace, n) {
+      var foto = enlace.querySelector('img');
+      var mini = foto ? (foto.currentSrc || foto.src) : enlace.getAttribute('href');
+      var pie = enlace.getAttribute('data-caption') || (foto && foto.alt) || '';
+      return '<button type="button" data-n="' + n + '" aria-label="'
+        + pie.replace(/"/g, '&quot;') + '"><img src="' + mini + '" alt=""></button>';
+    });
+    vTira.innerHTML = trozos.join('');
+  }
+
+  function vTiraMarcar() {
+    if (!vTira) return;
+    var botones = vTira.children;
+    for (var n = 0; n < botones.length; n++) {
+      botones[n].classList.toggle('activo', n === vIndice);
+      botones[n].setAttribute('aria-current', n === vIndice ? 'true' : 'false');
+    }
+    var b = botones[vIndice];
+    if (!b) return;
+    // se mueve la tira a mano y no con scrollIntoView, que ademas arrastraria
+    // el documento de detras
+    var meta = b.offsetLeft - (vTira.clientWidth - b.offsetWidth) / 2;
+    if (vTira.scrollTo) {
+      vTira.scrollTo({ left: meta, behavior: vQuieto() ? 'auto' : 'smooth' });
+    } else {
+      vTira.scrollLeft = meta;
+    }
+  }
+
   function vPintar() {
     var enlace = vGrupo[vIndice];
     if (!enlace) return;
@@ -510,6 +557,7 @@
     vImg.alt = pie;
     vTxt.textContent = pie;
     vNum.textContent = vDos(vIndice + 1) + ' / ' + vDos(vGrupo.length);
+    vTiraMarcar();
 
     var mia = ++vPeticion;
     if (vImg.src !== grande) {
@@ -572,6 +620,7 @@
     // en telefono la tira solo ensena 3 de las 5 fotos; el grupo las lleva
     // todas, asi que desde el visor se llega a las que la rejilla esconde
     visor.classList.toggle('sola', vGrupo.length < 2);
+    vTiraArmar();
     clearTimeout(vTimer);
     visor.classList.remove('cambiando');
     vPintar();
