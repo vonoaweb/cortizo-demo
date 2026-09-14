@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=67">
+<link rel="stylesheet" href="assets/styles.css?v=69">
 
 <script type="application/ld+json">
 {
@@ -99,25 +99,17 @@
   </div>
 </div>
 <main id="main">
-  <div class="pagehero casehead">
+  <div class="casehead">
     <div class="wrap wide">
-      <div class="chead">
-        <div class="chead-txt">
-          <p class="crumbs rv"><a href="projects.html">Projects</a> &nbsp;/&nbsp; The Bernal Residence</p>
-          <p class="casebadge rv" style="--d:40ms"><span>Case study 04</span>Full home renovation</p>
-          <h1 class="rv" style="--d:60ms">The Bernal Residence</h1>
-          <p class="lede rv" style="--d:120ms">Nearly every system in the house, on a fixed move-in date.</p>
-        </div>
-        <figure class="chead-img mask">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5462.JPG/:/rs=w:1600,cg:true,m" alt="Refinished hardwood floor in the hallway">
-        </figure>
-      </div>
-    </div>
-  </div>
-
-  <div class="cinta">
-    <div class="wrap wide">
-      <dl class="cinta-datos">
+      <p class="crumbs rv"><a href="projects.html">Projects</a> &nbsp;/&nbsp; The Bernal Residence</p>
+      <p class="casebadge rv" style="--d:40ms"><span>Case study 04</span>Full home renovation</p>
+      <h1 class="casetitulo rv" style="--d:60ms">The Bernal Residence</h1>
+      <p class="caselede rv" style="--d:120ms">Nearly every system in the house, on a fixed move-in date.</p>
+      <figure class="caseportada mask" style="--d:180ms">
+        <img src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5462.JPG/:/rs=w:1600,cg:true,m" alt="Refinished hardwood floor in the hallway">
+        <figcaption>Refinished hardwood floor in the hallway</figcaption>
+      </figure>
+      <dl class="cinta-datos rv" style="--d:240ms">
         <div><dt>Project type</dt><dd>Full residential renovation</dd></div>
         <div><dt>Timeline</dt><dd>Construction began in 2024 and was completed in early 2025</dd></div>
         <div><dt>Location</dt><dd>Miami-Dade, Florida</dd></div>
@@ -156,7 +148,16 @@
       <div class="reto rv">
         <p class="bloque-rotulo" style="color:#8C8C8C">The challenge</p>
         <h2>A fixed move-in date across every trade</h2>
-        <p>The schedule was tight from the start, with a fixed move-in date that required disciplined planning. As the project progressed, a discrepancy between the signed agreement and a revised contract version came to light late in the process. To protect clarity and fairness for all parties, construction was paused while the contract terms were reviewed and aligned back to the original agreement. Although this created temporary tension, addressing it directly allowed the project to move forward with transparency.</p>
+        <div class="reto-cajas">
+          <div class="reto-caja">
+            <span class="reto-etq">What we found</span>
+            <p>The schedule was tight from the start, with a fixed move-in date that required disciplined planning. As the project progressed, a discrepancy between the signed agreement and a revised contract version came to light late in the process. To protect clarity and fairness for all parties, construction was paused while the contract terms were reviewed and aligned back to the original agreement. Although this created temporary tension, addressing it directly allowed the project to move forward with transparency.</p>
+          </div>
+          <div class="reto-caja resuelto">
+            <span class="reto-etq">How we solved it</span>
+            <p>We sequenced the trades so none of them blocked the next, and put every adjustment in writing as it came up.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -166,10 +167,10 @@
       <p class="bloque-rotulo rv" style="color:#8C8C8C">What we learned</p>
       <h2 class="title rv" style="--d:60ms">What a whole-house renovation taught us</h2>
       <ol class="lecciones">
-        <li class="rv" style="--d:0ms"><span>01</span><b>Sequence the whole house</b>Contract clarity must be protected at every stage.</li>
-        <li class="rv" style="--d:70ms"><span>02</span><b>Protect the move-in date</b>Scope changes should always be documented immediately.</li>
-        <li class="rv" style="--d:140ms"><span>03</span><b>One trade at a time</b>Pausing work can be the responsible choice when alignment is lost.</li>
-        <li class="rv" style="--d:210ms"><span>04</span><b>Say it in writing</b>Clear communication preserves long-term trust.</li>
+        <li class="rv" style="--d:0ms"><span>01</span><i>Scope</i><b>Sequence the whole house</b>Contract clarity must be protected at every stage.</li>
+        <li class="rv" style="--d:70ms"><span>02</span><i>Deadline</i><b>Protect the move-in date</b>Scope changes should always be documented immediately.</li>
+        <li class="rv" style="--d:140ms"><span>03</span><i>Trades</i><b>One trade at a time</b>Pausing work can be the responsible choice when alignment is lost.</li>
+        <li class="rv" style="--d:210ms"><span>04</span><i>Reporting</i><b>Say it in writing</b>Clear communication preserves long-term trust.</li>
       </ol>
     </div>
   </section>
@@ -214,9 +215,12 @@
 
   <section style="padding-top:clamp(40px,5vw,66px)">
     <div class="wrap wide">
-      <div class="nextprev">
-        <a href="san-juan-hotel.html">&larr; San Juan Hotel</a>
-        <a href="matheson-residence.html">Matheson Residence &rarr;</a>
+      <div class="barra-sig">
+        <div class="barra-sig-meta">
+          <span>Next project</span>
+          <a href="matheson-residence.html">Matheson Residence &rarr;</a>
+        </div>
+        <a class="barra-sig-todos" href="projects.html">&larr; All projects</a>
       </div>
     </div>
   </section>
@@ -276,6 +280,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=67"></script>
+<script src="assets/site.js?v=69"></script>
 </body>
 </html>

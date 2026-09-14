@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=67">
+<link rel="stylesheet" href="assets/styles.css?v=69">
 
 <script type="application/ld+json">
 {
@@ -99,25 +99,17 @@
   </div>
 </div>
 <main id="main">
-  <div class="pagehero casehead">
+  <div class="casehead">
     <div class="wrap wide">
-      <div class="chead">
-        <div class="chead-txt">
-          <p class="crumbs rv"><a href="projects.html">Projects</a> &nbsp;/&nbsp; Rodriguez Residence</p>
-          <p class="casebadge rv" style="--d:40ms"><span>Case study 02</span>Structural renovation</p>
-          <h1 class="rv" style="--d:60ms">Rodriguez Residence</h1>
-          <p class="lede rv" style="--d:120ms">A full renovation that lived or died on sequencing.</p>
-        </div>
-        <figure class="chead-img mask">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/257ab500-723b-407d-9ab0-960d72e439f8.jpg/:/rs=w:1600,cg:true,m" alt="Finished white kitchen with island, brass stools and open shelving">
-        </figure>
-      </div>
-    </div>
-  </div>
-
-  <div class="cinta">
-    <div class="wrap wide">
-      <dl class="cinta-datos">
+      <p class="crumbs rv"><a href="projects.html">Projects</a> &nbsp;/&nbsp; Rodriguez Residence</p>
+      <p class="casebadge rv" style="--d:40ms"><span>Case study 02</span>Structural renovation</p>
+      <h1 class="casetitulo rv" style="--d:60ms">Rodriguez Residence</h1>
+      <p class="caselede rv" style="--d:120ms">A full renovation that lived or died on sequencing.</p>
+      <figure class="caseportada mask" style="--d:180ms">
+        <img src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/257ab500-723b-407d-9ab0-960d72e439f8.jpg/:/rs=w:1600,cg:true,m" alt="Finished white kitchen with island, brass stools and open shelving">
+        <figcaption>Finished white kitchen with island, brass stools and open shelving</figcaption>
+      </figure>
+      <dl class="cinta-datos rv" style="--d:240ms">
         <div><dt>Project type</dt><dd>Full residential renovation with structural modifications</dd></div>
         <div><dt>Timeline</dt><dd>2025</dd></div>
         <div><dt>Location</dt><dd>Miami-Dade, Florida</dd></div>
@@ -156,7 +148,16 @@
       <div class="reto rv">
         <p class="bloque-rotulo" style="color:#8C8C8C">The challenge</p>
         <h2>When the cabinets arrive late and the family is moving in</h2>
-        <p>This project tested scheduling more than anything else. With multiple trades, inspections, custom materials and structural modifications involved, sequencing became critical. A delay in the kitchen cabinets caused by a paint issue required us to adjust the construction flow while protecting the client&rsquo;s move-in timeline. Rather than rushing the final stages, we reorganized the schedule to maintain quality and reduce stress for the homeowners.</p>
+        <div class="reto-cajas">
+          <div class="reto-caja">
+            <span class="reto-etq">What we found</span>
+            <p>This project tested scheduling more than anything else. With multiple trades, inspections, custom materials and structural modifications involved, sequencing became critical. A delay in the kitchen cabinets caused by a paint issue required us to adjust the construction flow while protecting the client&rsquo;s move-in timeline. Rather than rushing the final stages, we reorganized the schedule to maintain quality and reduce stress for the homeowners.</p>
+          </div>
+          <div class="reto-caja resuelto">
+            <span class="reto-etq">How we solved it</span>
+            <p>Rather than rushing the final stages, we reorganised the schedule to hold the quality and protect the family&rsquo;s move-in date.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -166,10 +167,10 @@
       <p class="bloque-rotulo rv" style="color:#8C8C8C">What we learned</p>
       <h2 class="title rv" style="--d:60ms">What a schedule under pressure taught us</h2>
       <ol class="lecciones">
-        <li class="rv" style="--d:0ms"><span>01</span><b>Buffer for structure</b>Structural changes require additional buffer time in the schedule.</li>
-        <li class="rv" style="--d:70ms"><span>02</span><b>Plan for delays</b>Custom finishes should always be planned with contingencies.</li>
-        <li class="rv" style="--d:140ms"><span>03</span><b>Sequence the openings</b>Window and door installations must be coordinated carefully with inspections and finishes.</li>
-        <li class="rv" style="--d:210ms"><span>04</span><b>Flexibility protects quality</b>Flexibility in scheduling protects both quality and client experience.</li>
+        <li class="rv" style="--d:0ms"><span>01</span><i>Structure</i><b>Buffer for structure</b>Structural changes require additional buffer time in the schedule.</li>
+        <li class="rv" style="--d:70ms"><span>02</span><i>Materials</i><b>Plan for delays</b>Custom finishes should always be planned with contingencies.</li>
+        <li class="rv" style="--d:140ms"><span>03</span><i>Inspections</i><b>Sequence the openings</b>Window and door installations must be coordinated carefully with inspections and finishes.</li>
+        <li class="rv" style="--d:210ms"><span>04</span><i>Schedule</i><b>Flexibility protects quality</b>Flexibility in scheduling protects both quality and client experience.</li>
       </ol>
     </div>
   </section>
@@ -221,9 +222,12 @@
 
   <section style="padding-top:clamp(40px,5vw,66px)">
     <div class="wrap wide">
-      <div class="nextprev">
-        <a href="casa-bohemia.html">&larr; Casa Bohemia</a>
-        <a href="san-juan-hotel.html">San Juan Hotel &rarr;</a>
+      <div class="barra-sig">
+        <div class="barra-sig-meta">
+          <span>Next project</span>
+          <a href="san-juan-hotel.html">San Juan Hotel &rarr;</a>
+        </div>
+        <a class="barra-sig-todos" href="projects.html">&larr; All projects</a>
       </div>
     </div>
   </section>
@@ -283,6 +287,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=67"></script>
+<script src="assets/site.js?v=69"></script>
 </body>
 </html>

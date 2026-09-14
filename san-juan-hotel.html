@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=67">
+<link rel="stylesheet" href="assets/styles.css?v=69">
 
 <script type="application/ld+json">
 {
@@ -99,25 +99,17 @@
   </div>
 </div>
 <main id="main">
-  <div class="pagehero casehead">
+  <div class="casehead">
     <div class="wrap wide">
-      <div class="chead">
-        <div class="chead-txt">
-          <p class="crumbs rv"><a href="projects.html">Projects</a> &nbsp;/&nbsp; San Juan Hotel</p>
-          <p class="casebadge rv" style="--d:40ms"><span>Case study 03</span>Hospitality renovation</p>
-          <h1 class="rv" style="--d:60ms">San Juan Hotel</h1>
-          <p class="lede rv" style="--d:120ms">A permit left open since 2018, and a kitchen that had to reopen.</p>
-        </div>
-        <figure class="chead-img mask">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9588.JPG/:/rs=w:1600,cg:true,m" alt="Crew member working on the new grease interceptors in the basement">
-        </figure>
-      </div>
-    </div>
-  </div>
-
-  <div class="cinta">
-    <div class="wrap wide">
-      <dl class="cinta-datos">
+      <p class="crumbs rv"><a href="projects.html">Projects</a> &nbsp;/&nbsp; San Juan Hotel</p>
+      <p class="casebadge rv" style="--d:40ms"><span>Case study 03</span>Hospitality renovation</p>
+      <h1 class="casetitulo rv" style="--d:60ms">San Juan Hotel</h1>
+      <p class="caselede rv" style="--d:120ms">A permit left open since 2018, and a kitchen that had to reopen.</p>
+      <figure class="caseportada mask" style="--d:180ms">
+        <img src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9588.JPG/:/rs=w:1600,cg:true,m" alt="Crew member working on the new grease interceptors in the basement">
+        <figcaption>Crew member working on the new grease interceptors in the basement</figcaption>
+      </figure>
+      <dl class="cinta-datos rv" style="--d:240ms">
         <div><dt>Project type</dt><dd>Hospitality renovation, commercial plumbing and life safety systems</dd></div>
         <div><dt>Timeline</dt><dd>Construction began in early 2024</dd></div>
         <div><dt>Location</dt><dd>Miami-Dade, Florida</dd></div>
@@ -156,7 +148,16 @@
       <div class="reto rv">
         <p class="bloque-rotulo" style="color:#8C8C8C">The challenge</p>
         <h2>The approved interceptor no longer existed</h2>
-        <p>One of the grease trap interceptors approved in the original plans had been discontinued by the manufacturer. Although the replacement model was the newer, approved version, it did not match the exact model referenced in the permitted drawings. To satisfy inspection requirements we were required to install the previous version specified in the plans to match the approved documentation. This added complexity, coordination and pressure, particularly because the cafeteria needed to remain closed during a critical portion of the work.</p>
+        <div class="reto-cajas">
+          <div class="reto-caja">
+            <span class="reto-etq">What we found</span>
+            <p>One of the grease trap interceptors approved in the original plans had been discontinued by the manufacturer. Although the replacement model was the newer, approved version, it did not match the exact model referenced in the permitted drawings. To satisfy inspection requirements we were required to install the previous version specified in the plans to match the approved documentation. This added complexity, coordination and pressure, particularly because the cafeteria needed to remain closed during a critical portion of the work.</p>
+          </div>
+          <div class="reto-caja resuelto">
+            <span class="reto-etq">How we solved it</span>
+            <p>We installed the earlier version specified in the approved drawings, so the inspection could close without resubmitting the permit.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -166,10 +167,10 @@
       <p class="bloque-rotulo rv" style="color:#8C8C8C">What we learned</p>
       <h2 class="title rv" style="--d:60ms">What a legacy permit taught us</h2>
       <ol class="lecciones">
-        <li class="rv" style="--d:0ms"><span>01</span><b>Read the legacy plans</b>Legacy permits require deep plan review before work begins.</li>
-        <li class="rv" style="--d:70ms"><span>02</span><b>Match the drawings exactly</b>Approved drawings must match installed equipment exactly, not just functionally.</li>
-        <li class="rv" style="--d:140ms"><span>03</span><b>Watch the manufacturer</b>Manufacturer changes can directly affect inspection outcomes.</li>
-        <li class="rv" style="--d:210ms"><span>04</span><b>Protect the operation</b>Hospitality projects demand sensitivity to operational downtime.</li>
+        <li class="rv" style="--d:0ms"><span>01</span><i>Permit</i><b>Read the legacy plans</b>Legacy permits require deep plan review before work begins.</li>
+        <li class="rv" style="--d:70ms"><span>02</span><i>Drawings</i><b>Match the drawings exactly</b>Approved drawings must match installed equipment exactly, not just functionally.</li>
+        <li class="rv" style="--d:140ms"><span>03</span><i>Equipment</i><b>Watch the manufacturer</b>Manufacturer changes can directly affect inspection outcomes.</li>
+        <li class="rv" style="--d:210ms"><span>04</span><i>Operations</i><b>Protect the operation</b>Hospitality projects demand sensitivity to operational downtime.</li>
       </ol>
     </div>
   </section>
@@ -218,9 +219,12 @@
 
   <section style="padding-top:clamp(40px,5vw,66px)">
     <div class="wrap wide">
-      <div class="nextprev">
-        <a href="rodriguez-residence.html">&larr; Rodriguez Residence</a>
-        <a href="the-bernal-residence.html">The Bernal Residence &rarr;</a>
+      <div class="barra-sig">
+        <div class="barra-sig-meta">
+          <span>Next project</span>
+          <a href="the-bernal-residence.html">The Bernal Residence &rarr;</a>
+        </div>
+        <a class="barra-sig-todos" href="projects.html">&larr; All projects</a>
       </div>
     </div>
   </section>
@@ -280,6 +284,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=67"></script>
+<script src="assets/site.js?v=69"></script>
 </body>
 </html>

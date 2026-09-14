@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=67">
+<link rel="stylesheet" href="assets/styles.css?v=69">
 
 <script type="application/ld+json">
 {
@@ -99,25 +99,17 @@
   </div>
 </div>
 <main id="main">
-  <div class="pagehero casehead">
+  <div class="casehead">
     <div class="wrap wide">
-      <div class="chead">
-        <div class="chead-txt">
-          <p class="crumbs rv"><a href="projects.html">Projects</a> &nbsp;/&nbsp; Matheson Residence</p>
-          <p class="casebadge rv" style="--d:40ms"><span>Case study 05</span>Studio renovation</p>
-          <h1 class="rv" style="--d:60ms">Matheson Residence</h1>
-          <p class="lede rv" style="--d:120ms">Building trust and clarity from a distance.</p>
-        </div>
-        <figure class="chead-img mask">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/106Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" alt="Studio stripped back, with the ceiling opened and the services exposed">
-        </figure>
-      </div>
-    </div>
-  </div>
-
-  <div class="cinta">
-    <div class="wrap wide">
-      <dl class="cinta-datos">
+      <p class="crumbs rv"><a href="projects.html">Projects</a> &nbsp;/&nbsp; Matheson Residence</p>
+      <p class="casebadge rv" style="--d:40ms"><span>Case study 05</span>Studio renovation</p>
+      <h1 class="casetitulo rv" style="--d:60ms">Matheson Residence</h1>
+      <p class="caselede rv" style="--d:120ms">Building trust and clarity from a distance.</p>
+      <figure class="caseportada mask" style="--d:180ms">
+        <img src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/106Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" alt="Studio stripped back, with the ceiling opened and the services exposed">
+        <figcaption>Studio stripped back, with the ceiling opened and the services exposed</figcaption>
+      </figure>
+      <dl class="cinta-datos rv" style="--d:240ms">
         <div><dt>Project type</dt><dd>Full studio renovation, design to construction</dd></div>
         <div><dt>Timeline</dt><dd>Ongoing project, construction began in 2025</dd></div>
         <div><dt>Location</dt><dd>Miami-Dade, Florida</dd></div>
@@ -155,7 +147,16 @@
       <div class="reto rv">
         <p class="bloque-rotulo" style="color:#8C8C8C">The challenge</p>
         <h2>A client who bought the apartment from another city</h2>
-        <p>Managing a renovation for a client who is not physically present requires elevated communication and documentation. All decisions, approvals and updates are coordinated remotely, relying on clear visuals, regular phone calls and transparent reporting. Rather than being a limitation, this dynamic strengthened the process and reinforced the importance of structure and trust.</p>
+        <div class="reto-cajas">
+          <div class="reto-caja">
+            <span class="reto-etq">What we found</span>
+            <p>Managing a renovation for a client who is not physically present requires elevated communication and documentation. All decisions, approvals and updates are coordinated remotely, relying on clear visuals, regular phone calls and transparent reporting. Rather than being a limitation, this dynamic strengthened the process and reinforced the importance of structure and trust.</p>
+          </div>
+          <div class="reto-caja resuelto">
+            <span class="reto-etq">How we solved it</span>
+            <p>We replaced the site visit with a structure of decisions and written updates that let the client approve each phase from another city.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -165,10 +166,10 @@
       <p class="bloque-rotulo rv" style="color:#8C8C8C">What we learned</p>
       <h2 class="title rv" style="--d:60ms">What managing remotely taught us</h2>
       <ol class="lecciones">
-        <li class="rv" style="--d:0ms"><span>01</span><b>Distance needs structure</b>Strong systems make remote project management seamless.</li>
-        <li class="rv" style="--d:70ms"><span>02</span><b>Document everything</b>Clear documentation builds confidence when clients are off-site.</li>
-        <li class="rv" style="--d:140ms"><span>03</span><b>Decide before you build</b>Early design and architectural involvement improves execution.</li>
-        <li class="rv" style="--d:210ms"><span>04</span><b>Trust is built in updates</b>Communication cadence matters as much as construction quality.</li>
+        <li class="rv" style="--d:0ms"><span>01</span><i>Distance</i><b>Distance needs structure</b>Strong systems make remote project management seamless.</li>
+        <li class="rv" style="--d:70ms"><span>02</span><i>Records</i><b>Document everything</b>Clear documentation builds confidence when clients are off-site.</li>
+        <li class="rv" style="--d:140ms"><span>03</span><i>Decisions</i><b>Decide before you build</b>Early design and architectural involvement improves execution.</li>
+        <li class="rv" style="--d:210ms"><span>04</span><i>Trust</i><b>Trust is built in updates</b>Communication cadence matters as much as construction quality.</li>
       </ol>
     </div>
   </section>
@@ -215,9 +216,12 @@
 
   <section style="padding-top:clamp(40px,5vw,66px)">
     <div class="wrap wide">
-      <div class="nextprev">
-        <a href="the-bernal-residence.html">&larr; The Bernal Residence</a>
-        <a href="casa-bohemia.html">Casa Bohemia &rarr;</a>
+      <div class="barra-sig">
+        <div class="barra-sig-meta">
+          <span>Next project</span>
+          <a href="casa-bohemia.html">Casa Bohemia &rarr;</a>
+        </div>
+        <a class="barra-sig-todos" href="projects.html">&larr; All projects</a>
       </div>
     </div>
   </section>
@@ -277,6 +281,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=67"></script>
+<script src="assets/site.js?v=69"></script>
 </body>
 </html>

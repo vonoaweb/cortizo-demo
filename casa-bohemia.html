@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=67">
+<link rel="stylesheet" href="assets/styles.css?v=69">
 
 <script type="application/ld+json">
 {
@@ -99,25 +99,17 @@
   </div>
 </div>
 <main id="main">
-  <div class="pagehero casehead">
+  <div class="casehead">
     <div class="wrap wide">
-      <div class="chead">
-        <div class="chead-txt">
-          <p class="crumbs rv"><a href="projects.html">Projects</a> &nbsp;/&nbsp; Casa Bohemia</p>
-          <p class="casebadge rv" style="--d:40ms"><span>Case study 01</span>Ground-up build</p>
-          <h1 class="rv" style="--d:60ms">Casa Bohemia</h1>
-          <p class="lede rv" style="--d:120ms">Our first full build, and the project that defined our standards.</p>
-        </div>
-        <figure class="chead-img mask">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/69894773783__BBDB50C4-07D9-447A-9A9D-C077EC69B.JPG/:/rs=w:1600,cg:true,m" alt="Finished exterior of Casa Bohemia, a two-storey home built from the ground up">
-        </figure>
-      </div>
-    </div>
-  </div>
-
-  <div class="cinta">
-    <div class="wrap wide">
-      <dl class="cinta-datos">
+      <p class="crumbs rv"><a href="projects.html">Projects</a> &nbsp;/&nbsp; Casa Bohemia</p>
+      <p class="casebadge rv" style="--d:40ms"><span>Case study 01</span>Ground-up build</p>
+      <h1 class="casetitulo rv" style="--d:60ms">Casa Bohemia</h1>
+      <p class="caselede rv" style="--d:120ms">Our first full build, and the project that defined our standards.</p>
+      <figure class="caseportada mask" style="--d:180ms">
+        <img src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/69894773783__BBDB50C4-07D9-447A-9A9D-C077EC69B.JPG/:/rs=w:1600,cg:true,m" alt="Finished exterior of Casa Bohemia, a two-storey home built from the ground up">
+        <figcaption>Finished exterior of Casa Bohemia, a two-storey home built from the ground up</figcaption>
+      </figure>
+      <dl class="cinta-datos rv" style="--d:240ms">
         <div><dt>Project type</dt><dd>Ground-up residential new construction</dd></div>
         <div><dt>Timeline</dt><dd>2021 to 2022</dd></div>
         <div><dt>Location</dt><dd>Miami-Dade, Florida</dd></div>
@@ -155,7 +147,16 @@
       <div class="reto rv">
         <p class="bloque-rotulo" style="color:#8C8C8C">The challenge</p>
         <h2>Every decision had to be made before the first wall</h2>
-        <p>New construction requires decisions long before the first wall is built. Every structural element and plumbing line had to be planned, with little room for improvisation. This project demanded precision, sequencing, and a deep understanding of how systems interact.</p>
+        <div class="reto-cajas">
+          <div class="reto-caja">
+            <span class="reto-etq">What we found</span>
+            <p>New construction requires decisions long before the first wall is built. Every structural element and plumbing line had to be planned, with little room for improvisation. This project demanded precision, sequencing, and a deep understanding of how systems interact.</p>
+          </div>
+          <div class="reto-caja resuelto">
+            <span class="reto-etq">How we solved it</span>
+            <p>We planned every structural element and plumbing line before the first wall went up, and coordinated the trades from the start instead of solving it on the way.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -165,10 +166,10 @@
       <p class="bloque-rotulo rv" style="color:#8C8C8C">What we learned</p>
       <h2 class="title rv" style="--d:60ms">What the first ground-up build taught us</h2>
       <ol class="lecciones">
-        <li class="rv" style="--d:0ms"><span>01</span><b>Structure first</b>Structure sets the tone for everything that follows.</li>
-        <li class="rv" style="--d:70ms"><span>02</span><b>Trades together</b>Early coordination between trades prevents delays and rework.</li>
-        <li class="rv" style="--d:140ms"><span>03</span><b>Aligned from day one</b>Plumbing and structural decisions must be aligned from the start.</li>
-        <li class="rv" style="--d:210ms"><span>04</span><b>Planning over urgency</b>Clear planning reduces uncertainty during construction.</li>
+        <li class="rv" style="--d:0ms"><span>01</span><i>Drawings</i><b>Structure first</b>Structure sets the tone for everything that follows.</li>
+        <li class="rv" style="--d:70ms"><span>02</span><i>Trades</i><b>Trades together</b>Early coordination between trades prevents delays and rework.</li>
+        <li class="rv" style="--d:140ms"><span>03</span><i>Systems</i><b>Aligned from day one</b>Plumbing and structural decisions must be aligned from the start.</li>
+        <li class="rv" style="--d:210ms"><span>04</span><i>Build</i><b>Planning over urgency</b>Clear planning reduces uncertainty during construction.</li>
       </ol>
     </div>
   </section>
@@ -213,9 +214,12 @@
 
   <section style="padding-top:clamp(40px,5vw,66px)">
     <div class="wrap wide">
-      <div class="nextprev">
-        <a href="matheson-residence.html">&larr; Matheson Residence</a>
-        <a href="rodriguez-residence.html">Rodriguez Residence &rarr;</a>
+      <div class="barra-sig">
+        <div class="barra-sig-meta">
+          <span>Next project</span>
+          <a href="rodriguez-residence.html">Rodriguez Residence &rarr;</a>
+        </div>
+        <a class="barra-sig-todos" href="projects.html">&larr; All projects</a>
       </div>
     </div>
   </section>
@@ -275,6 +279,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=67"></script>
+<script src="assets/site.js?v=69"></script>
 </body>
 </html>
