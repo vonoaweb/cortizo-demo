@@ -196,6 +196,12 @@ h2.title{font-size:clamp(1.55rem,3.6vw,2.15rem);font-weight:400}
 .btns.inline{flex-direction:row;flex-wrap:wrap;justify-content:flex-start;
   align-items:center;gap:12px;margin-top:26px}
 .btns.inline .btn{min-width:0;padding:15px 26px;font-size:12px}
+/* en telefono los dos no caben de lado: sueltos quedaban de anchos
+   distintos, uno debajo del otro y sin alinear por la derecha */
+@media(max-width:560px){
+  .btns.inline{flex-direction:column;align-items:stretch}
+  .btns.inline .btn{width:100%}
+}
 @media(max-width:860px){.quehace{grid-template-columns:minmax(0,1fr)}}
 
 /* --- la fundadora: rail con retrato y texto al lado --- */
@@ -353,6 +359,46 @@ body:not(.no-js) .team figure{cursor:pointer}
 @media(prefers-reduced-motion:reduce){
   .fichaeq,.fichaeq-panel,.fichaeq-nav,.fichaeq-x{transition:none!important}
   .fichaeq-panel{transform:none!important}
+}
+
+/* ============================================================
+   SERVICIOS — el dato y la prueba dentro de cada servicio
+   De esta pagina no salia ni un enlace a Proyectos: los tres
+   que habia iban los tres a contact.html. Y no habia ni una
+   mencion a precio, coste o rango, que es la primera necesidad
+   de informacion de quien busca contratista.
+   ============================================================ */
+.svcdato{margin:26px 0 0;padding:16px 0 0;border-top:1px solid var(--line-dark);
+  display:grid;gap:14px}
+.svcdato div{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 18px}
+.svcdato dt{flex:0 0 auto;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:#7A7A7A;font-weight:700}
+.svcdato dd{margin:0;font-size:.95rem;color:#fff}
+
+.svcobras{margin-top:26px}
+.svcobras-rot{font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:#7A7A7A;font-weight:700;margin:0 0 10px}
+.svcobras-lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-dark)}
+.svcobras-lista li{border-bottom:1px solid var(--line-dark)}
+/* cada fila es su propia rejilla: con fr y minimo cero el reparto sale
+   igual en todas, que es lo que no pasaba en la lista de About */
+.svcobras-lista a{display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1.3fr) minmax(0,.62fr);
+  gap:5px 16px;align-items:baseline;padding:12px 2px;text-decoration:none;
+  transition:padding-left .3s var(--ease),background-color .3s ease}
+.svcobras-lista a:hover,.svcobras-lista a:focus-visible{padding-left:10px;
+  background:rgba(255,255,255,.055)}
+.svcobras-lista b{font-family:var(--f-head);font-weight:700;font-size:.94rem;
+  letter-spacing:.02em;text-transform:uppercase;color:#fff}
+.svcobras-lista i{font-style:normal;font-size:.88rem;color:#A8A8A8;line-height:1.5}
+.svcobras-lista em{font-style:normal;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:#7A7A7A;text-align:right;
+  font-variant-numeric:tabular-nums}
+.svcbody .btns.inline{margin-top:28px}
+@media(max-width:620px){
+  .svcobras-lista a{grid-template-columns:minmax(0,1fr);row-gap:3px}
+  .svcobras-lista em{text-align:left}
+  .svcobras-lista a:hover,.svcobras-lista a:focus-visible{padding-left:6px}
 }
 
 /* ---------- franja de confianza ---------- */

@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=84">
+<link rel="stylesheet" href="assets/styles.css?v=86">
 
 <script type="application/ld+json">
 {
@@ -103,12 +103,17 @@
     <div class="wrap">
       <p class="kicker rv">What we do</p>
       <div class="titulo">
-        <div class="ola rv"><img src="assets/ola-services.svg?v=84" alt="" width="1404" height="524"></div>
+        <div class="ola rv"><img src="assets/ola-services.svg?v=86" alt="" width="1404" height="524"></div>
         <div class="titulo-txt">
           <span class="hrule rv" style="--d:80ms" aria-hidden="true"></span>
           <h1 class="rv" style="--d:60ms">Services</h1>
         </div>
       </div>
+      <!-- El encabezado eran dos palabras: "What we do" y "Services". Nadie
+           podia decir a que se dedica la empresa sin bajar. -->
+      <p class="lede rv" style="--d:120ms">Residential and hospitality construction across
+        Miami-Dade. Full home renovations, houses built from the ground up, commercial
+        kitchens and boutique hospitality spaces.</p>
     </div>
   </div>
 
@@ -146,7 +151,27 @@
             <li>Roofing, plumbing and electrical replacement</li>
             <li>Permitting and inspections</li>
           </ul>
-          <a class="btn btn-light" href="contact.html">Ask for your home</a>
+          <!-- El precio es la primera necesidad de informacion de quien busca
+               un contratista, por delante de todo lo demas. La cifra tiene que
+               darla ella, asi que va con el mismo marcador que el correo del
+               pie: senala el hueco en vez de inventarlo. -->
+          <dl class="svcdato">
+            <div><dt>Typical project</dt>
+              <dd><span class="tofill">[ your typical range or project minimum ]</span></dd></div>
+          </dl>
+          <div class="svcobras">
+            <p class="svcobras-rot">Where we did it</p>
+            <ul class="svcobras-lista">
+            <li><a href="casa-bohemia.html"><b>Casa Bohemia</b><i>Ground-up build</i><em>2021&ndash;2022</em></a></li>
+            <li><a href="rodriguez-residence.html"><b>Rodriguez Residence</b><i>Structural renovation</i><em>2025</em></a></li>
+            <li><a href="the-bernal-residence.html"><b>The Bernal Residence</b><i>Full home renovation</i><em>2024&ndash;2025</em></a></li>
+            <li><a href="matheson-residence.html"><b>Matheson Residence</b><i>Studio renovation</i><em>2025, ongoing</em></a></li>
+            </ul>
+          </div>
+          <div class="btns inline">
+            <a class="btn btn-light" href="projects.html?tipo=residencial">See these projects</a>
+            <a class="btn btn-borde" href="contact.html">Ask for your home</a>
+          </div>
         </div>
       </article>
 
@@ -172,7 +197,20 @@
             <li>Phased work around live operations</li>
             <li>Brand-consistent finishes</li>
           </ul>
-          <a class="btn btn-light" href="contact.html">Ask for your business</a>
+          <dl class="svcdato">
+            <div><dt>Typical project</dt>
+              <dd><span class="tofill">[ your typical range or project minimum ]</span></dd></div>
+          </dl>
+          <div class="svcobras">
+            <p class="svcobras-rot">Where we did it</p>
+            <ul class="svcobras-lista">
+            <li><a href="san-juan-hotel.html"><b>San Juan Hotel</b><i>Hospitality renovation</i><em>2024</em></a></li>
+            </ul>
+          </div>
+          <div class="btns inline">
+            <a class="btn btn-light" href="projects.html?tipo=hospitalidad">See this project</a>
+            <a class="btn btn-borde" href="contact.html">Ask for your business</a>
+          </div>
         </div>
       </article>
 
@@ -346,6 +384,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=84"></script>
+<script src="assets/site.js?v=86"></script>
 </body>
 </html>
