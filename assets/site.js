@@ -1017,14 +1017,23 @@
       });
     });
 
-    /* --- la cortinilla, con la misma idea pero con curva --- */
+    /* --- la cortinilla, atada al scroll ---
+       Antes la foto tardaba 1.25 s fijos: la abria un reloj, no el scroll, y
+       si se pasaba deprisa ya estaba abierta antes de verla. Ahora la abre el
+       recorrido. La foto se descubre de abajo a arriba mientras sube por la
+       pantalla y termina de abrirse a media altura, que es donde se mira.
+
+       El desfase --d, que antes era un retraso en segundos, ahora corre el
+       punto de arranque: las fotas vecinas no se abren a la vez, se abren
+       escalonadas, pero cada una a su propio ritmo de scroll. */
     gsap.utils.toArray('.mask').forEach(function (el) {
       var d = parseFloat((el.style.getPropertyValue('--d') || '0').replace('ms', '')) / 1000;
       gsap.fromTo(el,
         { clipPath: 'inset(100% 0% 0% 0%)' },
-        { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.25, ease: 'power3.inOut',
-          delay: d || 0,
-          scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+        { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none',
+          scrollTrigger: { trigger: el, scrub: 0.55,
+            start: 'top ' + (94 - Math.min(d, 0.4) * 22) + '%',
+            end: 'top 52%' } });
     });
 
     /* --- titulares linea a linea ---
@@ -1231,6 +1240,228 @@
         });
       }
     }
+
+    /* --- el lienzo vivo ---
+       Curvas de nivel calculadas en el momento, no un dibujo guardado.
+       Debajo hay un campo de alturas: cinco cerros, cada uno con su altura
+       y su radio. El guion recorre una rejilla, mira por donde el terreno
+       cruza cada cota y une esos cruces. Eso son las curvas.
+
+       Frente al SVG de la marca, que es fijo, esto se puede deformar. El
+       raton es un cerro mas que va con el: al acercarse el terreno se
+       levanta y las curvas se abren a su alrededor, y las lineas cercanas
+       se encienden con un degradado radial centrado en el puntero. Al hacer
+       scroll el campo se desplaza contra la seccion, que es el paralaje.
+
+       El campo base se calcula una sola vez por medida. Por fotograma solo
+       se suma el cerro del raton, que es una parabola: ni exp ni raices. Y
+       si el puntero se detuvo y la pagina no se movio, no se vuelve a
+       dibujar. Si el puntero anda lejos del lienzo, tampoco. */
+    (function () {
+      if (!window.Path2D) return;
+      var lienzos = [].slice.call(document.querySelectorAll('canvas.lienzo'));
+      if (!lienzos.length) return;
+
+      var PASO = 18;     // lado minimo de la celda de la rejilla, en px
+      var PUNTOS = 5600; // cuantos puntos de rejilla como mucho, por lienzo
+      var MARGEN = 64;   // rejilla de sobra arriba y abajo, para el paralaje
+      var COTAS = 9;     // cuantas curvas de nivel
+      var RADIO = 250;   // alcance del cerro del raton, en px
+      var ALTO = 0.34;   // cuanto levanta, sobre un campo normalizado a 1
+
+      // x, y en fraccion del lienzo; altura; radio en fraccion del ancho
+      var CERROS = [
+        [0.14, 0.62, 1.00, 0.34], [0.38, 0.20, 0.72, 0.26],
+        [0.63, 0.80, 0.86, 0.30], [0.87, 0.34, 0.64, 0.24],
+        [0.50, 0.50, 0.40, 0.54]
+      ];
+
+      var fino = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+      var mapas = lienzos.map(function (c) {
+        var col = (getComputedStyle(c).color.match(/[0-9]+/g) || [10, 10, 10]);
+        return {
+          c: c, ctx: c.getContext('2d'),
+          tinta: [+col[0], +col[1], +col[2]],
+          // sobre negro la linea necesita mas cuerpo para leerse igual
+          base: +col[0] + +col[1] + +col[2] > 380 ? 0.13 : 0.10,
+          halo: +col[0] + +col[1] + +col[2] > 380 ? 0.55 : 0.42,
+          w: 0, h: 0, paso: PASO, nx: 0, ny: 0, campo: null, val: null, cotas: [],
+          mx: -9999, my: -9999, tx: -9999, ty: -9999,
+          desliz: 0, fuera: true, sucio: false
+        };
+      });
+
+      function medir(m) {
+        var r = m.c.getBoundingClientRect();
+        var w = Math.round(r.width), h = Math.round(r.height);
+        if (!w || !h) return false;
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        m.w = w; m.h = h;
+        m.c.width = Math.round(w * dpr);
+        m.c.height = Math.round(h * dpr);
+        m.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        // en un monitor ancho la rejilla se afloja en vez de multiplicarse:
+        // el coste por fotograma se queda donde esta y las curvas caen en el
+        // mismo sitio, solo con menos vertices
+        m.paso = Math.max(PASO, Math.ceil(Math.sqrt(w * (h + MARGEN * 2) / PUNTOS)));
+        m.nx = Math.ceil(w / m.paso) + 1;
+        m.ny = Math.ceil((h + MARGEN * 2) / m.paso) + 1;
+        m.campo = new Float32Array(m.nx * m.ny);
+        m.val = new Float32Array(m.nx * m.ny);
+
+        var lo = Infinity, hi = -Infinity, i, j, q, k = 0;
+        for (j = 0; j < m.ny; j++) {
+          var y = -MARGEN + j * m.paso;
+          for (i = 0; i < m.nx; i++, k++) {
+            var x = i * m.paso, v = 0;
+            for (q = 0; q < CERROS.length; q++) {
+              var ce = CERROS[q];
+              var dx = x - ce[0] * w, dy = y - ce[1] * h, rr = ce[3] * w;
+              var t = 1 - (dx * dx + dy * dy) / (rr * rr);
+              if (t > 0) v += ce[2] * t * t;
+            }
+            m.campo[k] = v;
+            if (v < lo) lo = v;
+            if (v > hi) hi = v;
+          }
+        }
+        // se normaliza a 0..1 para que las cotas no dependan del tamano
+        var trecho = (hi - lo) || 1;
+        for (k = 0; k < m.campo.length; k++) m.campo[k] = (m.campo[k] - lo) / trecho;
+        m.cotas.length = 0;
+        for (i = 1; i <= COTAS; i++) m.cotas.push(i / (COTAS + 1));
+        m.sucio = true;
+        return true;
+      }
+
+      // marching squares: una pasada por cota sobre la rejilla ya sumada
+      function cota(ruta, val, nx, ny, nivel, paso) {
+        for (var j = 0; j < ny - 1; j++) {
+          var f0 = j * nx, f1 = f0 + nx, y0 = j * paso, y1 = y0 + paso;
+          for (var i = 0; i < nx - 1; i++) {
+            var a = val[f0 + i], b = val[f0 + i + 1];
+            var d = val[f1 + i], e = val[f1 + i + 1];
+            var caso = (a > nivel ? 8 : 0) | (b > nivel ? 4 : 0) |
+                       (e > nivel ? 2 : 0) | (d > nivel ? 1 : 0);
+            if (caso === 0 || caso === 15) continue;
+            var x0 = i * paso, x1 = x0 + paso, p;
+            p = b - a; var ax = x0 + paso * (p ? (nivel - a) / p : 0.5);  // arriba
+            p = e - b; var ry = y0 + paso * (p ? (nivel - b) / p : 0.5);  // derecha
+            p = e - d; var bx = x0 + paso * (p ? (nivel - d) / p : 0.5);  // abajo
+            p = d - a; var ly = y0 + paso * (p ? (nivel - a) / p : 0.5);  // izq.
+            switch (caso) {
+              case 1: case 14: ruta.moveTo(x0, ly); ruta.lineTo(bx, y1); break;
+              case 2: case 13: ruta.moveTo(bx, y1); ruta.lineTo(x1, ry); break;
+              case 3: case 12: ruta.moveTo(x0, ly); ruta.lineTo(x1, ry); break;
+              case 4: case 11: ruta.moveTo(ax, y0); ruta.lineTo(x1, ry); break;
+              case 6: case 9:  ruta.moveTo(ax, y0); ruta.lineTo(bx, y1); break;
+              case 7: case 8:  ruta.moveTo(x0, ly); ruta.lineTo(ax, y0); break;
+              // las dos sillas de montar: dos tramos sueltos en la misma celda
+              case 5:  ruta.moveTo(x0, ly); ruta.lineTo(ax, y0);
+                       ruta.moveTo(bx, y1); ruta.lineTo(x1, ry); break;
+              case 10: ruta.moveTo(ax, y0); ruta.lineTo(x1, ry);
+                       ruta.moveTo(x0, ly); ruta.lineTo(bx, y1); break;
+            }
+          }
+        }
+      }
+
+      function pintar(m) {
+        var ctx = m.ctx, nx = m.nx, ny = m.ny, campo = m.campo, val = m.val;
+        var i, j, k, n;
+        var activo = fino && !m.fuera;
+        if (activo) {
+          // el raton, en coordenadas de la rejilla (que empieza mas arriba)
+          var px = m.mx, py = m.my + MARGEN, r2 = RADIO * RADIO;
+          for (j = 0, k = 0; j < ny; j++) {
+            var dy = j * m.paso - py, dy2 = dy * dy;
+            for (i = 0; i < nx; i++, k++) {
+              var dx = i * m.paso - px;
+              var t = 1 - (dx * dx + dy2) / r2;
+              val[k] = t > 0 ? campo[k] + ALTO * t * t : campo[k];
+            }
+          }
+        } else {
+          val.set(campo);
+        }
+
+        ctx.clearRect(0, 0, m.w, m.h);
+        ctx.save();
+        ctx.translate(0, -MARGEN + m.desliz);
+        ctx.lineWidth = 1;
+
+        var rutas = [];
+        for (n = 0; n < m.cotas.length; n++) {
+          var ruta = new Path2D();
+          cota(ruta, val, nx, ny, m.cotas[n], m.paso);
+          rutas.push(ruta);
+        }
+
+        var t3 = m.tinta, rgb = t3[0] + ',' + t3[1] + ',' + t3[2];
+        ctx.strokeStyle = 'rgb(' + rgb + ')';
+        ctx.globalAlpha = m.base;
+        for (n = 0; n < rutas.length; n++) ctx.stroke(rutas[n]);
+
+        if (activo) {
+          // y aqui se encienden las de cerca: el mismo trazo, repasado con
+          // un degradado que se apaga al alejarse del puntero
+          var gy = m.my + MARGEN - m.desliz;
+          var g = ctx.createRadialGradient(m.mx, gy, 0, m.mx, gy, RADIO);
+          g.addColorStop(0, 'rgba(' + rgb + ',' + m.halo + ')');
+          g.addColorStop(0.55, 'rgba(' + rgb + ',' + (m.halo * 0.42) + ')');
+          g.addColorStop(1, 'rgba(' + rgb + ',0)');
+          ctx.globalAlpha = 1;
+          ctx.strokeStyle = g;
+          for (n = 0; n < rutas.length; n++) ctx.stroke(rutas[n]);
+        }
+        ctx.restore();
+      }
+
+      if (fino) {
+        window.addEventListener('pointermove', function (ev) {
+          for (var n = 0; n < mapas.length; n++) {
+            var m = mapas[n];
+            if (!m.w) continue;
+            var r = m.c.getBoundingClientRect();
+            m.tx = ev.clientX - r.left;
+            m.ty = ev.clientY - r.top;
+            // la primera vez no se arrastra desde el infinito
+            if (m.mx < -9000) { m.mx = m.tx; m.my = m.ty; }
+          }
+        }, { passive: true });
+      }
+
+      gsap.ticker.add(function () {
+        var vp = window.innerHeight;
+        for (var n = 0; n < mapas.length; n++) {
+          var m = mapas[n];
+          var r = m.c.getBoundingClientRect();
+          // fuera de pantalla no se gasta ni un fotograma
+          if (r.bottom < -60 || r.top > vp + 60) continue;
+          if (Math.round(r.width) !== m.w || Math.round(r.height) !== m.h) {
+            if (!medir(m)) continue;
+          }
+          // paralaje: el campo se desplaza contra el recorrido de la seccion
+          var centro = (r.top + r.height / 2 - vp / 2) / vp;
+          var desliz = Math.max(-MARGEN, Math.min(MARGEN, centro * 54));
+          if (Math.abs(desliz - m.desliz) > 0.4) { m.desliz = desliz; m.sucio = true; }
+
+          if (fino && m.mx > -9000) {
+            var dx = m.tx - m.mx, dy = m.ty - m.my;
+            if (Math.abs(dx) > 0.4 || Math.abs(dy) > 0.4) {
+              m.mx += dx * 0.09; m.my += dy * 0.09;
+              // si el cerro ya paso de largo, deja de valer la pena repintar
+              var fuera = m.mx < -RADIO || m.my < -RADIO ||
+                          m.mx > m.w + RADIO || m.my > m.h + RADIO;
+              if (!(fuera && m.fuera)) m.sucio = true;
+              m.fuera = fuera;
+            }
+          }
+          if (m.sucio) { m.sucio = false; pintar(m); }
+        }
+      });
+    })();
 
     /* --- el camino del proceso, con sus cinco puntos ---
        La linea recta pasa a ser un camino que serpentea entre las fases,

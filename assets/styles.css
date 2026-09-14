@@ -467,6 +467,21 @@ body:not(.no-js) .team figure{cursor:pointer}
    movimiento. Sin ella el sitio se ve exactamente igual que antes. */
 .linea-caja{display:block;overflow:hidden}
 
+/* ---------- lienzo del terreno ----------
+   Curvas de nivel dibujadas en canvas, detras de todo lo de la portada.
+   No es decoracion suelta: es el mismo lenguaje topografico de su marca,
+   pero deformable, asi que puede levantarse bajo el cursor. El SVG de la
+   ola no puede hacer eso porque sus trazos son fijos.
+   Solo con la capa de movimiento; si no, ni se pinta. */
+.lienzo{display:none}
+.mov .lienzo{display:block;position:absolute;inset:0;width:100%;height:100%;
+  z-index:0;pointer-events:none}
+/* el color de la tinta lo lee el script de aqui, para no repartir colores
+   entre la hoja y el guion */
+.pagehero .lienzo{color:#0A0A0A}
+.cierre .lienzo{color:#FFFFFF}
+
+
 /* ---------- camino del proceso ----------
    La linea recta del proceso pasa a ser un camino que serpentea entre las
    cinco fases, con un marcador que lo recorre al hacer scroll y va
@@ -769,13 +784,14 @@ label{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercas
    Va dentro del footer y un tono por encima del negro puro, con una linea
    de un pixel, para que se lea como una banda propia y no como el footer
    estirado. */
-.cierre{background:var(--near);
+.cierre{background:var(--near);position:relative;overflow:hidden;
   /* la de arriba hace falta: about, services y projects ya terminan en una
      seccion oscura del mismo tono y sin la linea la banda y la seccion se
      fundian en un solo bloque negro larguisimo */
   border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);
   padding:clamp(52px,7vw,92px) 0 clamp(48px,6.5vw,84px);
   margin-bottom:56px;text-align:center}
+.cierre .wrap{position:relative;z-index:1}
 .cierre .eyebrow{color:#7A7A7A;margin-bottom:16px}
 .cierre-titulo{font-family:var(--f-head);font-weight:400;color:#fff;margin:0;
   font-size:clamp(1.75rem,4.4vw,2.85rem);line-height:1.12;letter-spacing:-.005em;
@@ -794,6 +810,32 @@ label{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercas
 .btn-wa:hover{background:transparent;color:#25D366}
 .btn-borde{background:transparent;color:#fff;border-color:rgba(255,255,255,.34)}
 .btn-borde:hover{background:#fff;color:#000;border-color:#fff}
+
+/* ---------- el boton se llena al pasar ----------
+   Antes el color cambiaba de golpe. Ahora sube un barrido desde abajo, que
+   es el mismo gesto con el que se descubren las fotos: la pagina entera usa
+   una sola idea de revelado.
+
+   Va al final a proposito, despues de los :hover de arriba, porque tiene que
+   anularlos: si el fondo saltara a transparente en el mismo instante, no
+   quedaria nada contra lo que ver subir el barrido. */
+.btn{position:relative;overflow:hidden;isolation:isolate;
+  /* el texto cambia de color un pelo despues, para que el vuelco ocurra
+     cuando el barrido ya lo tapa y no a media subida */
+  transition:background .25s,color .26s .12s,border-color .25s}
+.btn::after{content:"";position:absolute;inset:0;z-index:-1;
+  transform:scaleY(0);transform-origin:50% 100%;
+  transition:transform .42s var(--ease)}
+.btn-light::after{background:#000}
+.btn-dark::after,.btn-borde::after{background:#fff}
+.btn-wa::after{background:#0A1A0F}
+@media(hover:hover){
+  .btn-light:hover{background:#fff;color:#fff}
+  .btn-dark:hover{background:#000;color:#000}
+  .btn-borde:hover{background:transparent;color:#000;border-color:#fff}
+  .btn-wa:hover{background:#25D366;color:#25D366}
+  .btn:hover::after{transform:scaleY(1)}
+}
 @media(max-width:560px){
   .cierre-btns{flex-direction:column;align-items:stretch}
   .cierre-btns .btn{width:100%}
