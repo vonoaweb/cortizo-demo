@@ -266,8 +266,14 @@ body:not(.no-js) .team figure{cursor:pointer}
 .fichaeq.abierto{opacity:1;visibility:visible;pointer-events:auto}
 .fichaeq:focus{outline:none}
 
-.fichaeq-panel{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);
-  width:min(940px,100%);max-height:min(86vh,720px);
+/* alto definido y no max-height: con max-height la fila la estiraba el
+   texto (la biografia mas larga la llevaba a 1.200 px), el panel recortaba
+   por overflow y del retrato solo se veia la franja de arriba, sin cara.
+   Con alto fijo las seis fichas miden lo mismo y el pie cae siempre en el
+   mismo sitio. */
+.fichaeq-panel{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);
+  grid-template-rows:minmax(0,1fr);
+  width:min(940px,100%);height:min(84vh,680px);
   background:var(--near);border:1px solid var(--line-dark);
   overflow:hidden;text-align:left;
   transform:translateY(22px) scale(.985);
@@ -324,10 +330,17 @@ body:not(.no-js) .team figure{cursor:pointer}
 
 @media(max-width:780px){
   .fichaeq{padding:0}
-  .fichaeq-panel{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;
-    width:100%;max-height:100vh;height:100vh;border:0}
-  .fichaeq-foto{height:clamp(190px,32vh,280px)}
-  .fichaeq-txt{padding:24px 20px 28px}
+  /* dvh y no vh: con vh el panel se mete por debajo de la barra de
+     direcciones del navegador movil y el pie queda fuera */
+  .fichaeq-panel{display:flex;flex-direction:column;width:100%;
+    height:100vh;height:100dvh;max-height:none;border:0}
+  /* el retrato deja de ser una franja ancha. Sus fotos de equipo son
+     verticales (0,67) y en una caja de 375x260 el recorte se comia el 54%
+     de la imagen justo por la cara. A 4:5, el mismo encuadre que ya usa la
+     tarjeta, se pierde un 16% y la cara se queda dentro. */
+  .fichaeq-foto{flex:0 0 auto;width:128px;aspect-ratio:4/5;height:auto;
+    margin:26px 20px 0}
+  .fichaeq-txt{flex:1 1 auto;min-height:0;padding:18px 20px 28px}
   .fichaeq-pie{flex-direction:column;gap:10px}
   .fichaeq-nav.next{text-align:left}
 }
