@@ -476,10 +476,14 @@ body:not(.no-js) .team figure{cursor:pointer}
 .lienzo{display:none}
 .mov .lienzo{display:block;position:absolute;inset:0;width:100%;height:100%;
   z-index:0;pointer-events:none}
+/* la seccion que lo aloja tiene que ser el marco de referencia, y su
+   contenido ir por delante */
+.conlienzo{position:relative;overflow:hidden}
+.conlienzo > .wrap{position:relative;z-index:1}
 /* el color de la tinta lo lee el script de aqui, para no repartir colores
    entre la hoja y el guion */
-.pagehero .lienzo{color:#0A0A0A}
-.cierre .lienzo{color:#FFFFFF}
+.lienzo{color:#0A0A0A}
+.dark .lienzo,.plist .lienzo,.cierre .lienzo{color:#FFFFFF}
 
 
 /* ---------- camino del proceso ----------

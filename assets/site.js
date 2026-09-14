@@ -1310,16 +1310,37 @@
         m.campo = new Float32Array(m.nx * m.ny);
         m.val = new Float32Array(m.nx * m.ny);
 
-        var lo = Infinity, hi = -Infinity, i, j, q, k = 0;
+        // El relieve se repite en bandas hacia abajo en vez de estirarse. Una
+        // seccion alta no tiene que ser los mismos cinco cerros mas separados:
+        // tiene que tener mas cerros. La banda se mide en anchos, no en altos,
+        // asi que el terreno se ve igual de denso en una franja de 400 px que
+        // en una lista de proyectos de 3000.
+        var banda = w * 0.52, alto = h + MARGEN * 2;
+        var filas = Math.ceil(alto / banda) + 1;
+        var cerros = [], i, j, q, t, k = 0;
+        for (t = 0; t < filas; t++) {
+          for (q = 0; q < CERROS.length; q++) {
+            var ce = CERROS[q];
+            // las bandas impares van corridas media anchura; si no, al
+            // repetirse se nota la reja
+            cerros.push([((ce[0] + (t % 2 ? 0.5 : 0)) % 1) * w,
+                         -MARGEN + (t + ce[1]) * banda,
+                         ce[2], ce[3] * w]);
+          }
+        }
+
+        var lo = Infinity, hi = -Infinity;
         for (j = 0; j < m.ny; j++) {
           var y = -MARGEN + j * m.paso;
           for (i = 0; i < m.nx; i++, k++) {
             var x = i * m.paso, v = 0;
-            for (q = 0; q < CERROS.length; q++) {
-              var ce = CERROS[q];
-              var dx = x - ce[0] * w, dy = y - ce[1] * h, rr = ce[3] * w;
-              var t = 1 - (dx * dx + dy * dy) / (rr * rr);
-              if (t > 0) v += ce[2] * t * t;
+            for (q = 0; q < cerros.length; q++) {
+              var cr = cerros[q], rr = cr[3];
+              var dy = y - cr[1];
+              if (dy < -rr || dy > rr) continue;   // corte barato por filas
+              var dx = x - cr[0];
+              var tt = 1 - (dx * dx + dy * dy) / (rr * rr);
+              if (tt > 0) v += cr[2] * tt * tt;
             }
             m.campo[k] = v;
             if (v < lo) lo = v;
