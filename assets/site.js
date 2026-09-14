@@ -959,74 +959,6 @@
     // llevan paralaje, para que el recorrido no descubra el borde
     document.documentElement.classList.add('mov');
 
-    /* --- cortina: entrada y paso entre paginas ---
-       La pagina deja de aparecer de golpe. Al llegar, la cortina se retira
-       hacia arriba y el encabezado entra detras; al pulsar un enlace del
-       propio sitio, baja antes de navegar. Es lo que hace que se sienta un
-       sitio y no una sucesion de cargas.
-
-       No usa Barba ni ninguna libreria de mas: se anima el clip-path de un
-       div y luego se cambia location. La pagina siguiente hace su propia
-       entrada, asi que el empalme se ve continuo. */
-    var cortina = document.getElementById('cortina');
-    if (cortina) {
-      var marca = cortina.querySelector('.cortina-marca');
-      // Medido: con la primera version la cortina tardaba casi 2 s en
-      // levantarse y eso es pantalla negra mirando. Aqui el conjunto dura
-      // algo menos de un segundo y la marca se va mientras la cortina sube,
-      // no despues.
-      var entrada = gsap.timeline();
-      entrada
-        .to(marca, { opacity: 1, duration: 0.3, ease: 'power2.out' })
-        .to(marca, { opacity: 0, duration: 0.25, ease: 'power2.in' }, '+=0.05')
-        .to(cortina, {
-          clipPath: 'inset(0% 0% 100% 0%)', duration: 0.7, ease: 'power3.inOut'
-        }, '-=0.22')
-        // Nada de clearProps: se aplica al terminar el paso y llegaba a
-        // borrar el display:none puesto justo despues. En escritorio colaba
-        // y en telefono no: la cortina se quedaba tapando la pantalla
-        // entera, negra, con el sitio detras. Se apagan las dos propiedades
-        // a mano y en el mismo paso.
-        .set(cortina, { clipPath: 'none', display: 'none' })
-        .from('.hdr', { yPercent: -100, duration: 0.6, ease: 'power3.out' }, '-=0.45');
-
-      var yendo = false;
-      document.addEventListener('click', function (ev) {
-        if (yendo || ev.defaultPrevented) return;
-        if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button !== 0) return;
-        var a = ev.target.closest && ev.target.closest('a[href]');
-        if (!a) return;
-        var href = a.getAttribute('href');
-        // ni anclas, ni telefono, ni correo, ni WhatsApp, ni pestana nueva,
-        // ni las fotos que abre el visor
-        if (!href || href.charAt(0) === '#' || a.target === '_blank'
-            || a.hasAttribute('download') || a.classList.contains('shot')
-            || /^(tel:|mailto:|https?:\/\/)/.test(href)) return;
-        ev.preventDefault();
-        yendo = true;
-        gsap.set(cortina, { display: 'flex', clipPath: 'inset(100% 0% 0% 0%)' });
-        gsap.to(cortina, {
-          clipPath: 'inset(0% 0% 0% 0%)', duration: 0.62, ease: 'power3.inOut',
-          onComplete: function () { window.location.href = href; }
-        });
-      });
-
-      // volver con el boton atras devuelve la pagina desde la cache con la
-      // cortina bajada: hay que levantarla
-      window.addEventListener('pageshow', function (e) {
-        if (!e.persisted) return;
-        yendo = false;
-        gsap.set(cortina, { clipPath: 'none', display: 'none' });
-      });
-
-      // Red de seguridad. Una cortina que se quede puesta es una pantalla
-      // negra y el sitio inutilizable, asi que pasados dos segundos y medio
-      // se apaga pase lo que pase, salvo que se este saliendo a otra pagina.
-      setTimeout(function () {
-        if (!yendo) cortina.style.display = 'none';
-      }, 2500);
-    }
-
     /* --- desplazamiento suave --- */
     var lenis = null;
     if (window.Lenis) {
@@ -1066,7 +998,7 @@
     // disparador se cumple en el acto y solo aporta un punto de fallo: si
     // GSAP tarda o el disparador se calcula sobre una altura vieja, el
     // titular se queda invisible y la primera impresion es una pagina en
-    // blanco. Entra con la cortina, en secuencia, mas abajo.
+    // blanco. Entra en secuencia nada mas cargar, mas abajo.
     gsap.utils.toArray('.rv').filter(function (el) {
       return !el.closest('.pagehero');
     }).forEach(function (el) {
@@ -1108,7 +1040,7 @@
             caja.appendChild(l);
           });
           if (enPortada) {
-            // se guarda para que la cortina lo encadene
+            // se guarda para que la entrada de portada lo encadene
             el.__lineas = partido.lines;
             gsap.set(partido.lines, { yPercent: 108 });
             return;
@@ -1120,14 +1052,14 @@
         });
     }
 
-    /* --- entrada de la portada, encadenada a la cortina ---
+    /* --- entrada de la portada ---
        Va aqui y no arriba porque necesita que SplitText ya haya partido el
-       titular. El retraso empalma con el momento en que la cortina termina
-       de subir. */
+       titular. Antes esperaba a que subiera una cortina de carga; se quito
+       porque no gustaba, asi que arranca en cuanto la pagina esta lista. */
     (function () {
       var piezas = gsap.utils.toArray('.pagehero .rv');
       var h1 = document.querySelector('.pagehero h1');
-      var tl = gsap.timeline({ delay: cortina ? 0.62 : 0.1 });
+      var tl = gsap.timeline({ delay: 0.12 });
       if (piezas.length) {
         tl.to(piezas, {
           autoAlpha: 1, y: 0, duration: 0.95, ease: 'power3.out', stagger: 0.09
@@ -1138,7 +1070,7 @@
           yPercent: 0, duration: 1.1, ease: 'power4.out', stagger: 0.09
         }, 0.12);
       }
-      // Red de seguridad, por la misma razon que la de la cortina: una
+      // Red de seguridad: una
       // portada en blanco es peor que una portada sin animacion.
       setTimeout(function () {
         piezas.forEach(function (el) {
@@ -1150,9 +1082,9 @@
     })();
 
     /* --- la montana se dibuja sola ---
-       Cada curva de nivel lleva pathLength="1", asi que su longitud cuenta
-       como 1 pase lo que pase y el trazo se dibuja moviendo el desfase de 1
-       a 0, sin medir nada en el navegador.
+       Cada curva de nivel lleva pathLength="1000", asi que su longitud
+       cuenta como 1000 pase lo que pase y el trazo se dibuja moviendo el
+       desfase de 1000 a 0, sin medir nada en el navegador.
 
        El orden no es el del archivo: se ordenan por tamano, de la curva mas
        pequena a la mas grande, para que el dibujo crezca desde el nucleo
@@ -1166,13 +1098,14 @@
         try { ca = a.getBBox(); cb = b.getBBox(); } catch (e) { return 0; }
         return (ca.width * ca.height) - (cb.width * cb.height);
       });
-      gsap.set(trazos, { strokeDasharray: 1, strokeDashoffset: 1, opacity: 1 });
-      gsap.to(trazos, {
+      gsap.set(trazos, { strokeDasharray: 1000, strokeDashoffset: 1000, opacity: 1 });
+      var dibujo = gsap.to(trazos, {
         strokeDashoffset: 0,
         duration: 1.5,
         ease: 'power2.inOut',
         stagger: { each: 0.035, from: 'start' },
-        scrollTrigger: { trigger: svg, start: 'top 92%', once: true }
+        scrollTrigger: { trigger: svg, start: 'top 92%', once: true },
+        onComplete: function () { respira(svg, trazos); }
       });
       // deriva muy lenta al bajar: da profundidad sin que se note el truco
       gsap.fromTo(svg, { yPercent: -3 }, {
@@ -1180,7 +1113,54 @@
         scrollTrigger: { trigger: svg.parentNode, start: 'top bottom',
                          end: 'bottom top', scrub: 0.8 }
       });
+
+      /* --- el terreno se cierra al salir de la portada ---
+         En su video de portada las curvas empiezan sueltas alrededor de la
+         "C" y acaban inundando el cuadro, y de esa masa de lineas sale su
+         logo: un arco visto por una elipse. El arco del video es terreno que
+         se convierte en estructura, y eso su web no lo cuenta por ningun
+         lado. Aqui, al dejar la portada, el campo de curvas se cierra y gana
+         tinta, como en el segundo tramo del video. */
+      var portada = svg.closest('.pagehero');
+      var caja = svg.closest('.ola');
+      if (portada && caja) {
+        // la tinta vive en .ola (0.34 por CSS), no en el svg: animando el
+        // svg la opacidad bajaba de 1 en vez de subir desde 0.34
+        gsap.to(caja, {
+          scale: 1.16, opacity: 0.55, ease: 'none', transformOrigin: '70% 50%',
+          scrollTrigger: { trigger: portada, start: 'top top',
+                           end: 'bottom top', scrub: 0.7 }
+        });
+      }
     });
+
+    /* --- el campo de curvas respira ---
+       En su video las lineas nunca estan quietas: ondulan todo el rato y es
+       de ahi de donde sale la sensacion de terreno vivo. Un dibujo que se
+       traza una vez y se queda parado no cuenta eso.
+
+       Se hace moviendo el trazado, no el elemento: cada curva lleva
+       dasharray 1000, asi que empujar el dashoffset unas unidades desplaza
+       el punto por donde empieza y la linea parece reptar sobre si misma.
+       Es practicamente gratis y no mueve nada de sitio.
+
+       Cada capa va a su ritmo y con su fase, para que el conjunto ondule en
+       vez de latir a la vez. */
+    function respira(svg, trazos) {
+      var N = 6;
+      for (var k = 0; k < N; k++) {
+        var trozo = trazos.filter(function (t, i) { return i % N === k; });
+        if (!trozo.length) continue;
+        gsap.to(trozo, {
+          strokeDashoffset: 16,
+          duration: 3.2 + k * 0.45,
+          ease: 'sine.inOut',
+          repeat: -1,
+          yoyo: true,
+          delay: k * 0.28
+        });
+      }
+    }
 
     /* --- la montana responde al raton ---
        No se anade ningun elemento nuevo ni un solo byte de descarga: se

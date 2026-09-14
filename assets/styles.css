@@ -467,24 +467,11 @@ body:not(.no-js) .team figure{cursor:pointer}
    movimiento. Sin ella el sitio se ve exactamente igual que antes. */
 .linea-caja{display:block;overflow:hidden}
 
-/* ---------- cortina de entrada y de paso ----------
-   Por encima de todo, incluido el visor (500) y el menu movil (400).
-   Solo existe con la capa de movimiento montada: sin ella nunca se ve,
-   asi que la pagina entra como siempre. */
-.cortina{position:fixed;inset:0;z-index:900;background:#000;display:none;
-  align-items:center;justify-content:center;pointer-events:none}
-.mov .cortina{display:flex}
-.cortina-marca{display:flex;align-items:baseline;gap:10px;opacity:0}
-.cortina-marca b{font-family:var(--f-head);font-weight:700;letter-spacing:.06em;
-  font-size:clamp(1.1rem,2.6vw,1.6rem);color:#fff}
-.cortina-marca i{font-style:normal;font-family:var(--f-body);font-weight:300;
-  letter-spacing:.34em;font-size:clamp(.58rem,1.2vw,.76rem);color:#8C8C8C;
-  text-transform:uppercase}
 /* la montana en linea ocupa lo mismo que ocupaba como <img> */
 .pagehero .ola .ola-svg{display:block;width:100%;height:auto}
 /* con la capa montada los trazos arrancan sin dibujar; sin ella se ven
    enteros desde el primer pintado, como hasta ahora */
-.mov .pagehero .ola-svg path{stroke-dasharray:1;stroke-dashoffset:1}
+.mov .pagehero .ola-svg path{stroke-dasharray:1000;stroke-dashoffset:1000}
 /* la foto con paralaje se agranda un pelo: si no, al recorrerla se veria el
    borde de su marco */
 .mov .portada-foto{height:114%;margin-top:-7%}
