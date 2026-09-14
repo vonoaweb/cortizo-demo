@@ -138,10 +138,14 @@
   var G = 'https://lh3.googleusercontent.com/';
   // ficha real de Google de Cortizo Construction, la misma que usa su sitio
   var GMAPS = 'https://maps.google.com/maps?cid=8160738004661650355';
-  // Orden: la mas reciente primero. Las fotos son las de Google de cada
-  // persona, las mismas que sirve el widget de su sitio. Tres de los cinco
-  // no tienen foto en su cuenta y Google devuelve una inicial de color:
-  // en su sitio se ven igual.
+  // Orden: la mas reciente primero.
+  //
+  // Sin foto de Google a proposito. Las URL de avatar de googleusercontent
+  // son efimeras: las cinco devuelven ya 200 con 0 bytes, o sea que cada
+  // carga lanzaba cinco peticiones que fallaban y caian a la inicial. Una
+  // peticion que siempre falla es de las cosas que delatan un sitio dejado.
+  // La inicial se dibuja directamente: sale igual, no se rompe nunca y no
+  // depende de un dominio de terceros que puede caer.
   var REVIEWS = [
     ['Leyanis Cabrera', '7/31/2026', '(Translated by Google) Excellent service. The Cortizo Construction team is very professional, punct…',
      G + 'a-/ALV-UjWo-kJAGN4V79iUKpqdzAA0Dk4g7nAVSRBFfehp-qgWu-5buCA=s200-c-rp-mo-br100'],
@@ -158,22 +162,13 @@
   if (revTrack) {
     revTrack.innerHTML = REVIEWS.map(function (r) {
       return '<article class="rev-card">'
-        + '<span class="avatar" data-initial="' + esc(r[0].charAt(0)) + '">'
-        +   '<img loading="lazy" src="' + r[3] + '" alt="' + esc(r[0]) + ' on Google">'
-        + '</span>'
+        + '<span class="avatar" aria-hidden="true">' + esc(r[0].charAt(0)) + '</span>'
         + '<span class="stars" aria-label="5 out of 5 stars">★★★★★</span>'
         + '<blockquote>&ldquo;' + esc(r[2]) + '&rdquo;</blockquote>'
         + '<a class="readfull" href="' + GMAPS + '" rel="noopener">Read full review</a>'
         + '<span class="who"><b>' + esc(r[0]) + '</b> &middot; ' + esc(r[1]) + '</span>'
         + '</article>';
     }).join('');
-    // si Google no sirve la foto, queda la inicial
-    revTrack.querySelectorAll('.avatar img').forEach(function (im2) {
-      im2.addEventListener('error', function () {
-        var box = im2.parentElement;
-        box.textContent = box.getAttribute('data-initial');
-      });
-    });
   }
 
   /* ---------- flechas de los carruseles ---------- */
