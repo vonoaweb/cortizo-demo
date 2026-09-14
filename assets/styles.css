@@ -402,44 +402,49 @@ body:not(.no-js) .team figure{cursor:pointer}
 }
 
 /* ============================================================
-   INDICE DE SERVICIOS
-   Antes los dos servicios vivian dentro del mismo bloque, pegados
-   uno al otro: medido, cero separacion entre ellos y 4.319 px de
-   tramo oscuro seguido, casi cinco pantallas. De doce paginas de
-   constructoras y estudios que se cargaron para comparar, quien
-   tiene varias lineas las comprime en un indice y manda el peso a
-   paginas hijas.
-   La numeracion S-01 y S-02 no es adorno: es como se referencian
-   las laminas de un juego de planos.
+   LINEAS DE SERVICIO, CON EL ALCANCE EN FICHAS
+   Antes cada linea era una foto cuadrada grande al lado de una
+   lista de siete vinetas, y las dos lineas vivian pegadas dentro
+   del mismo bloque: medido, cero separacion entre ellas.
+   Ahora cada partida del alcance tiene su propia foto, como lo
+   tiene KROL en su pagina de servicios: rejilla de fichas en 4:3
+   con el numero encima y el titulo debajo.
    ============================================================ */
-.plano{list-style:none;margin:clamp(24px,3.5vw,40px) 0 0;padding:0;
+.svcline + .svcline{margin-top:clamp(56px,7vw,104px);
+  padding-top:clamp(46px,6vw,84px);border-top:1px solid var(--line-dark)}
+.svcline-head{text-align:left;max-width:64ch;margin:0 0 clamp(26px,3.4vw,42px)}
+.svcline-head h3{font-family:var(--f-head);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.5rem,3.4vw,2.3rem);letter-spacing:.02em;line-height:1.08;
+  color:#fff;margin:0 0 14px}
+.svcline-head .lede{color:var(--grey-2);font-size:1rem;line-height:1.75;
+  margin:0;max-width:58ch}
+
+.servs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(20px,2.4vw,34px) clamp(14px,1.8vw,26px)}
+.serv{min-width:0;display:flex;flex-direction:column;text-align:left}
+.serv__img{position:relative;display:block;aspect-ratio:4/3;overflow:hidden;
+  background:#1A1A1A;margin-bottom:14px}
+.serv__img img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:grayscale(.2);transition:transform 1.2s var(--ease),filter .6s ease}
+.serv:hover .serv__img img{transform:scale(1.06);filter:grayscale(0)}
+/* el numero en blanco sobre negro, como el resto de sus insignias; KROL lo
+   lleva en naranja porque ese es su color de marca, no el de ella */
+.serv__n{position:absolute;top:0;left:0;z-index:2;
+  font-family:var(--f-head);font-weight:700;font-size:11px;letter-spacing:.14em;
+  background:#fff;color:#000;padding:7px 11px;font-variant-numeric:tabular-nums}
+.serv h4{font-family:var(--f-head);font-weight:700;text-transform:uppercase;
+  font-size:clamp(.92rem,1.5vw,1.06rem);line-height:1.2;letter-spacing:.02em;
+  color:#fff;margin:0}
+
+.svcline-pie{margin-top:clamp(28px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);
   border-top:1px solid var(--line-dark)}
-.plano li{border-bottom:1px solid var(--line-dark)}
-.plano a{display:grid;grid-template-columns:104px minmax(0,1fr) auto;
-  gap:6px 24px;align-items:baseline;padding:clamp(24px,3.2vw,38px) 6px;
-  text-decoration:none;text-align:left;
-  transition:padding-left .4s var(--ease),background-color .4s ease}
-.plano a:hover,.plano a:focus-visible{padding-left:18px;background:rgba(255,255,255,.05)}
-.plano-cod{font-family:var(--f-head);font-weight:700;font-size:12px;letter-spacing:.18em;
-  color:var(--grey-2);font-variant-numeric:tabular-nums}
-.plano-nom{font-family:var(--f-head);font-weight:700;text-transform:uppercase;
-  font-size:clamp(1.25rem,3vw,2rem);letter-spacing:.03em;line-height:1.05;color:#fff}
-.plano-meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--grey-2);font-weight:700;white-space:nowrap}
-/* el resumen cuelga bajo el nombre, en la misma columna */
-.plano-des{grid-column:2;font-size:.97rem;line-height:1.6;color:#A8A8A8;
-  max-width:52ch;margin-top:4px}
-.plano a::after{content:"";grid-column:3;grid-row:2;justify-self:end;
-  width:26px;height:9px;align-self:center;
-  background:currentColor;color:var(--grey-2);
-  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 9'%3E%3Cpath d='M0 4.5h24M20 1l4 3.5-4 3.5' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3C/svg%3E") center/contain no-repeat;
-  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 9'%3E%3Cpath d='M0 4.5h24M20 1l4 3.5-4 3.5' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3C/svg%3E") center/contain no-repeat;
-  transition:transform .4s var(--ease),color .4s ease}
-.plano a:hover::after,.plano a:focus-visible::after{transform:translateX(6px);color:#fff}
-@media(max-width:700px){
-  .plano a{grid-template-columns:62px minmax(0,1fr);row-gap:4px}
-  .plano-meta{grid-column:2;white-space:normal}
-  .plano a::after{grid-column:2;grid-row:auto;justify-self:start;margin-top:10px}
+.svcline-pie .svcdato{margin-top:0;padding-top:0;border-top:0}
+@media(max-width:1180px){.servs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:860px){.servs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:460px){
+  .servs{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 10px}
+  .serv h4{font-size:.82rem}
+  .serv__n{font-size:10px;padding:5px 8px}
 }
 
 /* ---------- franja de confianza ---------- */
@@ -1168,12 +1173,21 @@ html:has(body.nav-abierto){overflow:hidden}
    La galeria de About NO lleva esta clase, y no es un olvido: alli cuatro
    de las nueve son panoramicas de 2,39 y en un vertical perderian dos
    tercios de la imagen. Esa se queda justificada. */
-.shotgrid.rejilla{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
-.shotgrid.rejilla .shot{height:auto;width:auto;aspect-ratio:3/4}
-.shotgrid.rejilla .shot img{width:100%;height:100%;object-fit:cover}
-@media(max-width:1100px){.shotgrid.rejilla{grid-template-columns:repeat(5,minmax(0,1fr))}}
-@media(max-width:860px){.shotgrid.rejilla{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media(max-width:640px){.shotgrid.rejilla{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* Mamposteria: el ancho de columna es fijo y cada foto conserva su alto.
+   Es la unica de las cinco que se le enseno que no recorta ni un pixel, y
+   la unica de las galerias estudiadas que sigue usando rejilla sin recortar
+   (Snohetta). Antes de esto se probo justificada, que dejaba las filas de
+   anchos desiguales, y rejilla 3:4, que recortaba un 17% de media. Las dos
+   se rechazaron al verlas. */
+.shotgrid.rejilla{display:block;columns:5;column-gap:clamp(12px,1.5vw,20px)}
+.shotgrid.rejilla .shot{display:block;width:auto;height:auto;aspect-ratio:auto;
+  break-inside:avoid;-webkit-column-break-inside:avoid;
+  margin:0 0 clamp(12px,1.5vw,20px)}
+.shotgrid.rejilla .shot img{width:100%;height:auto;max-width:100%;object-fit:contain;
+  display:block}
+@media(max-width:1100px){.shotgrid.rejilla{columns:4}}
+@media(max-width:860px){.shotgrid.rejilla{columns:3}}
+@media(max-width:640px){.shotgrid.rejilla{columns:2}}
 
 /* ---------- la capa ----------
    Por encima del menu movil (400) y de la barra de maqueta (300). */
