@@ -982,3 +982,106 @@ html:has(body.visor-abierto){overflow:hidden}
   max-width:min(1080px,94vw)}
 .visor-cap{padding-top:clamp(12px,1.6vh,18px);margin-top:clamp(12px,1.6vh,18px);
   border-top:1px solid var(--line-dark);width:100%}
+
+
+/* ============================================================
+   LISTADO DE PROYECTOS — layout de escaparate
+   La estructura la paso Fernando: cabecera con datos, filtros
+   con contador, tarjetas con foto y alcance, cita y cierre. El
+   sistema visual de aquella referencia era otro (serif editorial,
+   crema, terracota, esquinas redondeadas y sombras); aqui va con
+   el de ella: Lato y Cabin, blanco y negro puro, cantos rectos y
+   una sola linea de un pixel como recurso de separacion.
+   ============================================================ */
+
+/* --- datos bajo el titulo --- */
+.herostats{display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin:34px 0 0;
+  border-top:1px solid var(--line)}
+.herostats div{padding:16px 26px;border-right:1px solid var(--line);text-align:center}
+.herostats div:last-child{border-right:0}
+.herostats dt{font-family:var(--f-head);font-weight:700;font-size:13px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--head)}
+.herostats dd{margin:5px 0 0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--grey-2)}
+@media(max-width:640px){
+  .herostats{flex-direction:column}
+  .herostats div{border-right:0;border-bottom:1px solid var(--line);padding:13px 0}
+  .herostats div:last-child{border-bottom:0}
+}
+
+/* --- filtros --- */
+.filtros{padding:clamp(26px,3.4vw,44px) 0 0}
+.filtro-fila{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:14px;border-bottom:1px solid var(--line);padding-bottom:16px}
+.filtro-btns{display:flex;flex-wrap:wrap;gap:8px}
+.filtro-btn{font-family:var(--f-head);font-size:12px;font-weight:600;letter-spacing:.05em;
+  padding:9px 15px;border:0;box-shadow:inset 0 0 0 1px var(--line);background:transparent;
+  color:var(--grey);cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+  transition:color .25s ease,box-shadow .25s ease,background-color .25s ease}
+.filtro-btn span{font-size:10.5px;color:var(--grey-2);font-variant-numeric:tabular-nums}
+.filtro-btn:hover{color:var(--head);box-shadow:inset 0 0 0 1px var(--head)}
+.filtro-btn.on{background:var(--head);color:#fff;box-shadow:none}
+.filtro-btn.on span{color:#9A9A9A}
+.filtro-cuenta{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--grey-2);margin:0}
+.filtro-vacio{margin:40px 0 0;text-align:center;color:var(--grey)}
+.filtro-reset{background:none;border:0;padding:0;margin-left:8px;cursor:pointer;
+  font:inherit;color:var(--head);border-bottom:1px solid var(--head)}
+
+/* --- rejilla de tarjetas --- */
+.plist{padding-top:clamp(28px,3.6vw,46px)}
+/* el min() evita que la columna se pase del ancho del contenedor: con
+   minmax(330px,...) a secas, en un telefono de 375 la tarjeta salia de 330
+   dentro de un interior de 323 y se comia el margen lateral */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr));
+  gap:clamp(20px,2.6vw,38px)}
+.pcard{display:flex;flex-direction:column;background:var(--sheet,#fff);
+  border:1px solid var(--line);
+  transition:transform .5s var(--ease),border-color .4s ease,box-shadow .5s ease}
+.pcard[hidden]{display:none}
+.pcard-foto{position:relative;display:block;overflow:hidden;background:#111;
+  aspect-ratio:4/3}
+.pcard-foto img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:grayscale(1) contrast(1.04);
+  transition:transform 1.1s var(--ease),filter .7s var(--ease)}
+.pcard-tipo{position:absolute;left:0;bottom:0;background:#000;color:#fff;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  padding:8px 12px}
+@media(hover:hover){
+  .pcard:hover{transform:translateY(-5px);border-color:var(--head);
+    box-shadow:0 16px 34px rgba(0,0,0,.10)}
+  .pcard:hover .pcard-foto img{filter:grayscale(0) contrast(1);transform:scale(1.05)}
+}
+.pcard-cuerpo{padding:20px 20px 22px;display:flex;flex-direction:column;flex:1 1 auto;
+  text-align:left}
+.pcard-meta{display:flex;align-items:center;gap:12px;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--grey-2);margin:0 0 10px}
+.pcard-meta span{font-family:var(--f-mono,var(--f-head));font-weight:700;color:var(--head);
+  font-variant-numeric:tabular-nums}
+.pcard h2{font-family:var(--f-head);font-weight:700;font-size:1.12rem;letter-spacing:.03em;
+  text-transform:uppercase;margin:0 0 12px;color:var(--head)}
+.pcard-texto{color:var(--grey);font-size:.92rem;line-height:1.7;margin:0 0 18px;
+  display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.pcard-tags{margin-top:auto;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding-top:16px;border-top:1px solid var(--line)}
+.ctag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey-2);
+  box-shadow:inset 0 0 0 1px var(--line);padding:5px 9px}
+.pcard-ver{margin-left:auto;display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--f-head);font-size:11.5px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;text-decoration:none;color:var(--head);
+  border-bottom:1px solid var(--head);padding-bottom:2px}
+.pcard-ver svg{width:14px;height:14px;transition:transform .35s var(--ease)}
+.pcard-ver:hover svg{transform:translateX(4px)}
+
+/* --- cita --- */
+.citaband{padding:clamp(52px,7vw,96px) 0}
+.citaband-txt{max-width:56ch;margin:22px auto 0;text-align:center}
+.citaband .qb-mark{margin-bottom:12px}
+.citaband .process{text-align:center;margin:0 auto;max-width:34ch}
+.citaband .process-by{text-align:center;margin-top:24px}
+
+@media(prefers-reduced-motion:reduce){
+  .pcard,.pcard-foto img,.pcard-ver svg{transition:none!important}
+  .pcard:hover{transform:none!important;box-shadow:none!important}
+  .pcard:hover .pcard-foto img{transform:none!important}
+}

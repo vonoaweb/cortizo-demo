@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=55">
+<link rel="stylesheet" href="assets/styles.css?v=57">
 
 <script type="application/ld+json">
 {
@@ -102,7 +102,7 @@
   <div class="pagehero">
     <div class="wrap">
       <div class="titulo">
-        <div class="ola rv"><img src="assets/ola.svg?v=55" alt="" width="1477" height="409"></div>
+        <div class="ola rv"><img src="assets/ola.svg?v=57" alt="" width="1477" height="409"></div>
         <div class="titulo-txt">
           <span class="hrule rv" style="--d:80ms" aria-hidden="true"></span>
           <h1 class="rv" style="--d:60ms">Projects</h1>
@@ -112,183 +112,142 @@
         process, values and craftsmanship. We bring ideas to life with spaces built to last,
         crafted with integrity, precision and care. Each project reflects our commitment to
         quality artistry and creating environments that truly elevate the way people live.</p>
-      <div class="btns rv" style="--d:200ms">
-        <a class="btn btn-dark" href="#casa-bohemia">Explore our projects</a>
-      </div>
+      <dl class="herostats rv" style="--d:200ms">
+        <div><dt>Miami-Dade, Florida</dt><dd>Since 2021</dd></div>
+        <div><dt>CGC1535571</dt><dd>Certified General Contractor</dd></div>
+        <div><dt>5.0 on Google</dt><dd>Across 5 reviews</dd></div>
+      </dl>
     </div>
   </div>
 
-  <div class="trust">
-    <ul>
-      <li><b>CGC1535571</b> Florida Certified GC</li>
-      <li><b>5.0</b> Google &middot; 5 reviews</li>
-      <li><b>Miami-Dade</b> since 2021</li>
-      <li><b>English &amp; Español</b></li>
-    </ul>
-  </div>
-
-  <section class="dark plist">
+  <section class="filtros">
     <div class="wrap wide">
-      <article class="prow rv" id="casa-bohemia" style="--d:0ms">
-        <div class="prow-head">
+      <div class="filtro-fila">
+        <div class="filtro-btns" role="group" aria-label="Filter projects by type">
+          <button type="button" class="filtro-btn on" data-cat="todas">All projects<span>5</span></button>
+          <button type="button" class="filtro-btn" data-cat="residencial">Residential<span>4</span></button>
+          <button type="button" class="filtro-btn" data-cat="hospitalidad">Hospitality<span>1</span></button>
+          <button type="button" class="filtro-btn" data-cat="obra-nueva">Ground-up<span>1</span></button>
+          <button type="button" class="filtro-btn" data-cat="remodelacion">Renovation<span>4</span></button>
+        </div>
+        <p class="filtro-cuenta" id="filtro-cuenta" aria-live="polite">Showing 5 of 5 projects</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="plist">
+    <div class="wrap wide">
+      <div class="pgrid" id="pgrid">
+      <article class="pcard rv" data-cats="residencial obra-nueva" style="--d:0ms">
+        <a class="pcard-foto" href="casa-bohemia.html" aria-label="Casa Bohemia, see project">
+          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/69894773783__BBDB50C4-07D9-447A-9A9D-C077EC69B.JPG/:/rs=w:900,cg:true,m" alt="Finished exterior of Casa Bohemia, a two-storey home built from the ground up" width="900" height="1201">
+          <span class="pcard-tipo">Ground-up build</span>
+        </a>
+        <div class="pcard-cuerpo">
+          <p class="pcard-meta"><span>01</span>2021 to 2022</p>
           <h2>CASA BOHEMIA</h2>
-          <p>Built entirely from the ground up, this home marked a turning point for our company and became the foundation for the systems, standards and processes we follow today. We were responsible for the structural work and all plumbing installations, coordinating each phase from foundation through completion.</p>
-          <a class="btn btn-light" href="casa-bohemia.html">See project</a>
-        </div>
-        <div class="pcar">
-          <div class="pstrip" id="strip-casa-bohemia">
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/69894773783__BBDB50C4-07D9-447A-9A9D-C077EC69B.JPG/:/rs=w:1600,cg:true,m" data-caption="Finished exterior of Casa Bohemia, a two-storey home built from the ground up" data-group="casa-bohemia"><img decoding="async" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/69894773783__BBDB50C4-07D9-447A-9A9D-C077EC69B.JPG/:/rs=w:560,cg:true,m" alt="Finished exterior of Casa Bohemia, a two-storey home built from the ground up"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_2657.JPG/:/rs=w:1600,cg:true,m" data-caption="Roof trusses going up over the finished block shell" data-group="casa-bohemia"><img decoding="async" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_2657.JPG/:/rs=w:560,cg:true,m" alt="Roof trusses going up over the finished block shell"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5539%20%281%29.JPG/:/rs=w:1600,cg:true,m" data-caption="Wood slat screen wall framing the stair opening" data-group="casa-bohemia"><img decoding="async" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5539%20%281%29.JPG/:/rs=w:560,cg:true,m" alt="Wood slat screen wall framing the stair opening"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/69325337550__50A20A9A-2A76-4E81-87E8-ACD89026.jpeg/:/rs=w:1600,cg:true,m" data-caption="Wooden staircase between concrete block walls during construction" data-group="casa-bohemia"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/69325337550__50A20A9A-2A76-4E81-87E8-ACD89026.jpeg/:/rs=w:560,cg:true,m" alt="Wooden staircase between concrete block walls during construction"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5721.JPG/:/rs=w:1600,cg:true,m" data-caption="Finished bathroom with glass walk-in shower and black fixtures" data-group="casa-bohemia"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5721.JPG/:/rs=w:560,cg:true,m" alt="Finished bathroom with glass walk-in shower and black fixtures"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5797.JPG/:/rs=w:1600,cg:true,m" data-caption="Finished bathroom with wood vanity and walk-in shower" data-group="casa-bohemia"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5797.JPG/:/rs=w:560,cg:true,m" alt="Finished bathroom with wood vanity and walk-in shower"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5796%20%281%29.JPG/:/rs=w:1600,cg:true,m" data-caption="Finished kitchen with light blue cabinets, wood countertop and stainless range" data-group="casa-bohemia"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5796%20%281%29.JPG/:/rs=w:560,cg:true,m" alt="Finished kitchen with light blue cabinets, wood countertop and stainless range"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_1022.JPG/:/rs=w:1600,cg:true,m" data-caption="Block walls up and shored while the ground floor is formed" data-group="casa-bohemia"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_1022.JPG/:/rs=w:560,cg:true,m" alt="Block walls up and shored while the ground floor is formed"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/69193800327__F444C760-7D87-44C8-8BB6-84440D550.JPG/:/rs=w:1600,cg:true,m" data-caption="Floor joists set over the crawl space between the new block walls" data-group="casa-bohemia"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/69193800327__F444C760-7D87-44C8-8BB6-84440D550.JPG/:/rs=w:560,cg:true,m" alt="Floor joists set over the crawl space between the new block walls"></a>
+          <p class="pcard-texto">Built entirely from the ground up, this home marked a turning point for our company and became the foundation for the systems, standards and processes we follow today. We were responsible for the structural work and all plumbing installations, coordinating each phase from foundation through completion.</p>
+          <div class="pcard-tags">
+            <span class="ctag">Structural work</span>
+            <span class="ctag">Plumbing installations</span>
+            <span class="ctag">Foundation to completion</span>
+            <a class="pcard-ver" href="casa-bohemia.html">See project
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/></svg>
+            </a>
           </div>
-          <button class="car-btn prev" type="button" data-car="strip-casa-bohemia" data-dir="-1"
-                  aria-label="Previous photos of Casa Bohemia">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 4L7 12l8 8" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
-          <button class="car-btn next" type="button" data-car="strip-casa-bohemia" data-dir="1"
-                  aria-label="More photos of Casa Bohemia">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4l8 8-8 8" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
         </div>
       </article>
-      <article class="prow rv" id="rodriguez-residence" style="--d:80ms">
-        <div class="prow-head">
+      <article class="pcard rv" data-cats="residencial remodelacion" style="--d:90ms">
+        <a class="pcard-foto" href="rodriguez-residence.html" aria-label="Rodriguez Residence, see project">
+          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/257ab500-723b-407d-9ab0-960d72e439f8.jpg/:/rs=w:900,cg:true,m" alt="Finished white kitchen with island, brass stools and open shelving" width="900" height="574">
+          <span class="pcard-tipo">Structural renovation</span>
+        </a>
+        <div class="pcard-cuerpo">
+          <p class="pcard-meta"><span>02</span>2025</p>
           <h2>RODRIGUEZ RESIDENCE</h2>
-          <p>The Rodriguez Residence was a home renovation with key structural work. We demolished a detached studio, renovated three bathrooms, and opened the kitchen by removing a structural wall and installing a steel beam. New impact windows and sliding doors increased light and improved the indoor-outdoor connection.</p>
-          <a class="btn btn-light" href="rodriguez-residence.html">See project</a>
-        </div>
-        <div class="pcar">
-          <div class="pstrip" id="strip-rodriguez-residence">
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/142Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Close-up of the patterned cement tile used in the renovation" data-group="rodriguez-residence"><img decoding="async" width="560" height="840" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/142Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Close-up of the patterned cement tile used in the renovation"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/cedc01bb-4000-409f-812a-2a57643a5c37.jpg/:/rs=w:1600,cg:true,m" data-caption="Finished kitchen from the sink side, with brass hardware and a marble splashback" data-group="rodriguez-residence"><img decoding="async" width="560" height="357" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/cedc01bb-4000-409f-812a-2a57643a5c37.jpg/:/rs=w:560,cg:true,m" alt="Finished kitchen from the sink side, with brass hardware and a marble splashback"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/257ab500-723b-407d-9ab0-960d72e439f8.jpg/:/rs=w:1600,cg:true,m" data-caption="Finished white kitchen with island, brass stools and open shelving" data-group="rodriguez-residence"><img decoding="async" width="560" height="357" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/257ab500-723b-407d-9ab0-960d72e439f8.jpg/:/rs=w:560,cg:true,m" alt="Finished white kitchen with island, brass stools and open shelving"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_0577.JPG/:/rs=w:1600,cg:true,m" data-caption="Measuring a door opening during the renovation" data-group="rodriguez-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_0577.JPG/:/rs=w:560,cg:true,m" alt="Measuring a door opening during the renovation"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/0a090398-c944-4741-b7b5-f6a91a4fe948.jpg/:/rs=w:1600,cg:true,m" data-caption="New roof framing during construction" data-group="rodriguez-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/0a090398-c944-4741-b7b5-f6a91a4fe948.jpg/:/rs=w:560,cg:true,m" alt="New roof framing during construction"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_2408%20%281%29.JPG/:/rs=w:1600,cg:true,m" data-caption="Setting floor tile beside a large sliding door opening" data-group="rodriguez-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_2408%20%281%29.JPG/:/rs=w:560,cg:true,m" alt="Setting floor tile beside a large sliding door opening"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_1299.JPG/:/rs=w:1600,cg:true,m" data-caption="Partial roof reconstruction with new underlayment and drip edge beside the old barrel tile" data-group="rodriguez-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_1299.JPG/:/rs=w:560,cg:true,m" alt="Partial roof reconstruction with new underlayment and drip edge beside the old barrel tile"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6727.JPG/:/rs=w:1600,cg:true,m" data-caption="Finished kitchen with white cabinets and brass faucet" data-group="rodriguez-residence"><img loading="lazy" width="560" height="725" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6727.JPG/:/rs=w:560,cg:true,m" alt="Finished kitchen with white cabinets and brass faucet"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6739.JPG/:/rs=w:1600,cg:true,m" data-caption="Finished living room after the renovation" data-group="rodriguez-residence"><img loading="lazy" width="560" height="373" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6739.JPG/:/rs=w:560,cg:true,m" alt="Finished living room after the renovation"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6724.JPG/:/rs=w:1600,cg:true,m" data-caption="Finished nursery with crib and woven pendant light" data-group="rodriguez-residence"><img loading="lazy" width="560" height="784" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6724.JPG/:/rs=w:560,cg:true,m" alt="Finished nursery with crib and woven pendant light"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/145Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Patterned tile and brass shower head in the finished bathroom" data-group="rodriguez-residence"><img loading="lazy" width="560" height="840" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/145Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Patterned tile and brass shower head in the finished bathroom"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6712.JPG/:/rs=w:1600,cg:true,m" data-caption="Finished bathroom with patterned tile shower, brass fittings and an arched mirror" data-group="rodriguez-residence"><img loading="lazy" width="560" height="700" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6712.JPG/:/rs=w:560,cg:true,m" alt="Finished bathroom with patterned tile shower, brass fittings and an arched mirror"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6719.JPG/:/rs=w:1600,cg:true,m" data-caption="Finished shower with fluted tile and brass fixtures" data-group="rodriguez-residence"><img loading="lazy" width="560" height="784" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6719.JPG/:/rs=w:560,cg:true,m" alt="Finished shower with fluted tile and brass fixtures"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/aee83897-205f-416a-9762-097a36b618f3.jpg/:/rs=w:1600,cg:true,m" data-caption="Newly installed window seen from outside" data-group="rodriguez-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/aee83897-205f-416a-9762-097a36b618f3.jpg/:/rs=w:560,cg:true,m" alt="Newly installed window seen from outside"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6721.JPG/:/rs=w:1600,cg:true,m" data-caption="Brass rain shower head on fluted tile" data-group="rodriguez-residence"><img loading="lazy" width="560" height="784" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6721.JPG/:/rs=w:560,cg:true,m" alt="Brass rain shower head on fluted tile"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6723.JPG/:/rs=w:1600,cg:true,m" data-caption="Finished bedroom with built-in wardrobe and woven pendant light" data-group="rodriguez-residence"><img loading="lazy" width="560" height="840" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6723.JPG/:/rs=w:560,cg:true,m" alt="Finished bedroom with built-in wardrobe and woven pendant light"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_1241.JPG/:/rs=w:1600,cg:true,m" data-caption="Crew member on the new roof structure after the wall was opened up" data-group="rodriguez-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_1241.JPG/:/rs=w:560,cg:true,m" alt="Crew member on the new roof structure after the wall was opened up"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_0967.JPG/:/rs=w:1600,cg:true,m" data-caption="Crew member cutting a wall opening with a reciprocating saw" data-group="rodriguez-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_0967.JPG/:/rs=w:560,cg:true,m" alt="Crew member cutting a wall opening with a reciprocating saw"></a>
+          <p class="pcard-texto">The Rodriguez Residence was a home renovation with key structural work. We demolished a detached studio, renovated three bathrooms, and opened the kitchen by removing a structural wall and installing a steel beam. New impact windows and sliding doors increased light and improved the indoor-outdoor connection.</p>
+          <div class="pcard-tags">
+            <span class="ctag">Steel beam installation</span>
+            <span class="ctag">Three bathrooms</span>
+            <span class="ctag">Impact windows and sliders</span>
+            <a class="pcard-ver" href="rodriguez-residence.html">See project
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/></svg>
+            </a>
           </div>
-          <button class="car-btn prev" type="button" data-car="strip-rodriguez-residence" data-dir="-1"
-                  aria-label="Previous photos of Rodriguez Residence">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 4L7 12l8 8" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
-          <button class="car-btn next" type="button" data-car="strip-rodriguez-residence" data-dir="1"
-                  aria-label="More photos of Rodriguez Residence">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4l8 8-8 8" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
         </div>
       </article>
-      <article class="prow rv" id="san-juan-hotel" style="--d:160ms">
-        <div class="prow-head">
+      <article class="pcard rv" data-cats="hospitalidad remodelacion" style="--d:180ms">
+        <a class="pcard-foto" href="san-juan-hotel.html" aria-label="San Juan Hotel, see project">
+          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9588.JPG/:/rs=w:900,cg:true,m" alt="Crew member working on the new grease interceptors in the basement" width="900" height="1201">
+          <span class="pcard-tipo">Hospitality renovation</span>
+        </a>
+        <div class="pcard-cuerpo">
+          <p class="pcard-meta"><span>03</span>Construction began in early 2024</p>
           <h2>SAN JUAN HOTEL</h2>
-          <p>The San Juan Hotel project meant stepping into an open, unfinished 2018 permit and bringing the cafeteria kitchen back on track. We assessed existing work, coordinated inspections, and delivered a compliant, fully renewed system with a new grease trap, lift station and plumbing.</p>
-          <a class="btn btn-light" href="san-juan-hotel.html">See project</a>
-        </div>
-        <div class="pcar">
-          <div class="pstrip" id="strip-san-juan-hotel">
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6766%20%281%29.JPG/:/rs=w:1600,cg:true,m" data-caption="Exterior of the San Juan Hotel with its balconies and palms" data-group="san-juan-hotel"><img decoding="async" width="560" height="996" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6766%20%281%29.JPG/:/rs=w:560,cg:true,m" alt="Exterior of the San Juan Hotel with its balconies and palms"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6769%20%281%29.JPG/:/rs=w:1600,cg:true,m" data-caption="The San Juan Hotel sign on the building facade" data-group="san-juan-hotel"><img decoding="async" width="560" height="996" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6769%20%281%29.JPG/:/rs=w:560,cg:true,m" alt="The San Juan Hotel sign on the building facade"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6774%20%281%29.JPG/:/rs=w:1600,cg:true,m" data-caption="Corner of the San Juan Hotel building" data-group="san-juan-hotel"><img decoding="async" width="560" height="996" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6774%20%281%29.JPG/:/rs=w:560,cg:true,m" alt="Corner of the San Juan Hotel building"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6755%20%281%29.JPG/:/rs=w:1600,cg:true,m" data-caption="Exterior of the San Juan Hotel in Miami Beach" data-group="san-juan-hotel"><img loading="lazy" width="560" height="996" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6755%20%281%29.JPG/:/rs=w:560,cg:true,m" alt="Exterior of the San Juan Hotel in Miami Beach"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9588.JPG/:/rs=w:1600,cg:true,m" data-caption="Crew member working on the new grease interceptors in the basement" data-group="san-juan-hotel"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9588.JPG/:/rs=w:560,cg:true,m" alt="Crew member working on the new grease interceptors in the basement"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9477.JPG/:/rs=w:1600,cg:true,m" data-caption="Lift station basin with control panel and new PVC piping" data-group="san-juan-hotel"><img loading="lazy" width="560" height="996" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9477.JPG/:/rs=w:560,cg:true,m" alt="Lift station basin with control panel and new PVC piping"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6678.JPG/:/rs=w:1600,cg:true,m" data-caption="New lift station piping and alarm panel" data-group="san-juan-hotel"><img loading="lazy" width="560" height="784" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6678.JPG/:/rs=w:560,cg:true,m" alt="New lift station piping and alarm panel"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6758%20%282%29.JPG/:/rs=w:1600,cg:true,m" data-caption="Front facade of the San Juan Hotel with its balconies" data-group="san-juan-hotel"><img loading="lazy" width="560" height="996" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6758%20%282%29.JPG/:/rs=w:560,cg:true,m" alt="Front facade of the San Juan Hotel with its balconies"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6684.JPG/:/rs=w:1600,cg:true,m" data-caption="Hotel corridor with exit sign" data-group="san-juan-hotel"><img loading="lazy" width="560" height="784" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6684.JPG/:/rs=w:560,cg:true,m" alt="Hotel corridor with exit sign"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9953.JPG/:/rs=w:1600,cg:true,m" data-caption="Stainless hand sink installed in the kitchen" data-group="san-juan-hotel"><img loading="lazy" width="560" height="996" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9953.JPG/:/rs=w:560,cg:true,m" alt="Stainless hand sink installed in the kitchen"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9923.JPG/:/rs=w:1600,cg:true,m" data-caption="Wall patched around new plumbing stub-outs" data-group="san-juan-hotel"><img loading="lazy" width="560" height="996" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9923.JPG/:/rs=w:560,cg:true,m" alt="Wall patched around new plumbing stub-outs"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9739.JPG/:/rs=w:1600,cg:true,m" data-caption="Interceptor basin during installation" data-group="san-juan-hotel"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9739.JPG/:/rs=w:560,cg:true,m" alt="Interceptor basin during installation"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9584.JPG/:/rs=w:1600,cg:true,m" data-caption="Interceptor with sealed cover and new piping" data-group="san-juan-hotel"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9584.JPG/:/rs=w:560,cg:true,m" alt="Interceptor with sealed cover and new piping"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9585.JPG/:/rs=w:1600,cg:true,m" data-caption="New PVC piping and interceptor covers after installation" data-group="san-juan-hotel"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9585.JPG/:/rs=w:560,cg:true,m" alt="New PVC piping and interceptor covers after installation"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6682.JPG/:/rs=w:1600,cg:true,m" data-caption="Going over equipment specifications with the supplier" data-group="san-juan-hotel"><img loading="lazy" width="560" height="448" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6682.JPG/:/rs=w:560,cg:true,m" alt="Going over equipment specifications with the supplier"></a>
+          <p class="pcard-texto">The San Juan Hotel project meant stepping into an open, unfinished 2018 permit and bringing the cafeteria kitchen back on track. We assessed existing work, coordinated inspections, and delivered a compliant, fully renewed system with a new grease trap, lift station and plumbing.</p>
+          <div class="pcard-tags">
+            <span class="ctag">Grease trap system</span>
+            <span class="ctag">Lift station</span>
+            <span class="ctag">Permit recovery</span>
+            <a class="pcard-ver" href="san-juan-hotel.html">See project
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/></svg>
+            </a>
           </div>
-          <button class="car-btn prev" type="button" data-car="strip-san-juan-hotel" data-dir="-1"
-                  aria-label="Previous photos of San Juan Hotel">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 4L7 12l8 8" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
-          <button class="car-btn next" type="button" data-car="strip-san-juan-hotel" data-dir="1"
-                  aria-label="More photos of San Juan Hotel">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4l8 8-8 8" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
         </div>
       </article>
-      <article class="prow rv" id="the-bernal-residence" style="--d:240ms">
-        <div class="prow-head">
+      <article class="pcard rv" data-cats="residencial remodelacion" style="--d:270ms">
+        <a class="pcard-foto" href="the-bernal-residence.html" aria-label="The Bernal Residence, see project">
+          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5462.JPG/:/rs=w:900,cg:true,m" alt="Refinished hardwood floor in the hallway" width="900" height="1201">
+          <span class="pcard-tipo">Full home renovation</span>
+        </a>
+        <div class="pcard-cuerpo">
+          <p class="pcard-meta"><span>04</span>Construction began in 2024 and was completed in early 2025</p>
           <h2>THE BERNAL RESIDENCE</h2>
-          <p>The Bernal Residence was a comprehensive renovation that rethought how the home looks, feels and performs. Our scope included three new bathrooms, a new kitchen, new flooring throughout, impact windows, a new roof, and a refreshed pool area with new deck tile, resurfacing and complete plumbing replacement.</p>
-          <a class="btn btn-light" href="the-bernal-residence.html">See project</a>
-        </div>
-        <div class="pcar">
-          <div class="pstrip" id="strip-the-bernal-residence">
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5685%20%281%29.JPG/:/rs=w:1600,cg:true,m" data-caption="Pool drained and stripped back before resurfacing" data-group="the-bernal-residence"><img decoding="async" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5685%20%281%29.JPG/:/rs=w:560,cg:true,m" alt="Pool drained and stripped back before resurfacing"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_4565.JPG/:/rs=w:1600,cg:true,m" data-caption="Wall sheathed in building paper during the renovation" data-group="the-bernal-residence"><img decoding="async" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_4565.JPG/:/rs=w:560,cg:true,m" alt="Wall sheathed in building paper during the renovation"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/956CCB2F-7223-4C1B-BAA4-E5002A27C028.jpg/:/rs=w:1600,cg:true,m" data-caption="Bathtub set in place while the bathroom is still stripped to the block" data-group="the-bernal-residence"><img decoding="async" width="560" height="996" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/956CCB2F-7223-4C1B-BAA4-E5002A27C028.jpg/:/rs=w:560,cg:true,m" alt="Bathtub set in place while the bathroom is still stripped to the block"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5085.JPG/:/rs=w:1600,cg:true,m" data-caption="Shower bench and niche in hexagonal mosaic before grouting" data-group="the-bernal-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5085.JPG/:/rs=w:560,cg:true,m" alt="Shower bench and niche in hexagonal mosaic before grouting"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5203.JPG/:/rs=w:1600,cg:true,m" data-caption="Interior stripped back to framing during demolition" data-group="the-bernal-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5203.JPG/:/rs=w:560,cg:true,m" alt="Interior stripped back to framing during demolition"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_3385.JPG/:/rs=w:1600,cg:true,m" data-caption="Demolition in progress with walls opened up" data-group="the-bernal-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_3385.JPG/:/rs=w:560,cg:true,m" alt="Demolition in progress with walls opened up"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5083.JPG/:/rs=w:1600,cg:true,m" data-caption="Installing white hexagon mosaic floor tile" data-group="the-bernal-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5083.JPG/:/rs=w:560,cg:true,m" alt="Installing white hexagon mosaic floor tile"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6563.JPG/:/rs=w:1600,cg:true,m" data-caption="Exterior stucco repair around a new window" data-group="the-bernal-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6563.JPG/:/rs=w:560,cg:true,m" alt="Exterior stucco repair around a new window"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_7123.JPG/:/rs=w:1600,cg:true,m" data-caption="New wood entry doors installed before finishing" data-group="the-bernal-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_7123.JPG/:/rs=w:560,cg:true,m" alt="New wood entry doors installed before finishing"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/9e0e0c13-cec1-4ee3-a0dd-a13aa4ca6b1b.jpg/:/rs=w:1600,cg:true,m" data-caption="Shower lined in cobalt blue tile" data-group="the-bernal-residence"><img loading="lazy" width="560" height="996" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/9e0e0c13-cec1-4ee3-a0dd-a13aa4ca6b1b.jpg/:/rs=w:560,cg:true,m" alt="Shower lined in cobalt blue tile"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5462.JPG/:/rs=w:1600,cg:true,m" data-caption="Refinished hardwood floor in the hallway" data-group="the-bernal-residence"><img loading="lazy" width="560" height="747" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5462.JPG/:/rs=w:560,cg:true,m" alt="Refinished hardwood floor in the hallway"></a>
+          <p class="pcard-texto">The Bernal Residence was a comprehensive renovation that rethought how the home looks, feels and performs. Our scope included three new bathrooms, a new kitchen, new flooring throughout, impact windows, a new roof, and a refreshed pool area with new deck tile, resurfacing and complete plumbing replacement.</p>
+          <div class="pcard-tags">
+            <span class="ctag">New roof</span>
+            <span class="ctag">Three bathrooms</span>
+            <span class="ctag">Full plumbing replacement</span>
+            <a class="pcard-ver" href="the-bernal-residence.html">See project
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/></svg>
+            </a>
           </div>
-          <button class="car-btn prev" type="button" data-car="strip-the-bernal-residence" data-dir="-1"
-                  aria-label="Previous photos of The Bernal Residence">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 4L7 12l8 8" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
-          <button class="car-btn next" type="button" data-car="strip-the-bernal-residence" data-dir="1"
-                  aria-label="More photos of The Bernal Residence">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4l8 8-8 8" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
         </div>
       </article>
-      <article class="prow rv" id="matheson-residence" style="--d:320ms">
-        <div class="prow-head">
+      <article class="pcard rv" data-cats="residencial remodelacion" style="--d:360ms">
+        <a class="pcard-foto" href="matheson-residence.html" aria-label="Matheson Residence, see project">
+          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/106Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:900,cg:true,m" alt="Studio stripped back, with the ceiling opened and the services exposed" width="900" height="599">
+          <span class="pcard-tipo">Studio renovation</span>
+        </a>
+        <div class="pcard-cuerpo">
+          <p class="pcard-meta"><span>05</span>Ongoing project, construction began in 2025</p>
           <h2>MATHESON RESIDENCE</h2>
-          <p>The Matheson Residence is a full studio renovation managed entirely remotely. The client purchased the apartment while living outside Miami, trusting Cortizo Construction to lead the project from early design through construction, overseeing every step to ensure clarity and confidence.</p>
-          <a class="btn btn-light" href="matheson-residence.html">See project</a>
-        </div>
-        <div class="pcar">
-          <div class="pstrip" id="strip-matheson-residence">
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/105Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Metal stud framing in the studio during the renovation" data-group="matheson-residence"><img decoding="async" width="560" height="700" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/105Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Metal stud framing in the studio during the renovation"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/134Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Crew member cutting metal track on site" data-group="matheson-residence"><img decoding="async" width="560" height="784" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/134Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Crew member cutting metal track on site"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/132Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Crew member fitting a ceiling track around new piping" data-group="matheson-residence"><img decoding="async" width="560" height="784" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/132Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Crew member fitting a ceiling track around new piping"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/128Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Smoothing a wall edge with a trowel" data-group="matheson-residence"><img loading="lazy" width="560" height="700" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/128Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Smoothing a wall edge with a trowel"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/127Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Marking a metal track before installation" data-group="matheson-residence"><img loading="lazy" width="560" height="700" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/127Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Marking a metal track before installation"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/103Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Balcony view over the rooftops toward the ocean" data-group="matheson-residence"><img loading="lazy" width="560" height="373" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/103Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Balcony view over the rooftops toward the ocean"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/101Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Studio stripped to metal studs during demolition" data-group="matheson-residence"><img loading="lazy" width="560" height="840" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/101Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Studio stripped to metal studs during demolition"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/123Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Setting metal stud framing in the studio" data-group="matheson-residence"><img loading="lazy" width="560" height="700" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/123Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Setting metal stud framing in the studio"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/129Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Construction drawings laid out on the studio floor" data-group="matheson-residence"><img loading="lazy" width="560" height="700" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/129Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Construction drawings laid out on the studio floor"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/124Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Electrical rough-in with conduit and junction boxes" data-group="matheson-residence"><img loading="lazy" width="560" height="433" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/124Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Electrical rough-in with conduit and junction boxes"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/126Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Electrical box sealed with fire putty on a metal track" data-group="matheson-residence"><img loading="lazy" width="560" height="700" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/126Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Electrical box sealed with fire putty on a metal track"></a>
-            <a class="shot" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5709.JPG/:/rs=w:1600,cg:true,m" data-caption="Crew member smoothing the edge of a new board wall" data-group="matheson-residence"><img loading="lazy" width="560" height="996" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_5709.JPG/:/rs=w:560,cg:true,m" alt="Crew member smoothing the edge of a new board wall"></a>
+          <p class="pcard-texto">The Matheson Residence is a full studio renovation managed entirely remotely. The client purchased the apartment while living outside Miami, trusting Cortizo Construction to lead the project from early design through construction, overseeing every step to ensure clarity and confidence.</p>
+          <div class="pcard-tags">
+            <span class="ctag">Managed remotely</span>
+            <span class="ctag">Design to construction</span>
+            <span class="ctag">Layout planning</span>
+            <a class="pcard-ver" href="matheson-residence.html">See project
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/></svg>
+            </a>
           </div>
-          <button class="car-btn prev" type="button" data-car="strip-matheson-residence" data-dir="-1"
-                  aria-label="Previous photos of Matheson Residence">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 4L7 12l8 8" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
-          <button class="car-btn next" type="button" data-car="strip-matheson-residence" data-dir="1"
-                  aria-label="More photos of Matheson Residence">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4l8 8-8 8" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
         </div>
       </article>
+      </div>
+      <p class="filtro-vacio" id="filtro-vacio" hidden>No projects in that category yet.
+        <button type="button" class="filtro-reset">Show all projects</button></p>
+    </div>
+  </section>
+
+  <section class="dark citaband">
+    <div class="wrap">
+      <p class="eyebrow rv" style="color:#8C8C8C">Our process</p>
+      <blockquote class="qb-text citaband-txt">
+        <span class="qb-mark" aria-hidden="true">&ldquo;</span>
+        <p class="process rv" style="--d:80ms">Clear guidance. Honest communication.
+          Elevated craftsmanship. A construction experience designed to feel effortless.</p>
+        <p class="process-by rv" style="--d:160ms">Laura Cortizo, Director</p>
+      </blockquote>
     </div>
   </section>
 
@@ -364,6 +323,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=55"></script>
+<script src="assets/site.js?v=57"></script>
 </body>
 </html>

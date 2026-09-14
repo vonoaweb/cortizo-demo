@@ -328,6 +328,60 @@
     }
   }
 
+
+  /* ---------- filtros del listado de proyectos ----------
+     Botones y no menu desplegable: con cinco categorias el desplegable
+     esconde el catalogo. El filtro se refleja en la direccion para que la
+     vista se pueda compartir y para que "Atras" funcione. */
+  var fgrid = document.getElementById('pgrid');
+  if (fgrid) {
+    var fbtns = [].slice.call(document.querySelectorAll('.filtro-btn'));
+    var fcuenta = document.getElementById('filtro-cuenta');
+    var fvacio = document.getElementById('filtro-vacio');
+    var ftarjetas = [].slice.call(fgrid.querySelectorAll('.pcard'));
+
+    var filtrar = function (cat, empujar) {
+      var n = 0;
+      ftarjetas.forEach(function (t) {
+        var cats = (t.getAttribute('data-cats') || '').split(' ');
+        var dentro = cat === 'todas' || cats.indexOf(cat) > -1;
+        t.hidden = !dentro;
+        if (dentro) n++;
+      });
+      fbtns.forEach(function (b) {
+        var on = b.getAttribute('data-cat') === cat;
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      if (fcuenta) {
+        fcuenta.textContent = 'Showing ' + n + ' of ' + ftarjetas.length + ' projects';
+      }
+      if (fvacio) fvacio.hidden = n > 0;
+      if (empujar) {
+        var url = cat === 'todas' ? location.pathname
+                                  : location.pathname + '?tipo=' + cat;
+        history.pushState({ cat: cat }, '', url);
+      }
+    };
+
+    fbtns.forEach(function (b) {
+      b.setAttribute('aria-pressed', b.classList.contains('on') ? 'true' : 'false');
+      b.addEventListener('click', function () {
+        filtrar(b.getAttribute('data-cat'), true);
+      });
+    });
+    var reset = document.querySelector('.filtro-reset');
+    if (reset) reset.addEventListener('click', function () { filtrar('todas', true); });
+
+    var deLaUrl = function () {
+      var m = location.search.match(/[?&]tipo=([a-z-]+)/);
+      return m && fbtns.some(function (b) { return b.getAttribute('data-cat') === m[1]; })
+        ? m[1] : 'todas';
+    };
+    filtrar(deLaUrl(), false);
+    window.addEventListener('popstate', function () { filtrar(deLaUrl(), false); });
+  }
+
   /* ---------- formularios de demostracion ---------- */
   var lead = document.getElementById('leadform');
   if (lead) {
