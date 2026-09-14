@@ -1072,13 +1072,47 @@ html:has(body.nav-abierto){overflow:hidden}
    la altura de la fila es fija y el ancho lo pone cada foto segun su propia
    proporcion, asi que no se recorta ninguna. Las filas quedan de ancho
    desigual: se centran, que es como se compone una galeria justificada. */
-.shotgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:30px}
+.shotgrid{display:flex;flex-wrap:wrap;justify-content:flex-start;
+  gap:clamp(12px,1.5vw,20px);margin-top:clamp(26px,3.5vw,40px)}
+/* la fila era de 215 px: tamano de miniatura de contacto, no de obra.
+   El tope son 265 y no mas: probadas seis alturas contando como reparte las
+   filas, por encima de 265 las panoramicas de 2.39 se quedan solas en su
+   fila y la rejilla se ve rota por abajo. */
 .shotgrid .shot{flex:0 0 auto;width:auto;aspect-ratio:auto;
-  height:clamp(150px,17vw,215px)}
+  height:clamp(180px,20vw,265px)}
 .shotgrid .shot img{height:100%;width:auto;max-width:none;object-fit:contain}
+
+/* --- el pie sale del reposo ---
+   Medido sobre la version publicada: la banda tapaba una mediana del 48%
+   del alto de cada foto en escritorio y del 93% en telefono, donde en trece
+   fotos era mas alta que la propia foto y en tres se cortaba el texto. En una
+   sola pantalla habia 31 pies y 31 lupas, 350 palabras, el 43% del area de
+   foto cubierta de texto.
+   De doce galerias de estudios de arquitectura y fotografos que se cargaron
+   para comparar, ninguna usa banda oscura sobre la miniatura y ninguna pone
+   lupa en cada foto. La unica que pone texto encima lo hace en dos lineas de
+   tipografia plana, sin banda: es lo que se hace aqui.
+   El texto entero sigue en el visor, que es donde se lee de verdad. */
+.shotgrid .shot::before{opacity:0;transform:none;background:none;
+  padding:0 12px 11px;font-size:12px;
+  text-shadow:0 1px 3px rgba(0,0,0,.95),0 0 16px rgba(0,0,0,.8);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden}
+@media(hover:hover){
+  .shotgrid .shot:hover::before,
+  .shotgrid .shot:focus-visible::before{opacity:1}
+  .shotgrid .shot::after{opacity:0}
+  .shotgrid .shot:hover::after,
+  .shotgrid .shot:focus-visible::after{opacity:1}
+}
+@media(hover:none){
+  /* en tactil no hay raton que despierte nada, asi que la lupa se queda:
+     es la unica senal de que la foto se abre */
+  .shotgrid .shot::after{opacity:.8}
+}
 @media(max-width:640px){
   .shotgrid{gap:8px}
-  .shotgrid .shot{height:clamp(148px,38vw,190px)}
+  .shotgrid .shot{height:clamp(150px,40vw,200px)}
 }
 
 /* ---------- la capa ----------

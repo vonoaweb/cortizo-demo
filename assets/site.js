@@ -830,4 +830,87 @@
     if (ev.shiftKey && document.activeElement === pri) { ev.preventDefault(); ult.focus(); }
     else if (!ev.shiftKey && document.activeElement === ult) { ev.preventDefault(); pri.focus(); }
   });
+
+  /* ---------- galeria justificada de verdad ----------
+     Con solo flex-wrap y justify-content:center cada fila acababa de un
+     ancho distinto: medidas sobre la version publicada, las filas se
+     quedaban cortas por 166, 82, 25, 154 y 93 px dentro de un contenedor de
+     1.308. Desiguales por los dos lados, que es lo que delata una rejilla
+     como volcado de fotos y no como galeria compuesta.
+
+     Aqui cada fila se estira hasta ocupar el ancho entero: se van metiendo
+     fotos hasta pasarse y entonces se baja la altura de esa fila lo justo
+     para que encaje al pixel. Ninguna foto se recorta, que es la razon por
+     la que esta galeria no usa cuadros fijos: sus proporciones van del 0,56
+     al 2,39.
+
+     Las proporciones salen de los atributos width y height que ya escribe
+     build.py, no de la imagen cargada, asi que la rejilla se coloca bien
+     desde el primer pintado aunque las fotos bajen despues.
+
+     Sin JavaScript no pasa nada: queda la version en flex, que es la de
+     antes. */
+  var gjTimer = null;
+
+  function gjRazon(t) {
+    var i = t.querySelector('img');
+    if (!i) return 1.5;
+    var w = parseFloat(i.getAttribute('width')), h = parseFloat(i.getAttribute('height'));
+    if (!(w > 0 && h > 0)) { w = i.naturalWidth; h = i.naturalHeight; }
+    return (w > 0 && h > 0) ? w / h : 1.5;
+  }
+
+  function gjColocar(grid) {
+    var tiles = [].slice.call(grid.querySelectorAll('.shot'));
+    if (tiles.length < 2) return;
+
+    // se limpia antes de medir: si no, la segunda pasada leeria la altura
+    // que dejo la primera en vez de la que manda el CSS
+    tiles.forEach(function (t) { t.style.height = ''; t.style.width = ''; });
+    var ancho = grid.clientWidth;
+    var objetivo = tiles[0].getBoundingClientRect().height;
+    if (!ancho || !objetivo) return;
+
+    var cs = getComputedStyle(grid);
+    var hueco = parseFloat(cs.columnGap || cs.gap) || 0;
+
+    var fila = [], suma = 0;
+
+    function cerrar(estirar) {
+      var libre = ancho - hueco * (fila.length - 1);
+      var alto = libre / suma;
+      // la ultima fila solo se estira si no queda desproporcionada; si le
+      // falta mucho se queda a su altura y centrada, como estaba
+      if (!estirar && alto > objetivo * 1.6) alto = objetivo;
+      fila.forEach(function (o) {
+        o.t.style.height = alto + 'px';
+        o.t.style.width = (alto * o.r) + 'px';
+      });
+      fila = []; suma = 0;
+    }
+
+    for (var n = 0; n < tiles.length; n++) {
+      var r = gjRazon(tiles[n]);
+      fila.push({ t: tiles[n], r: r });
+      suma += r;
+      if (objetivo * suma + hueco * (fila.length - 1) >= ancho) cerrar(true);
+    }
+    if (fila.length) cerrar(false);
+  }
+
+  function gjTodas() {
+    [].slice.call(document.querySelectorAll('.shotgrid')).forEach(gjColocar);
+  }
+
+  if (document.querySelector('.shotgrid')) {
+    gjTodas();
+    window.addEventListener('resize', function () {
+      clearTimeout(gjTimer);
+      gjTimer = setTimeout(gjTodas, 140);
+    });
+    // las tipografias cambian el ancho del contenedor al aterrizar
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(gjTodas).catch(function () {});
+    }
+  }
 })();
