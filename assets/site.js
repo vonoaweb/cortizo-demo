@@ -679,4 +679,155 @@
     if (ev.shiftKey && document.activeElement === vPrimero) { ev.preventDefault(); vUltimo.focus(); }
     else if (!ev.shiftKey && document.activeElement === vUltimo) { ev.preventDefault(); vPrimero.focus(); }
   });
+
+  /* ---------- ficha del equipo, en modal ----------
+     Las biografias siguen estando en <details> dentro de la tarjeta y sin
+     JavaScript se abren igual: esa era la razon de haberlas puesto asi y no
+     se toca. Lo que cambia es que con JavaScript el clic ya no despliega la
+     tarjeta, abre un modal.
+
+     El motivo es medible: la biografia mas larga son 295 palabras. Abierta
+     dentro de la rejilla, la tarjeta crecia hasta empujar a las de su fila y
+     dejaba a las vecinas convertidas en columnas vacias de varias pantallas.
+     Con el modal la rejilla no se mueve y la ficha se lee entera.
+
+     El contenido no se duplica en el marcado: el modal se arma leyendo la
+     propia tarjeta. */
+  var eqCapa = null, eqFoto = null, eqNom = null, eqRol = null, eqBio = null;
+  var eqTxt = null, eqPrev = null, eqNext = null;
+  var eqFichas = [], eqIndice = 0, eqOrigen = null;
+
+  function eqCrear() {
+    eqCapa = document.createElement('div');
+    eqCapa.className = 'fichaeq';
+    eqCapa.setAttribute('role', 'dialog');
+    eqCapa.setAttribute('aria-modal', 'true');
+    eqCapa.setAttribute('aria-label', 'Team member profile');
+    eqCapa.setAttribute('aria-hidden', 'true');
+    eqCapa.tabIndex = -1;
+    eqCapa.innerHTML =
+      '<button type="button" class="fichaeq-x" aria-label="Close profile">'
+      + '<span></span><span></span></button>'
+      + '<div class="fichaeq-panel">'
+      + '<div class="fichaeq-foto"><img alt=""></div>'
+      + '<div class="fichaeq-txt">'
+      + '<p class="fichaeq-rotulo">Cortizo Construction</p>'
+      + '<h2 class="fichaeq-nom"></h2>'
+      + '<p class="fichaeq-rol"></p>'
+      + '<div class="fichaeq-bio"></div>'
+      + '<div class="fichaeq-pie">'
+      + '<button type="button" class="fichaeq-nav prev"><i>Previous</i><b></b></button>'
+      + '<button type="button" class="fichaeq-nav next"><i>Next</i><b></b></button>'
+      + '</div></div></div>';
+    document.body.appendChild(eqCapa);
+    eqFoto = eqCapa.querySelector('.fichaeq-foto img');
+    eqNom = eqCapa.querySelector('.fichaeq-nom');
+    eqRol = eqCapa.querySelector('.fichaeq-rol');
+    eqBio = eqCapa.querySelector('.fichaeq-bio');
+    eqTxt = eqCapa.querySelector('.fichaeq-txt');
+    eqPrev = eqCapa.querySelector('.fichaeq-nav.prev');
+    eqNext = eqCapa.querySelector('.fichaeq-nav.next');
+
+    eqCapa.querySelector('.fichaeq-x').addEventListener('click', eqCerrar);
+    eqPrev.addEventListener('click', function () { eqIr(-1); });
+    eqNext.addEventListener('click', function () { eqIr(1); });
+    // pulsar fuera del panel cierra; dentro, no
+    eqCapa.addEventListener('click', function (ev) {
+      if (ev.target.closest('.fichaeq-panel')) return;
+      eqCerrar();
+    });
+  }
+
+  function eqPintar() {
+    var fig = eqFichas[eqIndice];
+    if (!fig) return;
+    var foto = fig.querySelector('img');
+    var nom = fig.querySelector('h3');
+    var rol = fig.querySelector('.role');
+    var lead = fig.querySelector('.bio-lead');
+    var cuerpo = fig.querySelector('.bio-body');
+
+    if (foto) { eqFoto.src = foto.currentSrc || foto.src; eqFoto.alt = foto.alt || ''; }
+    eqNom.textContent = nom ? nom.textContent : '';
+    eqRol.textContent = rol ? rol.textContent : '';
+    // el marcado que se copia lo escribe build.py, no viene de fuera
+    eqBio.innerHTML = (lead ? '<p>' + lead.innerHTML + '</p>' : '')
+      + (cuerpo ? cuerpo.innerHTML : '');
+    // al pasar de una ficha a otra se vuelve arriba: si no, la segunda
+    // empieza por la mitad del texto de la primera
+    if (eqTxt) eqTxt.scrollTop = 0;
+
+    var n = eqFichas.length;
+    var antes = eqFichas[(eqIndice - 1 + n) % n].querySelector('h3');
+    var luego = eqFichas[(eqIndice + 1) % n].querySelector('h3');
+    eqPrev.querySelector('b').textContent = antes ? antes.textContent : '';
+    eqNext.querySelector('b').textContent = luego ? luego.textContent : '';
+  }
+
+  function eqIr(paso) {
+    if (eqFichas.length < 2) return;
+    eqIndice = (eqIndice + paso + eqFichas.length) % eqFichas.length;
+    eqPintar();
+  }
+
+  function eqAbrir(fig) {
+    if (!eqCapa) eqCrear();
+    eqFichas = [].slice.call(document.querySelectorAll('.team figure'));
+    eqIndice = eqFichas.indexOf(fig);
+    if (eqIndice < 0) { eqFichas = [fig]; eqIndice = 0; }
+    eqCapa.classList.toggle('sola', eqFichas.length < 2);
+    // el foco vuelve al control que abrio, no al principio de la pagina
+    eqOrigen = fig.querySelector('summary') || fig;
+    eqPintar();
+    eqCapa.setAttribute('aria-hidden', 'false');
+    // el mismo candado de scroll que usa el visor de fotos: overflow:hidden
+    // en html y body, que congela la posicion sin moverla
+    document.body.classList.add('visor-abierto');
+    if (vQuieto()) {
+      eqCapa.classList.add('abierto');
+    } else {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { eqCapa.classList.add('abierto'); });
+      });
+    }
+    setTimeout(function () { eqCapa.focus({ preventScroll: true }); }, 40);
+  }
+
+  function eqCerrar() {
+    if (!eqCapa || !eqCapa.classList.contains('abierto')) return;
+    eqCapa.classList.remove('abierto');
+    eqCapa.setAttribute('aria-hidden', 'true');
+    // el candado se suelta solo si no queda otra capa abierta
+    if (!visor || !visor.classList.contains('abierto')) {
+      document.body.classList.remove('visor-abierto');
+    }
+    if (eqOrigen) { eqOrigen.focus({ preventScroll: true }); eqOrigen = null; }
+  }
+
+  document.addEventListener('click', function (ev) {
+    if (!ev.target || !ev.target.closest) return;
+    var fig = ev.target.closest('.team figure');
+    if (!fig) return;
+    if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+    // sin esto el navegador ademas despliega el <details> por debajo del
+    // modal, y al cerrarlo la rejilla aparece descuadrada
+    ev.preventDefault();
+    eqAbrir(fig);
+  });
+
+  document.addEventListener('keydown', function (ev) {
+    if (!eqCapa || !eqCapa.classList.contains('abierto')) return;
+    if (ev.key === 'Escape') { ev.preventDefault(); eqCerrar(); return; }
+    if (ev.key === 'ArrowLeft') { ev.preventDefault(); eqIr(-1); return; }
+    if (ev.key === 'ArrowRight') { ev.preventDefault(); eqIr(1); return; }
+    if (ev.key !== 'Tab') return;
+    var foco = [].slice.call(eqCapa.querySelectorAll('button')).filter(function (b) {
+      return b.getClientRects().length;
+    });
+    if (!foco.length) return;
+    var pri = foco[0], ult = foco[foco.length - 1];
+    if (!eqCapa.contains(document.activeElement)) { ev.preventDefault(); pri.focus(); return; }
+    if (ev.shiftKey && document.activeElement === pri) { ev.preventDefault(); ult.focus(); }
+    else if (!ev.shiftKey && document.activeElement === ult) { ev.preventDefault(); pri.focus(); }
+  });
 })();
