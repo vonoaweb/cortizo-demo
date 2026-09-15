@@ -492,7 +492,7 @@ body:not(.no-js) .team figure{cursor:pointer}
   z-index:0;pointer-events:none}
 .mov .armazon{display:block;position:absolute;inset:0;width:100%;height:100%;
   z-index:0;pointer-events:none}
-.citaband .wrap,#start .wrap,#who .wrap{position:relative;z-index:1}
+.citaband .wrap,#who .wrap{position:relative;z-index:1}
 
 /* ---------- los dos botones fijos ----------
    Pastillas que se abren al pasar por encima y ensenan su nombre. Cerradas
