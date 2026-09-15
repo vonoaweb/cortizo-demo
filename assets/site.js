@@ -1516,6 +1516,161 @@
       });
     })();
 
+    /* --- el campo de ondas ---
+       Lineas paralelas que ondulan. Cada una lleva dos senos de frecuencias
+       que no encajan y un desfase propio, asi que el conjunto nunca repite un
+       fotograma ni se ve marchar en formacion.
+
+       Todas se apagan hacia los bordes con una envolvente, de modo que nacen
+       y mueren planas y el campo no queda cortado a cuchillo contra el borde
+       de la seccion.
+
+       El raton levanta la ola a su alrededor: no mueve la linea entera, sino
+       la parte que tiene cerca, que es como se comporta el agua.
+
+       Es la tercera familia de movimiento del sitio y a proposito no se
+       parece a las otras dos: el terreno son curvas de nivel cerradas y el
+       mastil es una celosia rigida en 3D. Esto es plano y blando. */
+    (function () {
+      var telas = [].slice.call(document.querySelectorAll('canvas.ondas'));
+      if (!telas.length) return;
+
+      var LINEAS = 19;   // cuantas ondas
+      var PASOS = 84;    // vertices por onda
+      var fino = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+      var campos = telas.map(function (c) {
+        var col = (getComputedStyle(c).color.match(/[0-9]+/g) || [10, 10, 10]);
+        return {
+          c: c, ctx: c.getContext('2d'), w: 0, h: 0,
+          tinta: 'rgb(' + col[0] + ',' + col[1] + ',' + col[2] + ')',
+          claro: +col[0] + +col[1] + +col[2] > 380,
+          mx: -9999, my: -9999, tx: -9999, ty: -9999, avance: 0
+        };
+      });
+
+      function medir(o) {
+        var r = o.c.getBoundingClientRect();
+        var w = Math.round(r.width), h = Math.round(r.height);
+        if (!w || !h) return false;
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        o.w = w; o.h = h;
+        o.c.width = Math.round(w * dpr);
+        o.c.height = Math.round(h * dpr);
+        o.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        o.sep = h / (LINEAS + 1);
+        // la amplitud se mide contra la separacion: si una onda pudiera
+        // cruzar a su vecina el campo se convierte en una maranna
+        o.amp = Math.min(o.sep * 0.95, h * 0.075, 52);
+        o.rad = Math.min(w, h) * 0.38;
+        o.alza = o.amp * 1.9;
+        // el hueco del texto, igual que en la celosia
+        var caja = o.c.parentNode.querySelector('.wrap');
+        if (caja) {
+          var rw = caja.getBoundingClientRect();
+          o.hx = rw.left - r.left + rw.width / 2;
+          o.hy = rw.top - r.top + rw.height / 2;
+          o.hrx = Math.min(rw.width * 0.50, w * 0.36);
+          o.hry = Math.min(Math.max(rw.height * 0.42, 80), h * 0.26);
+        }
+        return true;
+      }
+
+      function pintar(o, t) {
+        var ctx = o.ctx, w = o.w, h = o.h;
+        ctx.clearRect(0, 0, w, h);
+        var fase = t * 0.00021 + o.avance;
+        var vivo = fino && o.mx > -9000;
+        var r2 = o.rad * o.rad;
+
+        ctx.lineCap = 'round';
+        for (var i = 0; i < LINEAS; i++) {
+          var base = o.sep * (i + 1);
+          var desf = i * 0.46;
+          ctx.beginPath();
+          for (var k = 0; k <= PASOS; k++) {
+            var u = k / PASOS, x = u * w;
+            // envolvente: plana en los dos extremos, llena en el centro. Sin
+            // elevar al cuadrado: al cuadrado se apaga demasiado pronto y,
+            // con el hueco del texto comiendose el centro, solo quedaban dos
+            // franjas estrechas con movimiento
+            var env = Math.sin(Math.PI * u);
+            var y = base
+                  + Math.sin(u * 6.1 + fase + desf) * o.amp * env
+                  + Math.sin(u * 11.7 - fase * 1.55 + desf * 1.7) * o.amp * 0.42 * env;
+            if (vivo) {
+              var dx = x - o.mx, dy = base - o.my;
+              var q = 1 - (dx * dx + dy * dy) / r2;
+              if (q > 0) y -= q * q * o.alza;
+            }
+            if (k) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+          }
+          // las del centro pesan mas que las de los extremos: el campo tiene
+          // un cuerpo y se deshilacha hacia arriba y hacia abajo
+          var m = 1 - Math.abs(i / (LINEAS - 1) - 0.5) * 2;
+          ctx.strokeStyle = o.tinta;
+          ctx.globalAlpha = (o.claro ? 0.30 : 0.42) * (0.34 + 0.66 * m);
+          ctx.lineWidth = 1 + m * 0.35;
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+
+        if (o.hrx) {
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.save();
+          ctx.translate(o.hx, o.hy);
+          ctx.scale(1, o.hry / o.hrx);
+          var hueco = ctx.createRadialGradient(0, 0, 0, 0, 0, o.hrx);
+          hueco.addColorStop(0, 'rgba(0,0,0,0.96)');
+          hueco.addColorStop(0.52, 'rgba(0,0,0,0.78)');
+          hueco.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = hueco;
+          ctx.fillRect(-o.hrx, -o.hrx, o.hrx * 2, o.hrx * 2);
+          ctx.restore();
+          ctx.globalCompositeOperation = 'source-over';
+        }
+      }
+
+      if (fino) {
+        window.addEventListener('pointermove', function (ev) {
+          for (var n = 0; n < campos.length; n++) {
+            var o = campos[n];
+            if (!o.w) continue;
+            var r = o.c.getBoundingClientRect();
+            o.tx = ev.clientX - r.left;
+            o.ty = ev.clientY - r.top;
+            if (o.mx < -9000) { o.mx = o.tx; o.my = o.ty; }
+          }
+        }, { passive: true });
+      }
+
+      // el scroll adelanta la fase: al bajar, el campo avanza
+      campos.forEach(function (o) {
+        gsap.to(o, {
+          avance: 5.5, ease: 'none',
+          scrollTrigger: { trigger: o.c.parentNode, start: 'top bottom',
+                           end: 'bottom top', scrub: 0.7 }
+        });
+      });
+
+      gsap.ticker.add(function (t) {
+        var vp = window.innerHeight;
+        for (var n = 0; n < campos.length; n++) {
+          var o = campos[n];
+          var r = o.c.getBoundingClientRect();
+          if (r.bottom < -60 || r.top > vp + 60) continue;
+          if (Math.round(r.width) !== o.w || Math.round(r.height) !== o.h) {
+            if (!medir(o)) continue;
+          }
+          if (fino && o.mx > -9000) {
+            o.mx += (o.tx - o.mx) * 0.085;
+            o.my += (o.ty - o.my) * 0.085;
+          }
+          pintar(o, t);
+        }
+      });
+    })();
+
     /* --- el mastil reticular ---
        Una celosia de las de grua: cuatro montantes, un travesano por tramo y
        cruces de San Andres en las cuatro caras, montada sobre una curva que

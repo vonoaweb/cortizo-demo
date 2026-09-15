@@ -485,9 +485,11 @@ body:not(.no-js) .team figure{cursor:pointer}
 .lienzo{color:#0A0A0A}
 /* el mastil vive siempre sobre fondo oscuro */
 .armazon{display:none;color:#FFFFFF}
-/* Who we are va sobre blanco: ahi la celosia se dibuja en negro, como el
-   alzado de un plano. El script lee este color, no lo lleva escrito. */
-#who .armazon{color:#0A0A0A}
+/* Who we are va sobre blanco: ahi las ondas se dibujan en negro. El script
+   lee este color de aqui, no lo lleva escrito. */
+.ondas{display:none;color:#0A0A0A}
+.mov .ondas{display:block;position:absolute;inset:0;width:100%;height:100%;
+  z-index:0;pointer-events:none}
 .mov .armazon{display:block;position:absolute;inset:0;width:100%;height:100%;
   z-index:0;pointer-events:none}
 .citaband .wrap,#start .wrap,#who .wrap{position:relative;z-index:1}
