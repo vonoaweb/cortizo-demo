@@ -118,44 +118,50 @@
   }
 
   /* ---------- galeria "Recent transformations" ---------- */
+  // El tercer y cuarto valor son el ancho y el alto reales. Sin ellos el
+  // carrusel se monta con figuras de alto cero y la pagina se recoloca al
+  // llegar cada foto: es el unico salto de maquetado que quedaba, y solo
+  // pasaba aqui porque estas dieciseis las escribe el guion y no build.py.
   var GALLERY = [
-    ['c943f9406cd4eb5d675774e85e21bc21-uncropped_sca.jpg', 'Finished kitchen with island, pendant lighting and integrated appliances'],
-    ['175Claudia.Mor.Foto.Cortizo.construction-.jpg', 'Finished dining room with pendant light and framed artwork'],
-    ['55ccbcaa-658b-4996-b4a8-f5142c8ec62b.jpg', 'Freestanding bathtub beside a stone wall with a view to the pool'],
-    ['257ab500-723b-407d-9ab0-960d72e439f8.jpg', 'White kitchen with island and counter stools, Rodriguez Residence'],
-    ['IMG_6723 (1)-051be5c.JPG', 'Bedroom with full-height built-in wardrobe'],
-    ['161Claudia.Mor.Foto.Cortizo.construction-.jpg', 'Patterned tile wall with built-in oven'],
-    ['f1a8cddeb42852ddc8be3a3c2bde9c9c-uncropped_sca.jpg', 'Stairwell with new railing and artwork'],
-    ['143Claudia.Mor.Foto.Cortizo.construction-.jpg', 'Bathroom finished in blue and white patterned tile'],
-    ['IMG_6721.JPG', 'Wood slat feature wall with pendant lighting'],
-    ['cedc01bb-4000-409f-812a-2a57643a5c37.jpg', 'White kitchen with brass fixtures after full renovation'],
-    ['IMG_2408 (1).JPG', 'Patterned floor tile being set by our own crew'],
-    ['IMG_1299.JPG', 'Roof replacement in progress on a Miami residence'],
+    ['c943f9406cd4eb5d675774e85e21bc21-uncropped_sca.jpg', 'Finished kitchen with island, pendant lighting and integrated appliances', 800, 679],
+    ['175Claudia.Mor.Foto.Cortizo.construction-.jpg', 'Finished dining room with pendant light and framed artwork', 800, 1200],
+    ['55ccbcaa-658b-4996-b4a8-f5142c8ec62b.jpg', 'Freestanding bathtub beside a stone wall with a view to the pool', 800, 1067],
+    ['257ab500-723b-407d-9ab0-960d72e439f8.jpg', 'White kitchen with island and counter stools, Rodriguez Residence', 560, 357],
+    ['IMG_6723 (1)-051be5c.JPG', 'Bedroom with full-height built-in wardrobe', 800, 1200],
+    ['161Claudia.Mor.Foto.Cortizo.construction-.jpg', 'Patterned tile wall with built-in oven', 800, 1120],
+    ['f1a8cddeb42852ddc8be3a3c2bde9c9c-uncropped_sca.jpg', 'Stairwell with new railing and artwork', 800, 703],
+    ['143Claudia.Mor.Foto.Cortizo.construction-.jpg', 'Bathroom finished in blue and white patterned tile', 800, 1200],
+    ['IMG_6721.JPG', 'Wood slat feature wall with pendant lighting', 560, 784],
+    ['cedc01bb-4000-409f-812a-2a57643a5c37.jpg', 'White kitchen with brass fixtures after full renovation', 560, 357],
+    ['IMG_2408 (1).JPG', 'Patterned floor tile being set by our own crew', 560, 747],
+    ['IMG_1299.JPG', 'Roof replacement in progress on a Miami residence', 560, 747],
     // faltaban: su galeria de portada tiene 16 fotos y aqui habia 12. Estas
     // cuatro salieron del blob de galeria de GoDaddy, que es donde viven de
     // verdad, y se describieron mirandolas una por una.
     ['65463793535__0045B052-DD00-406B-B491-C1D171F9.jpeg',
-     'Finished bathroom with floating dark-wood vanity, backlit mirror and large-format tile'],
+     'Finished bathroom with floating dark-wood vanity, backlit mirror and large-format tile', 800, 1067],
     ['0cd8462e4ae6a9d74c26a7b0bc238c2d-uncropped_sca.jpg',
-     'Renovated pool and rear elevation of a white two-storey Miami residence'],
+     'Renovated pool and rear elevation of a white two-storey Miami residence', 800, 635],
     ['0503051801d635c45dde1209b371e3c2-uncropped_sca.jpg',
-     'Formal dining room with marble floor, chandelier and a view through to the living area'],
+     'Formal dining room with marble floor, chandelier and a view through to the living area', 800, 679],
     ['0a090398-c944-4741-b7b5-f6a91a4fe948.jpg',
-     'Crew setting new roof joists over an open Miami residence']
+     'Crew setting new roof joists over an open Miami residence', 560, 747]
   ];
 
   var galTrack = document.getElementById('gal');
   var galThumbs = document.getElementById('gal-thumbs');
   if (galTrack) {
     galTrack.innerHTML = GALLERY.map(function (g, i) {
-      return '<figure data-i="' + i + '"><img loading="lazy" src="' + img(g[0], 900) + '" alt="' + esc(g[1]) + '">'
+      return '<figure data-i="' + i + '"><img loading="lazy" width="900" height="'
+        + Math.round(900 * g[3] / g[2]) + '" src="' + img(g[0], 900) + '" alt="' + esc(g[1]) + '">'
         + '<figcaption>' + esc(g[1]) + '</figcaption></figure>';
     }).join('');
   }
   if (galThumbs) {
     galThumbs.innerHTML = GALLERY.map(function (g, i) {
       return '<button type="button" role="tab" data-i="' + i + '" aria-current="' + (i === 0) + '">'
-        + '<img loading="lazy" src="' + img(g[0], 200) + '" alt="Show photo ' + (i + 1) + ': ' + esc(g[1]) + '"></button>';
+        + '<img loading="lazy" width="200" height="' + Math.round(200 * g[3] / g[2])
+        + '" src="' + img(g[0], 200) + '" alt="Show photo ' + (i + 1) + ': ' + esc(g[1]) + '"></button>';
     }).join('');
     galThumbs.addEventListener('click', function (ev) {
       var b = ev.target.closest('button');
