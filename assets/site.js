@@ -643,8 +643,97 @@
     }, 200);
   }
 
+  /* --- el vuelo de la miniatura ---
+     Al hacer clic, la foto de la rejilla no desaparece para que otra igual
+     aparezca en el centro: es la misma foto la que viaja hasta su sitio en
+     el visor, y al cerrar vuelve a la rejilla. Asi se entiende de donde sale
+     la foto grande y a donde va, que es justo lo que se pierde cuando una
+     ventana se abre encima sin mas.
+
+     Vuela una copia y no la miniatura de verdad: sacarla de la rejilla
+     dejaria un hueco y la masonry se recolocaria entera a media animacion.
+
+     Como la rejilla no recorta -cada foto se ve entera-, la caja de salida y
+     la de llegada tienen la misma proporcion, y al interpolar el rectangulo
+     ninguno de los pasos intermedios deforma la imagen. */
+  var hayFlip = false;
+  try {
+    hayFlip = !!(window.gsap && window.Flip) && !vQuieto();
+    if (hayFlip) gsap.registerPlugin(window.Flip);
+  } catch (e) { hayFlip = false; }
+
+  function vEnPantalla(el) {
+    var r = el.getBoundingClientRect();
+    return r.width > 0 && r.height > 0 &&
+           r.bottom > 0 && r.top < (window.innerHeight || 0);
+  }
+
+  function vCopia(src, r) {
+    var copia = document.createElement('img');
+    copia.src = src;
+    copia.alt = '';
+    copia.setAttribute('aria-hidden', 'true');
+    copia.className = 'vuelo';
+    gsap.set(copia, { left: r.left, top: r.top, width: r.width, height: r.height });
+    document.body.appendChild(copia);
+    return copia;
+  }
+
+  // de la rejilla al visor
+  function vEntrar(origen, salida) {
+    var llegada = vImg.getBoundingClientRect();
+    if (!llegada.width || !llegada.height) { visor.classList.remove('volando'); return; }
+    var copia = vCopia(origen.currentSrc || origen.src, salida);
+    var estado = window.Flip.getState(copia);
+    gsap.set(copia, { left: llegada.left, top: llegada.top,
+                      width: llegada.width, height: llegada.height });
+    window.Flip.from(estado, {
+      duration: 0.58, ease: 'power3.inOut',
+      onComplete: function () {
+        // El relevo: la de verdad se enciende de golpe debajo y la copia se
+        // apaga encima. Antes de apagarla se le clava el rectangulo exacto
+        // que ha acabado ocupando la foto del visor, porque el pie y la tira
+        // asientan la caja un par de pixeles despues de empezar el vuelo y
+        // sin ese ajuste el cruce se ve como un pequeno temblor.
+        visor.classList.remove('volando');
+        visor.classList.add('relevo');
+        var fin = vImg.getBoundingClientRect();
+        gsap.set(copia, { left: fin.left, top: fin.top,
+                          width: fin.width, height: fin.height });
+        gsap.to(copia, { opacity: 0, duration: 0.24, ease: 'power1.out',
+          onComplete: function () {
+            if (copia.parentNode) copia.parentNode.removeChild(copia);
+            visor.classList.remove('relevo');
+          } });
+      }
+    });
+  }
+
+  // y del visor de vuelta a la rejilla
+  function vSalir(destino) {
+    var salida = vImg.getBoundingClientRect();
+    if (!salida.width) return;
+    var copia = vCopia(vImg.currentSrc || vImg.src, salida);
+    var estado = window.Flip.getState(copia);
+    var llegada = destino.getBoundingClientRect();
+    gsap.set(copia, { left: llegada.left, top: llegada.top,
+                      width: llegada.width, height: llegada.height });
+    window.Flip.from(estado, {
+      duration: 0.46, ease: 'power3.inOut',
+      onComplete: function () {
+        gsap.to(copia, { opacity: 0, duration: 0.16,
+          onComplete: function () { if (copia.parentNode) copia.parentNode.removeChild(copia); } });
+      }
+    });
+  }
+
   function vAbrir(enlace) {
     if (!visor) vCrear();
+    // se mide lo primero de todo: en cuanto se bloquea el scroll la pagina
+    // puede moverse, y el vuelo tiene que salir de donde estaba la foto
+    var mini = enlace.querySelector('img');
+    var vuela = hayFlip && mini && vEnPantalla(mini);
+    var salida = vuela ? mini.getBoundingClientRect() : null;
     var grupo = enlace.getAttribute('data-group');
     // se compara el atributo en lugar de meterlo en un selector: el nombre
     // del grupo lo escribe build.py y no hay por que fiarse de que no lleve
@@ -668,6 +757,13 @@
     document.body.classList.add('visor-abierto');
     if (vQuieto()) {
       visor.classList.add('abierto');
+    } else if (vuela) {
+      // con vuelo el visor se abre ya, porque lo que se mira es la copia
+      // viajando; la foto del visor espera apagada debajo
+      visor.classList.add('volando', 'abierto');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { vEntrar(mini, salida); });
+      });
     } else {
       // el navegador tiene que ver el estado cerrado pintado antes de la
       // clase que abre, si no no hay a que transicionar y entra de golpe
@@ -684,7 +780,15 @@
   function vCerrar() {
     if (!visor || !visor.classList.contains('abierto')) return;
     clearTimeout(vTimer);
-    visor.classList.remove('abierto', 'cambiando');
+    // vuelve a la foto que se esta viendo, no a la que se abrio: si el
+    // visitante ha pasado tres fotos con las flechas, volver a la primera
+    // seria mentirle sobre donde esta
+    var actual = vGrupo[vIndice] && vGrupo[vIndice].querySelector('img');
+    if (hayFlip && actual && vImg && vImg.src && vEnPantalla(actual) &&
+        !visor.classList.contains('volando')) {
+      vSalir(actual);
+    }
+    visor.classList.remove('abierto', 'cambiando', 'volando', 'relevo');
     visor.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('visor-abierto');
     // preventScroll: devolver el foco no puede mover la pagina ni un pixel

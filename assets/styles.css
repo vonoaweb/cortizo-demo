@@ -1348,7 +1348,7 @@ html:has(body.nav-abierto){overflow:hidden}
   padding:clamp(54px,7vh,76px) clamp(56px,7vw,110px) 0;
   overflow:hidden;
   opacity:0;visibility:hidden;pointer-events:none;
-  transition:opacity .36s var(--ease),visibility .36s}
+  transition:opacity .26s var(--ease),visibility .26s}
 .visor.abierto{opacity:1;visibility:visible;pointer-events:auto}
 .visor:focus{outline:none}
 .visor-fig{margin:0;flex:1 1 auto;min-height:0;min-width:0;max-width:100%;width:100%;
@@ -1415,6 +1415,26 @@ html:has(body.nav-abierto){overflow:hidden}
 }
 body.visor-abierto{overflow:hidden}
 html:has(body.visor-abierto){overflow:hidden}
+/* El hueco de la barra se reserva siempre. Al abrir el visor se bloquea el
+   scroll y, sin esto, la barra desaparece y la pagina entera se corre unos
+   pixeles: la miniatura ya no esta donde estaba y el vuelo hacia el visor
+   arrancaria torcido. */
+html{scrollbar-gutter:stable}
+
+/* ---------- el vuelo de la miniatura ----------
+   La copia que viaja de la rejilla al visor. Va por encima del visor (500)
+   porque durante el viaje es ella la que se ve. */
+.vuelo{position:fixed;z-index:520;margin:0;pointer-events:none;
+  background:#0D0D0D;object-fit:cover;
+  box-shadow:0 30px 80px rgba(0,0,0,.72)}
+/* mientras vuela, la foto del visor espera apagada y sin transicion propia:
+   si transicionara a la vez se verian las dos */
+.visor.volando .visor-img{opacity:0;transform:none;transition:none}
+/* y el relevo: encendida de golpe, sin transicion, mientras la copia se
+   apaga encima. Con la transicion de .42s puesta las dos estarian a medias
+   a la vez y se veria un bajon de luz en el cruce */
+.visor.relevo .visor-img{opacity:1;transform:none;transition:none}
+.visor.volando .visor-cap,.visor.volando .visor-tira{transition-delay:.3s}
 @media(prefers-reduced-motion:reduce){
   .visor,.visor-img,.visor-cap,.visor button,.shot img,.shot::after{transition:none!important}
   .visor-img,.visor-cap,
