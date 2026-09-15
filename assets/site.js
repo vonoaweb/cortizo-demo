@@ -1485,6 +1485,223 @@
       });
     })();
 
+    /* --- el mastil reticular ---
+       Una celosia de las de grua: cuatro montantes, un travesano por tramo y
+       cruces de San Andres en las cuatro caras, montada sobre una curva que
+       serpentea por el espacio. Gira despacio sola, se inclina con el raton y
+       avanza con el scroll.
+
+       Es 3D de verdad -rotacion, perspectiva y niebla por profundidad- pero
+       calculado a mano: 47 anillos de 4 vertices, 750 rectas. Traer una
+       libreria 3D para esto seria medio mega de descarga para dibujar rectas.
+
+       Va en negro, no en un color de neon: la paleta de la casa es blanco y
+       gris, y el brillo se consigue con un repaso ancho y translucido debajo
+       de cada trazo, que sobre negro da halo sin inventarse un color. */
+    (function () {
+      if (!window.Path2D) return;
+      var telas = [].slice.call(document.querySelectorAll('canvas.armazon'));
+      if (!telas.length) return;
+
+      var CAM = 1400;     // distancia de camara y focal, en unidades de mundo
+      var fino = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+      var obras = telas.map(function (c, n) {
+        return {
+          c: c, ctx: c.getContext('2d'), w: 0, h: 0,
+          // cada seccion arranca con el mastil en otra postura, para que dos
+          // paginas seguidas no ensenen el mismo fotograma
+          semilla: n * 1.7 + 0.4,
+          giro: 0, alabeo: 0, tgiro: 0, talabeo: 0,
+          avance: 0, visible: false
+        };
+      });
+
+      function medir(o) {
+        var r = o.c.getBoundingClientRect();
+        var w = Math.round(r.width), h = Math.round(r.height);
+        if (!w || !h) return false;
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        o.w = w; o.h = h;
+        o.c.width = Math.round(w * dpr);
+        o.c.height = Math.round(h * dpr);
+        o.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        // El mastil cruza de lado a lado y el cajon crece con la seccion.
+        // Los tramos se cuentan a partir del grosor, no a ojo: un tramo algo
+        // mas largo que ancho es la proporcion de una celosia de verdad, y es
+        // lo que hace que se lea como estructura y no como malla fina.
+        o.largo = w * 1.3;
+        o.lado = Math.max(30, Math.min(78, h * 0.155));
+        // la onda se mide para que el mastil, ya engordado por la perspectiva,
+        // quepa en la banda: si se sale, deja de leerse como un tubo y pasa a
+        // ser una malla recortada por arriba y por abajo
+        o.onda = Math.max(0, h * 0.5 - o.lado * 1.75);
+        o.anillos = Math.max(12, Math.min(34, Math.round(o.largo / (o.lado * 1.7))));
+        // donde cae el texto: ahi la celosia se abrira un hueco. Se mide una
+        // vez por medida, no por fotograma, porque no se mueve.
+        var caja = o.c.parentNode.querySelector('.wrap');
+        if (caja) {
+          var rw = caja.getBoundingClientRect();
+          o.hx = rw.left - r.left + rw.width / 2;
+          o.hy = rw.top - r.top + rw.height / 2;
+          o.hrx = rw.width * 0.60;
+          o.hry = Math.max(rw.height * 0.80, o.hrx * 0.22);
+        }
+        return true;
+      }
+
+      // el eje del mastil: una curva que va de izquierda a derecha ondulando
+      // en alto y en fondo a la vez, con dos frecuencias que no encajan, para
+      // que no se vea el bucle
+      function eje(o, u, fase, p) {
+        var t = u * Math.PI * 2;
+        p[0] = (u - 0.5) * o.largo;
+        p[1] = Math.sin(t * 1.15 + fase) * o.onda;
+        p[2] = Math.cos(t * 0.80 + fase * 0.7) * (o.largo * 0.20);
+      }
+
+      function pintar(o) {
+        var ctx = o.ctx, w = o.w, h = o.h;
+        ctx.clearRect(0, 0, w, h);
+
+        var fase = o.semilla + o.avance;
+        var cy = Math.cos(o.giro), sy = Math.sin(o.giro);
+        var cp = Math.cos(o.alabeo), sp = Math.sin(o.alabeo);
+        var cx = w * 0.5, cyp = h * 0.5;
+
+        // 1. el esqueleto: cuatro vertices por anillo, ya proyectados
+        var N = o.anillos;
+        var anillos = [], a = [0, 0, 0], b = [0, 0, 0], i, k, n;
+        for (k = 0; k <= N; k++) {
+          var u = k / N;
+          eje(o, u, fase, a);
+          eje(o, u + 0.6 / N, fase, b);
+          // tangente
+          var tx = b[0] - a[0], ty = b[1] - a[1], tz = b[2] - a[2];
+          var ln = Math.sqrt(tx * tx + ty * ty + tz * tz) || 1;
+          tx /= ln; ty /= ln; tz /= ln;
+          // normal y binormal, con el arriba del mundo como referencia
+          var nx = tz, ny = 0, nz = -tx;      // t x (0,1,0)
+          ln = Math.sqrt(nx * nx + nz * nz) || 1;
+          nx /= ln; nz /= ln;
+          var bx = ty * nz - tz * ny, by = tz * nx - tx * nz, bz = tx * ny - ty * nx;
+
+          var L = o.lado, vs = [];
+          for (i = 0; i < 4; i++) {
+            // las cuatro esquinas del cajon, girando un cuarto cada una
+            var sA = (i === 0 || i === 3) ? 1 : -1;
+            var sB = (i === 0 || i === 1) ? 1 : -1;
+            var X = a[0] + nx * L * sA + bx * L * sB;
+            var Y = a[1] + ny * L * sA + by * L * sB;
+            var Z = a[2] + nz * L * sA + bz * L * sB;
+            // camara: guinada, luego cabeceo, luego perspectiva
+            var X2 = X * cy - Z * sy, Z2 = X * sy + Z * cy;
+            var Y2 = Y * cp - Z2 * sp, Z3 = Y * sp + Z2 * cp;
+            // el tope evita que un vertice que pasa por delante de la camara
+            // se dispare fuera de la pantalla
+            var q = CAM / Math.max(300, Z3 + CAM);
+            vs.push([cx + X2 * q, cyp + Y2 * q, q]);
+          }
+          anillos.push(vs);
+        }
+
+        // 2. las rectas, repartidas en tres planos de profundidad: lo que esta
+        //    cerca se dibuja mas claro y mas grueso, lo de atras se va en la
+        //    niebla. Es lo que da el volumen sin sombrear nada.
+        var planos = [new Path2D(), new Path2D(), new Path2D()];
+        function recta(p, q) {
+          var m = (p[2] + q[2]) * 0.5;
+          // q vale ~1.9 pegado a la camara y ~0.55 al fondo
+          var n = m > 1.18 ? 2 : (m > 0.86 ? 1 : 0);
+          planos[n].moveTo(p[0], p[1]); planos[n].lineTo(q[0], q[1]);
+        }
+        for (k = 0; k <= N; k++) {
+          var r0 = anillos[k];
+          for (i = 0; i < 4; i++) recta(r0[i], r0[(i + 1) % 4]);   // travesano
+          if (k === N) break;
+          var r1 = anillos[k + 1];
+          for (i = 0; i < 4; i++) {
+            recta(r0[i], r1[i]);                                   // montante
+            // la cruz de la cara, alternando el sentido tramo a tramo
+            if ((k + i) % 2) recta(r0[i], r1[(i + 1) % 4]);
+            else recta(r0[(i + 1) % 4], r1[i]);
+          }
+        }
+
+        // 3. dos pasadas: una ancha y casi transparente que hace de halo, y
+        //    encima el trazo limpio
+        ctx.lineCap = 'round';
+        var alfa = [0.12, 0.26, 0.55], grueso = [0.8, 1.1, 1.6];
+        for (n = 0; n < 3; n++) {
+          ctx.strokeStyle = '#fff';
+          ctx.globalAlpha = alfa[n] * 0.30;
+          ctx.lineWidth = grueso[n] * 5;
+          ctx.stroke(planos[n]);
+          ctx.globalAlpha = alfa[n];
+          ctx.lineWidth = grueso[n];
+          ctx.stroke(planos[n]);
+        }
+        ctx.globalAlpha = 1;
+
+        // 4. el hueco del texto: se borra la celosia justo donde va el
+        //    titular y vuelve hacia los bordes. Sin esto el texto blanco y la
+        //    estructura blanca compiten y no gana ninguno.
+        if (o.hrx) {
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.save();
+          ctx.translate(o.hx, o.hy);
+          ctx.scale(1, o.hry / o.hrx);
+          var hueco = ctx.createRadialGradient(0, 0, 0, 0, 0, o.hrx);
+          hueco.addColorStop(0, 'rgba(0,0,0,0.96)');
+          hueco.addColorStop(0.52, 'rgba(0,0,0,0.80)');
+          hueco.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = hueco;
+          ctx.fillRect(-o.hrx, -o.hrx, o.hrx * 2, o.hrx * 2);
+          ctx.restore();
+          ctx.globalCompositeOperation = 'source-over';
+        }
+      }
+
+      if (fino) {
+        window.addEventListener('pointermove', function (ev) {
+          var mx = ev.clientX / window.innerWidth - 0.5;
+          var my = ev.clientY / window.innerHeight - 0.5;
+          for (var n = 0; n < obras.length; n++) {
+            // el raton solo inclina; el giro de fondo no se le entrega, para
+            // que la pieza nunca quede plana ni de espaldas
+            obras[n].tgiro = mx * 0.18;
+            obras[n].talabeo = my * 0.22;
+          }
+        }, { passive: true });
+      }
+
+      // el scroll empuja el mastil a lo largo de su curva
+      obras.forEach(function (o) {
+        var host = o.c.parentNode;
+        gsap.to(o, {
+          avance: 2.4, ease: 'none',
+          scrollTrigger: { trigger: host, start: 'top bottom', end: 'bottom top',
+                           scrub: 0.6 }
+        });
+      });
+
+      gsap.ticker.add(function (t) {
+        var vp = window.innerHeight;
+        for (var n = 0; n < obras.length; n++) {
+          var o = obras[n];
+          var r = o.c.getBoundingClientRect();
+          if (r.bottom < -80 || r.top > vp + 80) continue;
+          if (Math.round(r.width) !== o.w || Math.round(r.height) !== o.h) {
+            if (!medir(o)) continue;
+          }
+          // deriva lenta constante: la pieza esta viva aunque nadie toque nada
+          o.giro += ((o.tgiro + Math.sin(t * 0.00013 + o.semilla) * 0.14) - o.giro) * 0.045;
+          o.alabeo += ((o.talabeo - 0.12) - o.alabeo) * 0.045;
+          pintar(o);
+        }
+      });
+    })();
+
     /* --- el camino del proceso, con sus cinco puntos ---
        La linea recta pasa a ser un camino que serpentea entre las fases,
        con un marcador que lo recorre al hacer scroll y enciende cada punto

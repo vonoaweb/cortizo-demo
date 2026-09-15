@@ -483,6 +483,11 @@ body:not(.no-js) .team figure{cursor:pointer}
 /* el color de la tinta lo lee el script de aqui, para no repartir colores
    entre la hoja y el guion */
 .lienzo{color:#0A0A0A}
+/* el mastil vive siempre sobre fondo oscuro */
+.armazon{display:none}
+.mov .armazon{display:block;position:absolute;inset:0;width:100%;height:100%;
+  z-index:0;pointer-events:none}
+.citaband .wrap,#start .wrap{position:relative;z-index:1}
 .dark .lienzo,.plist .lienzo,.cierre .lienzo{color:#FFFFFF}
 
 
