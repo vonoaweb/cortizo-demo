@@ -32,10 +32,16 @@
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/favicon/0b2f99ab-e3e2-4962-875c-92e93dfc4efd.jpg/:/rs=w:48,h:48,m">
 
+<!-- Todas las fotos salen del CDN de su sitio y las librerias de cdnjs. Con
+     el preconnect el navegador abre la conexion mientras aun lee la cabecera,
+     en vez de esperar a encontrarse la primera etiqueta que la necesita. -->
+<link rel="preconnect" href="https://img1.wsimg.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=127">
+<link rel="stylesheet" href="assets/styles.css?v=129">
+
 
 <script type="application/ld+json">
 {
@@ -64,7 +70,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="demobar">Maqueta de demostración preparada por <b>Vonoa Web</b> para Cortizo Construction LLC. No es el sitio publicado. <span class="en">Design mockup by Vonoa Web. Not the live website.</span></div>
+<div class="demobar"><span lang="es">Maqueta de demostración preparada por <b>Vonoa Web</b> para Cortizo Construction LLC. No es el sitio publicado.</span> <span class="en">Design mockup by Vonoa Web. Not the live website.</span></div>
 <header class="hdr" id="hdr">
   <div class="hdr-in">
     <a class="brand" href="index.html"><b>CORTIZO</b><span>CONSTRUCTION</span></a>
@@ -228,7 +234,7 @@
       <div class="team">
         <figure class="rv" style="--d:0ms">
           <span class="team-foto mask" style="--d:120ms">
-            <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/blob-87c5206.png/:/rs=w:600,cg:true,m" alt="Portrait of Davide Nicco, Business Development at Cortizo Construction">
+            <img loading="lazy" width="600" height="450" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/blob-87c5206.png/:/rs=w:600,cg:true,m" alt="Portrait of Davide Nicco, Business Development at Cortizo Construction">
           </span>
           <div class="team-txt">
             <h3>Davide Nicco</h3>
@@ -249,7 +255,7 @@
         </figure>
         <figure class="rv" style="--d:90ms">
           <span class="team-foto mask" style="--d:210ms">
-            <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/b92931d9-be78-4936-ac1a-a69d75d1f8fe.JPG/:/rs=w:600,cg:true,m" alt="Portrait of Jairo Libreros, Project Manager at Cortizo Construction">
+            <img loading="lazy" width="600" height="800" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/b92931d9-be78-4936-ac1a-a69d75d1f8fe.JPG/:/rs=w:600,cg:true,m" alt="Portrait of Jairo Libreros, Project Manager at Cortizo Construction">
           </span>
           <div class="team-txt">
             <h3>Jairo Libreros</h3>
@@ -269,7 +275,7 @@
         </figure>
         <figure class="rv" style="--d:180ms">
           <span class="team-foto mask" style="--d:300ms">
-            <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_3392.JPG/:/rs=w:600,cg:true,m" alt="Portrait of Yusmel Martí, Lead Construction Technician at Cortizo Construction">
+            <img loading="lazy" width="600" height="893" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_3392.JPG/:/rs=w:600,cg:true,m" alt="Portrait of Yusmel Martí, Lead Construction Technician at Cortizo Construction">
           </span>
           <div class="team-txt">
             <h3>Yusmel Martí</h3>
@@ -288,7 +294,7 @@
         </figure>
         <figure class="rv" style="--d:270ms">
           <span class="team-foto mask" style="--d:390ms">
-            <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/133Claudia.Mor.Foto.Cortizo.constructi-246f42d.jpg/:/rs=w:600,cg:true,m" alt="Portrait of Enrique Moreno, Lead Construction Technician at Cortizo Construction">
+            <img loading="lazy" width="600" height="776" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/133Claudia.Mor.Foto.Cortizo.constructi-246f42d.jpg/:/rs=w:600,cg:true,m" alt="Portrait of Enrique Moreno, Lead Construction Technician at Cortizo Construction">
           </span>
           <div class="team-txt">
             <h3>Enrique Moreno</h3>
@@ -306,7 +312,7 @@
         </figure>
         <figure class="rv" style="--d:360ms">
           <span class="team-foto mask" style="--d:480ms">
-            <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_4043.JPG/:/rs=w:600,cg:true,m" alt="Portrait of Mariano Ruiz, Art Director at Cortizo Construction">
+            <img loading="lazy" width="600" height="750" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_4043.JPG/:/rs=w:600,cg:true,m" alt="Portrait of Mariano Ruiz, Art Director at Cortizo Construction">
           </span>
           <div class="team-txt">
             <h3>Mariano Ruiz</h3>
@@ -323,7 +329,7 @@
         </figure>
         <figure class="rv" style="--d:450ms">
           <span class="team-foto mask" style="--d:570ms">
-            <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/FullSizeRender%20%281%29.jpeg/:/rs=w:600,cg:true,m" alt="Portrait of Gaiya, Language Developer at Cortizo Construction">
+            <img loading="lazy" width="600" height="1066" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/FullSizeRender%20%281%29.jpeg/:/rs=w:600,cg:true,m" alt="Portrait of Gaiya, Language Developer at Cortizo Construction">
           </span>
           <div class="team-txt">
             <h3>Gaiya</h3>
@@ -365,10 +371,10 @@
       <h2 class="title rv">What guides our work</h2>
       <div style="margin-top:44px">
       <div class="values">
-        <figure class="rv" style="--d:0ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/1234-29.jpg/:/rs=w:500,cg:true,m" alt="One. Commitment."><p>We honor our word, our timelines, and the trust our clients place in us.</p></figure>
-        <figure class="rv" style="--d:130ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/1234-30.jpg/:/rs=w:500,cg:true,m" alt="Two. Hospitality."><p>We treat construction as an act of hospitality, guiding our clients with care, respect, and a commitment to an effortless experience.</p></figure>
-        <figure class="rv" style="--d:260ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/1234-31.jpg/:/rs=w:500,cg:true,m" alt="Three. Quality."><p>We build with durable materials, thoughtful workmanship, and details crafted to last.</p></figure>
-        <figure class="rv" style="--d:390ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/1234-32.jpg/:/rs=w:500,cg:true,m" alt="Four. Clarity."><p>We communicate with clarity: clear expectations, written agreements, and updates every time something changes.</p></figure>
+        <figure class="rv" style="--d:0ms"><img loading="lazy" width="500" height="500" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/1234-29.jpg/:/rs=w:500,cg:true,m" alt="One. Commitment."><p>We honor our word, our timelines, and the trust our clients place in us.</p></figure>
+        <figure class="rv" style="--d:130ms"><img loading="lazy" width="500" height="500" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/1234-30.jpg/:/rs=w:500,cg:true,m" alt="Two. Hospitality."><p>We treat construction as an act of hospitality, guiding our clients with care, respect, and a commitment to an effortless experience.</p></figure>
+        <figure class="rv" style="--d:260ms"><img loading="lazy" width="500" height="500" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/1234-31.jpg/:/rs=w:500,cg:true,m" alt="Three. Quality."><p>We build with durable materials, thoughtful workmanship, and details crafted to last.</p></figure>
+        <figure class="rv" style="--d:390ms"><img loading="lazy" width="500" height="500" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/1234-32.jpg/:/rs=w:500,cg:true,m" alt="Four. Clarity."><p>We communicate with clarity: clear expectations, written agreements, and updates every time something changes.</p></figure>
       </div>
       </div>
     </div>
@@ -376,7 +382,7 @@
 
   <section class="dark tight" style="padding-top:clamp(58px,7.5vw,98px)">
     <div class="wrap wide">
-      <p class="bloque-rotulo rv" style="color:#8C8C8C">On site</p>
+      <p class="bloque-rotulo rv" style="color:var(--grey-2)">On site</p>
       <h2 class="title rv" style="--d:60ms">The team at work</h2>
       <p class="sub rv" style="--d:100ms">9 photographs from the jobs behind this page.
         Open any one to see it full size.</p>
@@ -396,7 +402,7 @@
 
   <section class="dark tight" id="subcontractors" style="padding-top:clamp(58px,7.5vw,98px)">
     <div class="wrap">
-      <img class="contour rv" loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/Cortizo_Web_Misc-17.png/:/rs=w:1100,cg:true,m" alt="">
+      <img class="contour rv" loading="lazy" width="1100" height="461" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/Cortizo_Web_Misc-17.png/:/rs=w:1100,cg:true,m" alt="">
       <h2 class="title rv">Work with us as a subcontractor</h2>
       <p class="sub rv" style="--d:100ms">We collaborate with subcontractors and partners who
         share our standards on site: clear communication, responsibility and respect for every
@@ -431,11 +437,11 @@
   <div class="wrap left">
     <div class="f-grid">
       <div>
-        <h4>Cortizo Construction LLC</h4>
+        <h3>Cortizo Construction LLC</h3>
         <p>Certified General Contractor<br>License CGC1535571<br>Miami, Florida</p>
       </div>
       <div>
-        <h4>Company</h4>
+        <h3>Company</h3>
         <ul>
           <li><a href="services.html">Services</a></li>
           <li><a href="projects.html">Projects</a></li>
@@ -444,7 +450,7 @@
         </ul>
       </div>
       <div>
-        <h4>Projects</h4>
+        <h3>Projects</h3>
         <ul>
           <li><a href="casa-bohemia.html">Casa Bohemia</a></li>
           <li><a href="rodriguez-residence.html">Rodriguez Residence</a></li>
@@ -454,7 +460,7 @@
         </ul>
       </div>
       <div>
-        <h4>Contact</h4>
+        <h3>Contact</h3>
         <ul>
           <li><a href="tel:+17867360247">(786) 736-0247</a></li>
           <li><a href="https://wa.me/17867360247">WhatsApp</a></li>
@@ -496,6 +502,6 @@
          ><path d="M12 19V5M5 12l7-7 7 7"/></svg><span class="flota-txt">Top</span></a>
 </div>
 
-<script src="assets/site.js?v=127"></script>
+<script src="assets/site.js?v=129"></script>
 </body>
 </html>

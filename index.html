@@ -32,10 +32,16 @@
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/favicon/0b2f99ab-e3e2-4962-875c-92e93dfc4efd.jpg/:/rs=w:48,h:48,m">
 
+<!-- Todas las fotos salen del CDN de su sitio y las librerias de cdnjs. Con
+     el preconnect el navegador abre la conexion mientras aun lee la cabecera,
+     en vez de esperar a encontrarse la primera etiqueta que la necesita. -->
+<link rel="preconnect" href="https://img1.wsimg.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=127">
+<link rel="stylesheet" href="assets/styles.css?v=129">
+
 
 <script type="application/ld+json">
 {
@@ -64,7 +70,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="demobar">Maqueta de demostración preparada por <b>Vonoa Web</b> para Cortizo Construction LLC. No es el sitio publicado. <span class="en">Design mockup by Vonoa Web. Not the live website.</span></div>
+<div class="demobar"><span lang="es">Maqueta de demostración preparada por <b>Vonoa Web</b> para Cortizo Construction LLC. No es el sitio publicado.</span> <span class="en">Design mockup by Vonoa Web. Not the live website.</span></div>
 <header class="hdr" id="hdr">
   <div class="hdr-in">
     <a class="brand" href="index.html"><b>CORTIZO</b><span>CONSTRUCTION</span></a>
@@ -139,7 +145,7 @@
     <!-- El campo de ondas. Vacio: lo dibuja el script. -->
     <canvas class="ondas" aria-hidden="true"></canvas>
     <div class="wrap">
-      <img class="whoimg mask" loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/Otro%20Home.jpg/:/rs=w:1600,cg:true,m"
+      <img class="whoimg mask" loading="lazy" width="1600" height="802" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/Otro%20Home.jpg/:/rs=w:1600,cg:true,m"
            alt="Who we are. At Cortizo Construction, we believe that a project is more than plans, materials, and deadlines.">
       <div class="lines rv">
         <p>Our real work begins with the people behind every decision, every detail,
@@ -233,11 +239,11 @@
   <div class="wrap left">
     <div class="f-grid">
       <div>
-        <h4>Cortizo Construction LLC</h4>
+        <h3>Cortizo Construction LLC</h3>
         <p>Certified General Contractor<br>License CGC1535571<br>Miami, Florida</p>
       </div>
       <div>
-        <h4>Company</h4>
+        <h3>Company</h3>
         <ul>
           <li><a href="services.html">Services</a></li>
           <li><a href="projects.html">Projects</a></li>
@@ -246,7 +252,7 @@
         </ul>
       </div>
       <div>
-        <h4>Projects</h4>
+        <h3>Projects</h3>
         <ul>
           <li><a href="casa-bohemia.html">Casa Bohemia</a></li>
           <li><a href="rodriguez-residence.html">Rodriguez Residence</a></li>
@@ -256,7 +262,7 @@
         </ul>
       </div>
       <div>
-        <h4>Contact</h4>
+        <h3>Contact</h3>
         <ul>
           <li><a href="tel:+17867360247">(786) 736-0247</a></li>
           <li><a href="https://wa.me/17867360247">WhatsApp</a></li>
@@ -298,6 +304,6 @@
          ><path d="M12 19V5M5 12l7-7 7 7"/></svg><span class="flota-txt">Top</span></a>
 </div>
 
-<script src="assets/site.js?v=127"></script>
+<script src="assets/site.js?v=129"></script>
 </body>
 </html>

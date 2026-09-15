@@ -32,10 +32,16 @@
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/favicon/0b2f99ab-e3e2-4962-875c-92e93dfc4efd.jpg/:/rs=w:48,h:48,m">
 
+<!-- Todas las fotos salen del CDN de su sitio y las librerias de cdnjs. Con
+     el preconnect el navegador abre la conexion mientras aun lee la cabecera,
+     en vez de esperar a encontrarse la primera etiqueta que la necesita. -->
+<link rel="preconnect" href="https://img1.wsimg.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=127">
+<link rel="stylesheet" href="assets/styles.css?v=129">
+
 
 <script type="application/ld+json">
 {
@@ -64,7 +70,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="demobar">Maqueta de demostración preparada por <b>Vonoa Web</b> para Cortizo Construction LLC. No es el sitio publicado. <span class="en">Design mockup by Vonoa Web. Not the live website.</span></div>
+<div class="demobar"><span lang="es">Maqueta de demostración preparada por <b>Vonoa Web</b> para Cortizo Construction LLC. No es el sitio publicado.</span> <span class="en">Design mockup by Vonoa Web. Not the live website.</span></div>
 <header class="hdr" id="hdr">
   <div class="hdr-in">
     <a class="brand" href="index.html"><b>CORTIZO</b><span>CONSTRUCTION</span></a>
@@ -133,22 +139,22 @@
          no se pinta y la seccion queda como estaba. -->
     <canvas class="lienzo" aria-hidden="true"></canvas>
     <div class="wrap wide">
-      <p class="eyebrow rv" style="color:#8C8C8C">What we do</p>
+      <p class="eyebrow rv" style="color:var(--grey-2)">What we do</p>
       <h2 class="title rv" style="color:#fff;--d:60ms">What we build</h2>
       <article class="svcline" id="homes">
         <div class="svcline-head rv">
-          <p class="eyebrow" style="color:#8C8C8C">01 &nbsp;/&nbsp; Residential</p>
+          <p class="eyebrow" style="color:var(--grey-2)">01 &nbsp;/&nbsp; Residential</p>
           <h3>Homes</h3>
           <p class="lede">At Cortizo Construction, we build and renovate homes with clarity, structure and care. From full remodels to custom builds, our approach is grounded in communication, craftsmanship and respect for the way you live. We focus on creating spaces that feel intentional, comfortable and deeply personal: homes made to be lived in, loved and trusted.</p>
         </div>
         <div class="servs">
-          <article class="serv rv" style="--d:0ms"><span class="serv__img mask" style="--d:90ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6739.JPG/:/rs=w:620,cg:true,m" alt="Finished living room after a full home renovation"><b class="serv__n">01</b></span><h4>Full home renovations</h4></article>
-          <article class="serv rv" style="--d:60ms"><span class="serv__img mask" style="--d:150ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_2657.JPG/:/rs=w:620,cg:true,m" alt="Roof trusses going up over the finished block shell"><b class="serv__n">02</b></span><h4>Ground-up custom construction</h4></article>
-          <article class="serv rv" style="--d:120ms"><span class="serv__img mask" style="--d:210ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6727.JPG/:/rs=w:620,cg:true,m" alt="Finished kitchen with white cabinets and brass faucet"><b class="serv__n">03</b></span><h4>Kitchens, bathrooms and additions</h4></article>
-          <article class="serv rv" style="--d:180ms"><span class="serv__img mask" style="--d:270ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_0967.JPG/:/rs=w:620,cg:true,m" alt="Crew member cutting a wall opening with a reciprocating saw"><b class="serv__n">04</b></span><h4>Structural modifications and beam installation</h4></article>
-          <article class="serv rv" style="--d:240ms"><span class="serv__img mask" style="--d:330ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/aee83897-205f-416a-9762-097a36b618f3.jpg/:/rs=w:620,cg:true,m" alt="Newly installed impact window seen from outside"><b class="serv__n">05</b></span><h4>Impact windows and sliding doors</h4></article>
-          <article class="serv rv" style="--d:300ms"><span class="serv__img mask" style="--d:390ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/0a090398-c944-4741-b7b5-f6a91a4fe948.jpg/:/rs=w:620,cg:true,m" alt="New roof framing during construction"><b class="serv__n">06</b></span><h4>Roofing, plumbing and electrical replacement</h4></article>
-          <article class="serv rv" style="--d:360ms"><span class="serv__img mask" style="--d:450ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/129Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:620,cg:true,m" alt="Construction drawings laid out on the floor"><b class="serv__n">07</b></span><h4>Permitting and inspections</h4></article>
+          <article class="serv rv" style="--d:0ms"><span class="serv__img mask" style="--d:90ms"><img loading="lazy" width="620" height="413" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6739.JPG/:/rs=w:620,cg:true,m" alt="Finished living room after a full home renovation"><b class="serv__n">01</b></span><h4>Full home renovations</h4></article>
+          <article class="serv rv" style="--d:60ms"><span class="serv__img mask" style="--d:150ms"><img loading="lazy" width="620" height="827" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_2657.JPG/:/rs=w:620,cg:true,m" alt="Roof trusses going up over the finished block shell"><b class="serv__n">02</b></span><h4>Ground-up custom construction</h4></article>
+          <article class="serv rv" style="--d:120ms"><span class="serv__img mask" style="--d:210ms"><img loading="lazy" width="620" height="803" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6727.JPG/:/rs=w:620,cg:true,m" alt="Finished kitchen with white cabinets and brass faucet"><b class="serv__n">03</b></span><h4>Kitchens, bathrooms and additions</h4></article>
+          <article class="serv rv" style="--d:180ms"><span class="serv__img mask" style="--d:270ms"><img loading="lazy" width="620" height="827" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_0967.JPG/:/rs=w:620,cg:true,m" alt="Crew member cutting a wall opening with a reciprocating saw"><b class="serv__n">04</b></span><h4>Structural modifications and beam installation</h4></article>
+          <article class="serv rv" style="--d:240ms"><span class="serv__img mask" style="--d:330ms"><img loading="lazy" width="620" height="827" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/aee83897-205f-416a-9762-097a36b618f3.jpg/:/rs=w:620,cg:true,m" alt="Newly installed impact window seen from outside"><b class="serv__n">05</b></span><h4>Impact windows and sliding doors</h4></article>
+          <article class="serv rv" style="--d:300ms"><span class="serv__img mask" style="--d:390ms"><img loading="lazy" width="620" height="827" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/0a090398-c944-4741-b7b5-f6a91a4fe948.jpg/:/rs=w:620,cg:true,m" alt="New roof framing during construction"><b class="serv__n">06</b></span><h4>Roofing, plumbing and electrical replacement</h4></article>
+          <article class="serv rv" style="--d:360ms"><span class="serv__img mask" style="--d:450ms"><img loading="lazy" width="620" height="775" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/129Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:620,cg:true,m" alt="Construction drawings laid out on the floor"><b class="serv__n">07</b></span><h4>Permitting and inspections</h4></article>
         </div>
         <div class="svcline-pie">
           <dl class="svcdato rv">
@@ -172,18 +178,18 @@
       </article>
       <article class="svcline" id="hospitality">
         <div class="svcline-head rv">
-          <p class="eyebrow" style="color:#8C8C8C">02 &nbsp;/&nbsp; Hospitality</p>
+          <p class="eyebrow" style="color:var(--grey-2)">02 &nbsp;/&nbsp; Hospitality</p>
           <h3>Hospitality</h3>
           <p class="lede">We bring a hospitality mindset to every project, creating spaces that elevate the guest experience while supporting the rhythm of daily operations. From hotel renovations to restaurants and boutique hospitality spaces, we deliver calm coordination, high-quality finishes and phased work that minimizes disruption and enhances your brand.</p>
         </div>
         <div class="servs">
-          <article class="serv rv" style="--d:0ms"><span class="serv__img mask" style="--d:90ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6766%20%281%29.JPG/:/rs=w:620,cg:true,m" alt="Exterior of the San Juan Hotel with its balconies and palms"><b class="serv__n">01</b></span><h4>Boutique hotel renovations</h4></article>
-          <article class="serv rv" style="--d:60ms"><span class="serv__img mask" style="--d:150ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9953.JPG/:/rs=w:620,cg:true,m" alt="Stainless hand sink installed in the kitchen"><b class="serv__n">02</b></span><h4>Restaurants and commercial kitchens</h4></article>
-          <article class="serv rv" style="--d:120ms"><span class="serv__img mask" style="--d:210ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6678.JPG/:/rs=w:620,cg:true,m" alt="New lift station piping and alarm panel"><b class="serv__n">03</b></span><h4>Commercial plumbing and life safety systems</h4></article>
-          <article class="serv rv" style="--d:180ms"><span class="serv__img mask" style="--d:270ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9739.JPG/:/rs=w:620,cg:true,m" alt="Interceptor basin during installation"><b class="serv__n">04</b></span><h4>Grease trap and lift station replacement</h4></article>
-          <article class="serv rv" style="--d:240ms"><span class="serv__img mask" style="--d:330ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6682.JPG/:/rs=w:620,cg:true,m" alt="Going over equipment specifications with the supplier"><b class="serv__n">05</b></span><h4>Permit recovery and code compliance</h4></article>
-          <article class="serv rv" style="--d:300ms"><span class="serv__img mask" style="--d:390ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/115Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:620,cg:true,m" alt="Hotel corridor in use, with daylight at the far end"><b class="serv__n">06</b></span><h4>Phased work around live operations</h4></article>
-          <article class="serv rv" style="--d:360ms"><span class="serv__img mask" style="--d:450ms"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6758%20%282%29.JPG/:/rs=w:620,cg:true,m" alt="Front facade of the San Juan Hotel with its balconies"><b class="serv__n">07</b></span><h4>Brand-consistent finishes</h4></article>
+          <article class="serv rv" style="--d:0ms"><span class="serv__img mask" style="--d:90ms"><img loading="lazy" width="620" height="1103" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6766%20%281%29.JPG/:/rs=w:620,cg:true,m" alt="Exterior of the San Juan Hotel with its balconies and palms"><b class="serv__n">01</b></span><h4>Boutique hotel renovations</h4></article>
+          <article class="serv rv" style="--d:60ms"><span class="serv__img mask" style="--d:150ms"><img loading="lazy" width="620" height="1103" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9953.JPG/:/rs=w:620,cg:true,m" alt="Stainless hand sink installed in the kitchen"><b class="serv__n">02</b></span><h4>Restaurants and commercial kitchens</h4></article>
+          <article class="serv rv" style="--d:120ms"><span class="serv__img mask" style="--d:210ms"><img loading="lazy" width="620" height="868" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6678.JPG/:/rs=w:620,cg:true,m" alt="New lift station piping and alarm panel"><b class="serv__n">03</b></span><h4>Commercial plumbing and life safety systems</h4></article>
+          <article class="serv rv" style="--d:180ms"><span class="serv__img mask" style="--d:270ms"><img loading="lazy" width="620" height="827" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_9739.JPG/:/rs=w:620,cg:true,m" alt="Interceptor basin during installation"><b class="serv__n">04</b></span><h4>Grease trap and lift station replacement</h4></article>
+          <article class="serv rv" style="--d:240ms"><span class="serv__img mask" style="--d:330ms"><img loading="lazy" width="620" height="496" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6682.JPG/:/rs=w:620,cg:true,m" alt="Going over equipment specifications with the supplier"><b class="serv__n">05</b></span><h4>Permit recovery and code compliance</h4></article>
+          <article class="serv rv" style="--d:300ms"><span class="serv__img mask" style="--d:390ms"><img loading="lazy" width="620" height="868" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/115Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:620,cg:true,m" alt="Hotel corridor in use, with daylight at the far end"><b class="serv__n">06</b></span><h4>Phased work around live operations</h4></article>
+          <article class="serv rv" style="--d:360ms"><span class="serv__img mask" style="--d:450ms"><img loading="lazy" width="620" height="1103" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/IMG_6758%20%282%29.JPG/:/rs=w:620,cg:true,m" alt="Front facade of the San Juan Hotel with its balconies"><b class="serv__n">07</b></span><h4>Brand-consistent finishes</h4></article>
         </div>
         <div class="svcline-pie">
           <dl class="svcdato rv">
@@ -208,7 +214,7 @@
 
   <section class="dark tight" style="padding-top:0">
     <div class="wrap wide">
-      <p class="eyebrow rv" style="color:#8C8C8C">The result</p>
+      <p class="eyebrow rv" style="color:var(--grey-2)">The result</p>
       <h2 class="title rv" style="color:#fff;--d:60ms">Finished work</h2>
       <p class="sub rv" style="--d:100ms">16 spaces, delivered. Open any one to see it
         full size.</p>
@@ -231,7 +237,7 @@
         <a class="shot mask" style="--d:0ms" href="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/115Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:1600,cg:true,m" data-caption="Hotel corridor with an illuminated exit sign and daylight at the far end" data-group="services"><img loading="lazy" width="560" height="784" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/115Claudia.Mor.Foto.Cortizo.construction-.jpg/:/rs=w:560,cg:true,m" alt="Hotel corridor with an illuminated exit sign and daylight at the far end"></a>
       </div>
 
-      <p class="eyebrow rv" style="color:#8C8C8C;margin-top:clamp(64px,8vw,116px)">The process</p>
+      <p class="eyebrow rv" style="color:var(--grey-2);margin-top:clamp(64px,8vw,116px)">The process</p>
       <h2 class="title rv" style="color:#fff;--d:60ms">On site</h2>
       <p class="sub rv" style="--d:100ms">15 photographs of the same jobs while they were
         still open.</p>
@@ -320,7 +326,7 @@
     <div class="wrap wide">
       <div class="qb">
         <div class="qb-art rv">
-          <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/Cortizo_Web_Misc-16-16-1aa225b.png/:/rs=w:1000,cg:true,m" alt="">
+          <img loading="lazy" width="1000" height="655" src="https://img1.wsimg.com/isteam/ip/82adafc7-8fdd-4660-bac1-a4ad3720bb89/Cortizo_Web_Misc-16-16-1aa225b.png/:/rs=w:1000,cg:true,m" alt="">
         </div>
         <blockquote class="qb-text">
           <span class="qb-mark" aria-hidden="true">&ldquo;</span>
@@ -354,11 +360,11 @@
   <div class="wrap left">
     <div class="f-grid">
       <div>
-        <h4>Cortizo Construction LLC</h4>
+        <h3>Cortizo Construction LLC</h3>
         <p>Certified General Contractor<br>License CGC1535571<br>Miami, Florida</p>
       </div>
       <div>
-        <h4>Company</h4>
+        <h3>Company</h3>
         <ul>
           <li><a href="services.html">Services</a></li>
           <li><a href="projects.html">Projects</a></li>
@@ -367,7 +373,7 @@
         </ul>
       </div>
       <div>
-        <h4>Projects</h4>
+        <h3>Projects</h3>
         <ul>
           <li><a href="casa-bohemia.html">Casa Bohemia</a></li>
           <li><a href="rodriguez-residence.html">Rodriguez Residence</a></li>
@@ -377,7 +383,7 @@
         </ul>
       </div>
       <div>
-        <h4>Contact</h4>
+        <h3>Contact</h3>
         <ul>
           <li><a href="tel:+17867360247">(786) 736-0247</a></li>
           <li><a href="https://wa.me/17867360247">WhatsApp</a></li>
@@ -419,6 +425,6 @@
          ><path d="M12 19V5M5 12l7-7 7 7"/></svg><span class="flota-txt">Top</span></a>
 </div>
 
-<script src="assets/site.js?v=127"></script>
+<script src="assets/site.js?v=129"></script>
 </body>
 </html>
