@@ -33,7 +33,12 @@ html{scroll-behavior:smooth;scrollbar-gutter:stable}
 body{margin:0;background:#FFFFFF;color:var(--head);
   font-family:var(--f-body);font-size:17px;line-height:1.75;font-weight:400;
   -webkit-font-smoothing:antialiased}
-img{max-width:100%;display:block}
+/* height:auto es obligatorio desde que las fotos llevan width y height en el
+   HTML. Con esos atributos el alto deja de ser automatico: si el CSS solo
+   fija el ancho, el navegador se queda con el alto del atributo y la foto
+   sale estirada. Va en la etiqueta, sin clase, asi que cualquier regla que
+   quiera un alto fijo -las que recortan con object-fit- lo sigue mandando. */
+img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 h1,h2,h3,h4{margin:0;font-family:var(--f-body);font-weight:400;line-height:1.22;
   color:var(--head);text-wrap:balance}
