@@ -74,6 +74,37 @@
      pedido menos movimiento, manda GSAP y este observador no llega a
      montarse. Si falta cualquiera de las dos cosas, se queda el de siempre,
      que es el que ha llevado el sitio hasta hoy. */
+  /* --- el boton de volver arriba ---
+     Aparece cuando ya hay una pantalla de pagina detras, que es cuando sirve;
+     antes solo tapa esquina. Va aqui arriba y no en la capa de movimiento
+     porque es navegacion, y tiene que funcionar aunque GSAP no cargue. */
+  (function () {
+    var subir = document.querySelector('.flota-top');
+    if (!subir) return;
+    var dentro = false;
+    function mirar() {
+      var toca = window.scrollY > window.innerHeight * 0.9;
+      if (toca === dentro) return;
+      dentro = toca;
+      subir.classList.toggle('dentro', toca);
+    }
+    window.addEventListener('scroll', mirar, { passive: true });
+    mirar();
+  })();
+
+  /* --- los flotantes se apartan al llegar al cierre ---
+     Abajo del todo ya hay un boton grande de WhatsApp. Dejar el flotante
+     encima seria el mismo boton dos veces, uno tapando al otro. Se retira
+     mientras esa banda esta a la vista y vuelve al subir. */
+  (function () {
+    var flota = document.querySelector('.flota');
+    var cierre = document.querySelector('.cierre');
+    if (!flota || !cierre || !window.IntersectionObserver) return;
+    new IntersectionObserver(function (e) {
+      flota.classList.toggle('flota-fuera', e[0].isIntersecting);
+    }, { rootMargin: '-10% 0px -5% 0px' }).observe(cierre);
+  })();
+
   var quietoYa = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hayGsap = !!(window.gsap && window.ScrollTrigger) && !quietoYa;
 
@@ -1507,8 +1538,14 @@
       var fino = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
       var obras = telas.map(function (c, n) {
+        var col = (getComputedStyle(c).color.match(/[0-9]+/g) || [255, 255, 255]);
         return {
           c: c, ctx: c.getContext('2d'), w: 0, h: 0,
+          tinta: 'rgb(' + col[0] + ',' + col[1] + ',' + col[2] + ')',
+          // sobre negro la tinta clara brilla; sobre blanco la oscura pesa el
+          // doble, asi que se dibuja mas floja y el halo casi desaparece: un
+          // halo negro sobre blanco no es brillo, es un borron
+          claro: +col[0] + +col[1] + +col[2] > 380,
           // cada seccion arranca con el mastil en otra postura, para que dos
           // paginas seguidas no ensenen el mismo fotograma
           semilla: n * 1.7 + 0.4,
@@ -1544,8 +1581,8 @@
           var rw = caja.getBoundingClientRect();
           o.hx = rw.left - r.left + rw.width / 2;
           o.hy = rw.top - r.top + rw.height / 2;
-          o.hrx = rw.width * 0.60;
-          o.hry = Math.max(rw.height * 0.80, o.hrx * 0.22);
+          o.hrx = Math.min(rw.width * 0.60, w * 0.46);
+          o.hry = Math.min(Math.max(rw.height * 0.55, 90), h * 0.34);
         }
         return true;
       }
@@ -1631,14 +1668,16 @@
         // 3. dos pasadas: una ancha y casi transparente que hace de halo, y
         //    encima el trazo limpio
         ctx.lineCap = 'round';
-        var alfa = [0.12, 0.26, 0.55], grueso = [0.8, 1.1, 1.6];
+        var esc = o.claro ? 1 : 0.58;
+        var alfa = [0.12 * esc, 0.26 * esc, 0.55 * esc], grueso = [0.8, 1.1, 1.6];
         for (n = 0; n < 3; n++) {
-          ctx.strokeStyle = '#fff';
-          ctx.globalAlpha = alfa[n] * 0.30;
+          ctx.strokeStyle = o.tinta;
+          ctx.globalAlpha = alfa[n] * (o.claro ? 0.30 : 0.10);
           ctx.lineWidth = grueso[n] * 5;
           ctx.stroke(planos[n]);
           ctx.globalAlpha = alfa[n];
           ctx.lineWidth = grueso[n];
+          ctx.strokeStyle = o.tinta;
           ctx.stroke(planos[n]);
         }
         ctx.globalAlpha = 1;
